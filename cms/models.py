@@ -225,3 +225,64 @@ class StarkenProStep(BaseModel):
     
     def __str__(self):
         return self.title
+    
+#Help Center
+class HelpCenter(BaseModel):
+    form_title_contact = models.CharField(max_length=255, verbose_name='título_contact')
+    form_description_contact = models.TextField(blank=True, verbose_name='descripción_contact')
+    form_main_button_contact = models.CharField(max_length=255, verbose_name='botón_contact')
+    label_name_contact = models.CharField(max_length=255, verbose_name='nombre_contact')
+    label_email_contact = models.CharField(max_length=255, verbose_name='email_contact')
+    label_phone_contact = models.CharField(max_length=255, verbose_name='phone_contact')
+    label_business_type_contact = models.CharField(max_length=255, verbose_name='business_type_contact')
+    label_message_contact = models.CharField(max_length=255, verbose_name='mensaje_contact')
+    second_section_title = models.CharField(max_length=255, verbose_name='título')
+    second_section_highlight = models.CharField(max_length=255, verbose_name='destacado')
+    second_section_description = models.TextField(blank=True, verbose_name='descripción')
+    
+    third_section_title = models.CharField(max_length=255, verbose_name='título')
+    third_section_highlight = models.CharField(max_length=255, verbose_name='destacado')
+    third_section_description = models.TextField(blank=True, verbose_name='descripción')
+    third_section_main_button = models.CharField(max_length=255, verbose_name='botón')
+    third_section_main_button_url = models.URLField(verbose_name='url del botón')
+    
+    form_title = models.CharField(max_length=255, verbose_name='título')
+    form_description = models.TextField(blank=True, verbose_name='descripción')
+    form_main_button = models.CharField(max_length=255, verbose_name='botón')
+    label_name = models.CharField(max_length=255, verbose_name='nombre')
+    label_email = models.CharField(max_length=255, verbose_name='email')
+    label_message = models.CharField(max_length=255, verbose_name='mensaje')
+    fourth_section_image = models.ImageField(upload_to='helpcenter', verbose_name='imagen')
+    
+    class Meta:
+        verbose_name = 'centro de ayuda'
+        verbose_name_plural = 'centros de ayuda'
+        
+class HelpCenterQuestion(BaseModel):
+    help_center = models.ForeignKey(HelpCenter, on_delete=models.CASCADE, verbose_name='Help Center')
+    class Meta:
+        verbose_name = 'pregunta'
+        verbose_name_plural = 'preguntas'
+    
+class HelpCenterBenefit(BaseModel):
+    help_center = models.ForeignKey(HelpCenter, on_delete=models.CASCADE, verbose_name='Help Center')
+    image = models.ImageField(upload_to='help_center', verbose_name='imagen')
+
+    class Meta:
+        verbose_name = 'beneficio'
+        verbose_name_plural = 'beneficios'
+    
+    def __str__(self):
+        return self.title
+
+#Condiciones de Servicio
+class TermsofService(BaseModel):
+    class Meta:
+        verbose_name = 'Condición de Servicio'
+        verbose_name_plural = 'Condiciones de Servicio'
+
+class TermsofServicePoint(BaseModel):
+    terms_of_service = models.ForeignKey(TermsofService, on_delete=models.CASCADE, verbose_name='Terms of Service')
+    class Meta:
+        verbose_name = 'Punto de Condición de Servicio'
+        verbose_name_plural = 'Puntos de Condiciones de Servicio'

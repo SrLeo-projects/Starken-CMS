@@ -174,3 +174,85 @@ class StarkenProAdmin(admin.ModelAdmin):
     )
 
     inlines = [StarkenProBenefitInline, StarkenProStepInline]
+    
+
+class HelpCenterBenefitInline(admin.StackedInline):
+    model = HelpCenterBenefit
+    extra = 0
+
+class HelpCenterQuestionInline(admin.StackedInline):
+    model = HelpCenterQuestion
+    extra = 0
+    
+
+@admin.register(HelpCenter)
+class HelpCenterAdmin(admin.ModelAdmin):
+    list_display = ['title', 'description']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('title', 'description')
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                ('second_section_title', 'second_section_highlight'),
+                'second_section_description',
+            )
+        }),
+        ('Formulario Contáctanos', {
+            'fields': (
+                'form_title_contact',
+                'form_description_contact',
+                'form_main_button_contact',
+            )
+        }),
+        ('Labels Contáctanos', {
+            'fields': (
+                ('label_name_contact', 'label_email_contact', 'label_message_contact', 'label_phone_contact', 'label_business_type_contact'),
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                ('third_section_title', 'third_section_highlight'),
+                'third_section_description',
+                ('third_section_main_button', 'third_section_main_button_url'),
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'fourth_section_image',
+            )
+        }),
+        ('Formulario Ayúdanos a Mejorar', {
+            'fields': (
+                'form_title',
+                'form_description',
+                'form_main_button',
+            )
+        }),
+        ('Labels Ayúdanos a Mejorar', {
+            'fields': (
+                ('label_name', 'label_email', 'label_message'),
+            )
+        }),
+    )
+
+    inlines = [HelpCenterBenefitInline, HelpCenterQuestionInline]
+    
+
+class TermsofServicePointInline(admin.StackedInline):
+    model = TermsofServicePoint
+    extra = 0
+    
+
+@admin.register(TermsofService)
+class TermsofServiceAdmin(admin.ModelAdmin):
+    list_display = ['title', 'description']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('title', 'description')
+        }),
+    )
+
+    inlines = [TermsofServicePointInline]
