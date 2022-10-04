@@ -2,175 +2,257 @@ from django.contrib import admin
 
 from cms.models import *
 
-@admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'image', 'button', 'button_url')
-    list_filter = ('title', 'description', 'image', 'button', 'button_url')
+@admin.register(Servicio)
+class ServicioAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'descripcion', 'imagen', 'boton', 'boton_url')
+    list_filter = ('titulo', 'descripcion', 'imagen', 'boton', 'boton_url')
 
 class BannerInline(admin.StackedInline):
     model = Banner
     extra = 0
 
-class OptionInline(admin.StackedInline):
-    model = Option
+class OpcionInline(admin.StackedInline):
+    model = Opcion
     extra = 0
 
 @admin.register(Home)
 class HomeAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description']
+    list_display = ['titulo', 'descripcion']
     
-    filter_horizontal = ['services']
+    filter_horizontal = ['servicios']
 
     fieldsets = (
         ('General', {
-            'fields': ('title', 'description')
+            'fields': ('titulo', 'descripcion')
         }),
         ('Primera Sección', {
             'fields': (
-                ('first_section_title', 'first_section_highlight'),
-                'first_section_description',
-                ('first_section_main_button', 'first_section_main_button_url'),
-                ('first_section_secondary_button', 'first_section_secondary_button_url'),
-                'first_section_image',
-                ('first_section_subtitle', 'first_section_subtitle_description'),
-                ('first_section_link', 'first_section_link_text'),
+                ('primera_seccion_titulo', 'primera_seccion_destacado'),
+                'primera_seccion_descripcion',
+                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
+                ('primera_seccion_boton_secundario', 'primera_seccion_boton_secundario_url'),
+                'primera_seccion_imagen',
+                ('primera_seccion_subtitulo', 'primera_seccion_subtitulo_descripcion'),
+                ('primera_seccion_link', 'primera_seccion_link_text'),
             )
         }),
         ('Segunda Sección', {
             'fields': (
-                ('second_section_title', 'second_section_highlight'),
-                'second_section_description',
-                ('second_section_main_button', 'second_section_main_button_url'),
-                'services',
+                ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
+                'segunda_seccion_descripcion',
+                ('segunda_seccion_boton_principal', 'segunda_seccion_boton_principal_url'),
+                'servicios',
             )
         }),
         ('Tercera Sección', {
             'fields': (
-                ('third_section_title', 'third_section_highlight'),
-                'third_section_description',
-                ('third_section_main_button', 'third_section_main_button_url'),
+                ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
+                'tercera_seccion_descripcion',
+                ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
             )
         }),
         ('Cuarta Sección', {
             'fields': (
-                ('fourth_section_card_1_image', 'fourth_section_card_2_image'),
-                ('fourth_section_card_1_title', 'fourth_section_card_2_title'),
-                ('fourth_section_card_1_description', 'fourth_section_card_2_description'),
-                ('fourth_section_card_1_button', 'fourth_section_card_2_button'),
-                ('fourth_section_card_1_button_url', 'fourth_section_card_2_button_url'),
+                ('cuarta_seccion_tarjeta_1_imagen', 'cuarta_seccion_tarjeta_2_imagen'),
+                ('cuarta_seccion_tarjeta_1_titulo', 'cuarta_seccion_tarjeta_2_titulo'),
+                ('cuarta_seccion_tarjeta_1_descripcion', 'cuarta_seccion_tarjeta_2_descripcion'),
+                ('cuarta_seccion_tarjeta_1_boton', 'cuarta_seccion_tarjeta_2_boton'),
+                ('cuarta_seccion_tarjeta_1_boton_url', 'cuarta_seccion_tarjeta_2_boton_url'),
             )
         }),
         ('Quinta Sección', {
             'fields': (
-                ('fifth_section_title', 'fifth_section_words'),
-                'fifth_section_description',
-                ('fifth_section_main_button', 'fifth_section_main_button_url'),
+                ('quinta_seccion_titulo', 'quinta_seccion_words'),
+                'quinta_seccion_descripcion',
+                ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
             )
         }),
     )
 
-    inlines = [BannerInline, OptionInline]
+    inlines = [BannerInline, OpcionInline]
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description']
+    list_display = ['titulo', 'descripcion']
 
     fieldsets = (
         ('General', {
-            'fields': ('title', 'description')
+            'fields': ('titulo', 'descripcion')
         }),
         ('Primera Sección', {
             'fields': (
-                ('first_section_image', 'first_section_title'),
-                'first_section_description',
-                ('first_section_main_button', 'first_section_main_button_url'),
+                ('primera_seccion_imagen', 'primera_seccion_titulo'),
+                'primera_seccion_descripcion',
+                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
             )
         }),
         ('Segunda Sección', {
             'fields': (
-                ('second_section_title', 'second_section_highlight'),
-                'second_section_description',
+                ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
+                'segunda_seccion_descripcion',
             )
         }),
         ('Tercera Sección', {
             'fields': (
-                ('third_section_title', 'third_section_highlight'),
-                'third_section_description',
-                ('third_section_main_button', 'third_section_main_button_url'),
+                ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
+                'tercera_seccion_descripcion',
+                ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
             )
         }),
         ('Cuarta Sección', {
             'fields': (
-                ('fourth_section_title', 'fourth_section_highlight'),
-                'fourth_section_description',
-                ('fourth_section_main_button', 'fourth_section_main_button_url'),
+                ('cuarta_seccion_titulo', 'cuarta_seccion_destacado'),
+                'cuarta_seccion_descripcion',
+                ('cuarta_seccion_boton_principal', 'cuarta_seccion_boton_principal_url'),
             )
         }),
         ('Quinta Sección', {
             'fields': (
-                'fifth_section_image',
-                ('fifth_section_title', 'fifth_section_highlight'),
-                'fifth_section_subtitle',
-                'fifth_section_description',
-                ('fifth_section_main_button', 'fifth_section_main_button_url'),
+                'quinta_seccion_imagen',
+                ('quinta_seccion_titulo', 'quinta_seccion_destacado'),
+                'quinta_seccion_subtitulo',
+                'quinta_seccion_descripcion',
+                ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
             )
         }),
     )
 
-@admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'type', 'created_at']
-    search_fields = ['title']
-    list_filter = ['type']
+@admin.register(Articulo)
+class ArticuloAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'tipo', 'fecha_de_creacion']
+    search_fields = ['titulo']
+    list_filter = ['tipo']
     
-class StarkenProBenefitInline(admin.StackedInline):
-    model = StarkenProBenefit
+class StarkenProBeneficioInline(admin.StackedInline):
+    model = StarkenProBeneficio
     extra = 0
 
-class StarkenProStepInline(admin.StackedInline):
-    model = StarkenProStep
+class StarkenProPasoInline(admin.StackedInline):
+    model = StarkenProPaso
     extra = 0
 
 @admin.register(StarkenPro)
 class StarkenProAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description']
+    list_display = ['titulo', 'descripcion']
 
     fieldsets = (
         ('General', {
-            'fields': ('title', 'description')
+            'fields': ('titulo', 'descripcion')
         }),
         ('Primera Sección', {
             'fields': (
-                'first_section_image',
-                ('first_section_title', 'first_section_highlight'),
-                'first_section_description',
-                ('first_section_main_button', 'first_section_main_button_url'),
-                'first_section_message',
+                'primera_seccion_imagen',
+                ('primera_seccion_titulo', 'primera_seccion_destacado'),
+                'primera_seccion_descripcion',
+                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
+                'primera_seccion_mensaje',
             )
         }),
         ('Formulario', {
             'fields': (
-                'form_title',
-                'form_description',
-                'form_main_button',
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
             )
         }),
         ('Labels', {
             'fields': (
-                ('label_name', 'label_email', 'label_message'),
+                ('etiqueta_nombre', 'etiqueta_email', 'etiqueta_mensaje'),
             )
         }),
         ('Segunda Sección', {
             'fields': (
-                ('second_section_title', 'second_section_highlight'),
-                'second_section_description',
+                ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
+                'segunda_seccion_descripcion',
             )
         }),
         ('Tercera Sección', {
             'fields': (
-                ('third_section_title', 'third_section_highlight'),
+                ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
             )
         }),
     )
 
-    inlines = [StarkenProBenefitInline, StarkenProStepInline]
+    inlines = [StarkenProBeneficioInline, StarkenProPasoInline]
+    
+
+class CentrodeAyudaBeneficioInline(admin.StackedInline):
+    model = CentrodeAyudaBeneficio
+    extra = 0
+
+class CentrodeAyudaPreguntaInline(admin.StackedInline):
+    model = CentrodeAyudaPregunta
+    extra = 0
+    
+
+@admin.register(CentrodeAyuda)
+class CentrodeAyudaAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
+                'segunda_seccion_descripcion',
+            )
+        }),
+        ('Formulario Contáctanos', {
+            'fields': (
+                'formulario_titulo_contacto',
+                'formulario_descripcion_contacto',
+                'formulario_boton_principal_contacto',
+            )
+        }),
+        ('Labels Contáctanos', {
+            'fields': (
+                ('etiqueta_nombre_contacto', 'etiqueta_email_contacto', 'etiqueta_mensaje_contacto', 'etiqueta_telefono_contacto', 'etiqueta_tipo_de_negocio_contacto'),
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
+                'tercera_seccion_descripcion',
+                ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_imagen',
+            )
+        }),
+        ('Formulario Ayúdanos a Mejorar', {
+            'fields': (
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+            )
+        }),
+        ('Labels Ayúdanos a Mejorar', {
+            'fields': (
+                ('etiqueta_nombre', 'etiqueta_email', 'etiqueta_mensaje'),
+            )
+        }),
+    )
+
+    inlines = [CentrodeAyudaBeneficioInline, CentrodeAyudaPreguntaInline]
+    
+
+class TerminosdeServicioPuntoInline(admin.StackedInline):
+    model = TerminosdeServicioPunto
+    extra = 0
+    
+
+@admin.register(TerminosdeServicio)
+class TerminosdeServicioAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+    )
+
+    inlines = [TerminosdeServicioPuntoInline]
