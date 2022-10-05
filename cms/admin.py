@@ -117,11 +117,56 @@ class AboutAdmin(admin.ModelAdmin):
         }),
     )
 
+@admin.register(RedesSociales)
+class ContenidoArticuloInline(admin.ModelAdmin):
+    model = RedesSociales
+    
+    
+class ContenidoArticuloInline(admin.StackedInline):
+    model = ContenidoArticulo
+    extra = 0
+
 @admin.register(Articulo)
 class ArticuloAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'tipo', 'fecha_de_creacion']
+    list_display = ['titulo', 'tipo', 'segunda_seccion_fecha_de_creacion']
     search_fields = ['titulo']
     list_filter = ['tipo']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_logo',
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'tipo',
+                'segunda_seccion_etiqueta',
+                'segunda_seccion_titulo',
+                'segunda_seccion_descripcion',
+                'segunda_seccion_fecha_de_creacion',
+                'segunda_seccion_imagen',
+                'segunda_seccion_contenido',
+                'redes_sociales',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_imagen',
+                'tercera_seccion_titulo',
+                'tercera_seccion_primer_boton',
+                'tercera_seccion_url_primer_boton',
+                'tercera_seccion_segundo_boton',
+                'tercera_seccion_url_segundo_boton',
+            )
+        }),
+    )
+    
+    inlines = [ContenidoArticuloInline]
     
 class StarkenProBeneficioInline(admin.StackedInline):
     model = StarkenProBeneficio
@@ -146,18 +191,12 @@ class StarkenProAdmin(admin.ModelAdmin):
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
                 'primera_seccion_mensaje',
-            )
-        }),
-        ('Formulario', {
-            'fields': (
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
-            )
-        }),
-        ('Labels', {
-            'fields': (
-                ('etiqueta_nombre', 'etiqueta_email', 'etiqueta_mensaje'),
+                'etiqueta_nombre', 
+                'etiqueta_email', 
+                'etiqueta_mensaje'
             )
         }),
         ('Segunda Sección', {
@@ -277,8 +316,8 @@ class PreguntasInline(admin.TabularInline):
     model = Preguntas
     extra = 0
     
-
-class PreguntasCategoriaInline(admin.StackedInline):
+@admin.register(PreguntasCategoria)
+class PreguntasCategoriaInline(admin.ModelAdmin):
     model = PreguntasCategoria
     extra = 0
     
@@ -309,5 +348,3 @@ class PreguntasFrecuentesAdmin(admin.ModelAdmin):
             )
         }),
     )
-
-    inlines = [PreguntasCategoriaInline]

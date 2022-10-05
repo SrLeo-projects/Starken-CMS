@@ -153,19 +153,40 @@ class About(BaseModel):
 
 # Agregar más campos en base a https://desa.sbmundo.com/starken/responsabilidad-social.html
 # TODO revisar campos de artículos
+class RedesSociales(models.Model):
+    imagen = models.ImageField(upload_to='articles', verbose_name='imagen', default='')
+    url = models.URLField(verbose_name='url', default='')
+    
+    class Meta:
+        verbose_name = 'Artículos Redes Sociales'
+        verbose_name_plural = 'Artículos Redes Sociales'
+
 class Articulo(BaseModel):
     class Tipo(models.TextChoices):
         NOTICIA = 'noticia', 'Noticia'
         RESPONSABILIDAD_SOCIAL = 'responsabilidad social', 'Responsabilidad social'
         SUSTENTABILIDAD = 'sustentabilidad', 'Sustentabilidad'
-
-    imagen = models.ImageField(upload_to='articles', verbose_name='imagen')
-    titulo = models.CharField(max_length=255, verbose_name='título')
-    contenido = RichTextUploadingField(verbose_name='contenido')
+    primera_seccion_logo = models.ImageField(upload_to='logos', verbose_name='logo', default='')
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', default='')
+    
     tipo = models.CharField(max_length=255, choices=Tipo.choices, verbose_name='tipo')
-
-    fecha_de_creacion = models.DateField(verbose_name='fecha de creación')
+    segunda_seccion_etiqueta = models.CharField(max_length=255, verbose_name='etiqueta', default='')
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    segunda_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', default='')
+    segunda_seccion_fecha_de_creacion = models.DateField(verbose_name='fecha de creación')
+    segunda_seccion_imagen = models.ImageField(upload_to='articles', verbose_name='imagen', default='')
+    segunda_seccion_contenido = RichTextUploadingField(verbose_name='contenido', default='')
+    redes_sociales = models.ManyToManyField(RedesSociales, verbose_name='Redes Sociales', default='')
     fecha_de_actualizacion = models.DateField(verbose_name='fecha de actualización')
+    
+    tercera_seccion_imagen = models.ImageField(upload_to='articles', verbose_name='imagen', default='')
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    tercera_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', default='')
+    tercera_seccion_url_primer_boton = models.URLField(verbose_name='url del primer botón', default='')
+    tercera_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', default='')
+    tercera_seccion_url_segundo_boton = models.URLField(verbose_name='url del segundo botón', default='')
+    
 
     class Meta:
         verbose_name = 'artículo'
@@ -173,7 +194,19 @@ class Articulo(BaseModel):
     
     def __str__(self):
         return self.titulo
-
+    
+class ContenidoArticulo(BaseModel):
+    articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE, verbose_name='Artículo')
+    titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    imagen = models.ImageField(upload_to='articles', verbose_name='imagen', default='')
+    contenido = models.TextField(blank=True, verbose_name='contenido', default='')
+    fecha_de_creacion = models.DateField(verbose_name='fecha de creación')
+    
+    class Meta:
+        verbose_name = 'Contenido de Artículo'
+        verbose_name_plural = 'Contenido de Artículo'
+        
+        
 # Starken PRO
 class StarkenPro(BaseModel):
     primera_seccion_imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen')
@@ -184,12 +217,12 @@ class StarkenPro(BaseModel):
     primera_seccion_boton_principal_url = models.URLField(verbose_name='url del botón')
     primera_seccion_mensaje = models.CharField(max_length=255, verbose_name='mensaje')
 
-    formulario_titulo = models.CharField(max_length=255, verbose_name='título')
-    formulario_descripcion = models.TextField(blank=True, verbose_name='descripción')
-    formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón')
-    etiqueta_nombre = models.CharField(max_length=255, verbose_name='nombre')
-    etiqueta_email = models.CharField(max_length=255, verbose_name='email')
-    etiqueta_mensaje = models.CharField(max_length=255, verbose_name='mensaje')
+    formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario')
+    formulario_descripcion = models.TextField(blank=True, verbose_name='descripción de formulario')
+    formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón de formulario')
+    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre')
+    etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email')
+    etiqueta_mensaje = models.CharField(max_length=255, verbose_name='etiqueta mensaje')
 
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título')
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado')
@@ -252,8 +285,8 @@ class PreguntasCategoria(BaseModel):
     titulo_categoria = models.CharField(max_length=255, verbose_name='título', default='')
     
     class Meta:
-        verbose_name = 'titulo de categoría'
-        verbose_name_plural = 'títulos de categoría'
+        verbose_name = 'Preguntas categoría'
+        verbose_name_plural = 'Preguntas categoría'
     
     def __str__(self):
         return self.titulo_categoria
