@@ -33,7 +33,7 @@ class HomeAdmin(admin.ModelAdmin):
                 ('primera_seccion_boton_secundario', 'primera_seccion_boton_secundario_url'),
                 'primera_seccion_imagen',
                 ('primera_seccion_subtitulo', 'primera_seccion_subtitulo_descripcion'),
-                ('primera_seccion_link', 'primera_seccion_link_text'),
+                ('primera_seccion_link', 'primera_seccion_link_texto'),
             )
         }),
         ('Segunda Sección', {
@@ -62,7 +62,7 @@ class HomeAdmin(admin.ModelAdmin):
         }),
         ('Quinta Sección', {
             'fields': (
-                ('quinta_seccion_titulo', 'quinta_seccion_words'),
+                ('quinta_seccion_titulo', 'quinta_seccion_palabras'),
                 'quinta_seccion_descripcion',
                 ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
             )
@@ -193,22 +193,25 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         ('General', {
             'fields': ('titulo', 'descripcion')
         }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
+            )
+        }),
         ('Segunda Sección', {
             'fields': (
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
-            )
-        }),
-        ('Formulario Contáctanos', {
-            'fields': (
                 'formulario_titulo_contacto',
                 'formulario_descripcion_contacto',
                 'formulario_boton_principal_contacto',
-            )
-        }),
-        ('Labels Contáctanos', {
-            'fields': (
-                ('etiqueta_nombre_contacto', 'etiqueta_email_contacto', 'etiqueta_mensaje_contacto', 'etiqueta_telefono_contacto', 'etiqueta_tipo_de_negocio_contacto'),
+                'etiqueta_nombre_contacto', 
+                'etiqueta_email_contacto', 
+                'etiqueta_mensaje_contacto', 
+                'etiqueta_telefono_contacto', 
+                'etiqueta_tipo_de_negocio_contacto'
             )
         }),
         ('Tercera Sección', {
@@ -221,18 +224,12 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         ('Cuarta Sección', {
             'fields': (
                 'cuarta_seccion_imagen',
-            )
-        }),
-        ('Formulario Ayúdanos a Mejorar', {
-            'fields': (
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
-            )
-        }),
-        ('Labels Ayúdanos a Mejorar', {
-            'fields': (
-                ('etiqueta_nombre', 'etiqueta_email', 'etiqueta_mensaje'),
+                'etiqueta_nombre', 
+                'etiqueta_email', 
+                'etiqueta_mensaje',
             )
         }),
     )
@@ -253,6 +250,64 @@ class TerminosdeServicioAdmin(admin.ModelAdmin):
         ('General', {
             'fields': ('titulo', 'descripcion')
         }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_subtitulo',
+                'primera_seccion_descripcion',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_descripcion',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_titulo',
+                'tercera_seccion_descripcion',
+            )
+        }),
     )
 
-    inlines = [TerminosdeServicioPuntoInline]
+    inlines = [TerminosdeServicioPuntoInline]    
+
+class PreguntasInline(admin.TabularInline):
+    model = Preguntas
+    extra = 0
+    
+
+class PreguntasCategoriaInline(admin.StackedInline):
+    model = PreguntasCategoria
+    extra = 0
+    
+    inlines = [PreguntasInline]
+
+@admin.register(PreguntasFrecuentes)
+class PreguntasFrecuentesAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_boton_buscar',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_descripcion',
+                'segunda_seccion_titulo_primer_bloque',
+                'segunda_seccion_descripcion_primer_bloque',
+                'segunda_seccion_titulo_segundo_bloque',
+                'segunda_seccion_descripcion_segundo_bloque',
+            )
+        }),
+    )
+
+    inlines = [PreguntasCategoriaInline]

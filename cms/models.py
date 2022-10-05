@@ -226,16 +226,65 @@ class StarkenProPaso(BaseModel):
     def __str__(self):
         return self.titulo
     
+#Preguntas Frecuentes
+class PreguntasFrecuentes(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    primera_seccion_boton_buscar = models.CharField(max_length=255, verbose_name='botón', null=True, default='')
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    segunda_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción')
+    
+    segunda_seccion_titulo_primer_bloque = models.CharField(max_length=255, verbose_name='título primer bloque', default='')
+    segunda_seccion_descripcion_primer_bloque = models.TextField(blank=True, verbose_name='descripción primer bloque')
+    
+    segunda_seccion_titulo_segundo_bloque = models.CharField(max_length=255, verbose_name='título segundo bloque', default='')
+    segunda_seccion_descripcion_segundo_bloque = models.TextField(blank=True, verbose_name='descripción segundo bloque')
+    
+    class Meta:
+        verbose_name = 'Pregunta Frecuente'
+        verbose_name_plural = 'Preguntas Frecuentes'
+    
+    def __str__(self):
+        return self.primera_seccion_titulo
+    
+class PreguntasCategoria(BaseModel):
+    categoria = models.ForeignKey(PreguntasFrecuentes, on_delete=models.CASCADE, verbose_name='Categoría de Preguntas')
+    titulo_categoria = models.CharField(max_length=255, verbose_name='título', default='')
+    
+    class Meta:
+        verbose_name = 'titulo de categoría'
+        verbose_name_plural = 'títulos de categoría'
+    
+    def __str__(self):
+        return self.titulo_categoria
+    
+class Preguntas(models.Model):
+    pregunta = models.ForeignKey(PreguntasCategoria, on_delete=models.CASCADE, verbose_name='Preguntas')
+    pregunta_titulo = models.CharField(max_length=255, verbose_name='pregunta título', default='')
+    pregunta_descripcion = models.TextField(blank=True, verbose_name='pregunta descripción', default='')
+    
+    class Meta:
+        verbose_name = 'pregunta'
+        verbose_name_plural = 'preguntas'
+    
+    def __str__(self):
+        return self.titulo_categoria
+    
+    
 #Help Center
 class CentrodeAyuda(BaseModel):
-    formulario_titulo_contacto = models.CharField(max_length=255, verbose_name='título_contacto')
-    formulario_descripcion_contacto = models.TextField(blank=True, verbose_name='descripción_contacto')
-    formulario_boton_principal_contacto = models.CharField(max_length=255, verbose_name='botón_contacto')
-    etiqueta_nombre_contacto = models.CharField(max_length=255, verbose_name='nombre_contacto')
-    etiqueta_email_contacto = models.CharField(max_length=255, verbose_name='email_contacto')
-    etiqueta_telefono_contacto = models.CharField(max_length=255, verbose_name='phone_contacto')
-    etiqueta_tipo_de_negocio_contacto = models.CharField(max_length=255, verbose_name='tipo_de_negocio_contacto')
-    etiqueta_mensaje_contacto = models.CharField(max_length=255, verbose_name='mensaje_contacto')
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='titulo')
+    primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', default='descripcion')
+    primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, default='boton')
+    primera_seccion_boton_principal_url = models.URLField(verbose_name='url del botón', default='boton')
+    formulario_titulo_contacto = models.CharField(max_length=255, verbose_name='título formulario')
+    formulario_descripcion_contacto = models.TextField(blank=True, verbose_name='descripción formulario')
+    formulario_boton_principal_contacto = models.CharField(max_length=255, verbose_name='botón formulario')
+    etiqueta_nombre_contacto = models.CharField(max_length=255, verbose_name='etiqueta nombre')
+    etiqueta_email_contacto = models.CharField(max_length=255, verbose_name='etiqueta email')
+    etiqueta_telefono_contacto = models.CharField(max_length=255, verbose_name='etiqueta phone')
+    etiqueta_tipo_de_negocio_contacto = models.CharField(max_length=255, verbose_name='etiqueta tipo de negocio')
+    etiqueta_mensaje_contacto = models.CharField(max_length=255, verbose_name='etiqueta mensaje')
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título')
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado')
     segunda_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción')
@@ -249,10 +298,10 @@ class CentrodeAyuda(BaseModel):
     formulario_titulo = models.CharField(max_length=255, verbose_name='título')
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción')
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón')
-    etiqueta_name = models.CharField(max_length=255, verbose_name='nombre')
+    etiqueta_nombre = models.CharField(max_length=255, verbose_name='nombre')
     etiqueta_email = models.CharField(max_length=255, verbose_name='email')
-    etiqueta_message = models.CharField(max_length=255, verbose_name='mensaje')
-    cuarta_seccion_image = models.ImageField(upload_to='CentrodeAyuda', verbose_name='imagen')
+    etiqueta_mensaje = models.CharField(max_length=255, verbose_name='mensaje')
+    cuarta_seccion_imagen = models.ImageField(upload_to='CentrodeAyuda', verbose_name='imagen')
     
     class Meta:
         verbose_name = 'centro de ayuda'
@@ -277,9 +326,15 @@ class CentrodeAyudaBeneficio(BaseModel):
 
 #Condiciones de Servicio
 class TerminosdeServicio(BaseModel):
-    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título')
-    primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo')
-    primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción')
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', default='')
+    primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', default='')
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    segunda_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', default='')
+    
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', default='')
     
     class Meta:
         verbose_name = 'Condición de Servicio'
@@ -287,6 +342,8 @@ class TerminosdeServicio(BaseModel):
 
 class TerminosdeServicioPunto(models.Model):
     terminos_de_servicio = models.ForeignKey(TerminosdeServicio, on_delete=models.CASCADE, verbose_name='Términos de Servicio')
+    titulo = models.CharField(max_length=255, verbose_name='título de término', default='')
+    descripcion = models.TextField(blank=True, verbose_name='descripción de término', default='')
     class Meta:
         verbose_name = 'Punto de Condición de Servicio'
         verbose_name_plural = 'Puntos de Condiciones de Servicio'
