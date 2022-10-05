@@ -1,18 +1,7 @@
 from django.db import models
-from io import BytesIO
 from PIL import Image
-from django.core.files import File
 from ckeditor_uploader.fields import RichTextUploadingField
 
-def compress(image):
-    im = Image.open(image)
-    # create a BytesIO object
-    im_io = BytesIO() 
-    # save image to BytesIO object
-    im.save(im_io, 'JPEG', quality=70) 
-    # create a Django-friendly Files object
-    new_image = File(im_io, name=image.name)
-    return new_image
 
 class BaseModel(models.Model):
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -30,12 +19,9 @@ class Servicio(BaseModel):
         verbose_name = 'servicio'
     
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_imagen = compress(self.imagen)
-        # set self.imagen to new_imagen
-        self.imagen = new_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(Servicio, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
 
 
 class Home(BaseModel):
@@ -97,14 +83,16 @@ class Home(BaseModel):
     def __str__(self):
         return self.titulo
     
+       
     def save(self, *args, **kwargs):
-        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
-        new_cuarta_seccion_tarjeta_1_imagen = compress(self.cuarta_seccion_tarjeta_1_imagen)
-        new_cuarta_seccion_tarjeta_2_imagen = compress(self.cuarta_seccion_tarjeta_2_imagen)
-        self.cuarta_seccion_tarjeta_2_imagen = new_cuarta_seccion_tarjeta_2_imagen
-        self.cuarta_seccion_tarjeta_1_imagen = new_cuarta_seccion_tarjeta_1_imagen
-        self.primera_seccion_imagen = new_primera_seccion_imagen
-        super().save(*args, **kwargs)
+       super(Home, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       cuarta_seccion_tarjeta_1_imagen = Image.open(self.cuarta_seccion_tarjeta_1_imagen.path)
+       cuarta_seccion_tarjeta_1_imagen.save(self.cuarta_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
+       cuarta_seccion_tarjeta_2_imagen = Image.open(self.cuarta_seccion_tarjeta_2_imagen.path)
+       cuarta_seccion_tarjeta_2_imagen.save(self.cuarta_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
+    
     
     def titulo_destacado(self, seccion):
         return self.__dict__[f'{seccion}_seccion_titulo'].replace(self.__dict__[f'{seccion}_seccion_destacado'], f'<strong class="fw-bold text-primary">{self.__dict__[f"{seccion}_seccion_destacado"]}</strong>')
@@ -125,13 +113,12 @@ class Banner(BaseModel):
     def __str__(self):
         return self.titulo
     
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_imagen = compress(self.imagen)
-        # set self.imagen to new_imagen
-        self.imagen = new_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(Banner, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+    
 
 # Option -> HomeOption
 class Opcion(BaseModel):
@@ -150,12 +137,9 @@ class Opcion(BaseModel):
         return self.titulo
     
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_imagen = compress(self.imagen)
-        # set self.imagen to new_imagen
-        self.imagen = new_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(Opcion, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
 
 # SOMOS STARKEN
 
@@ -197,14 +181,14 @@ class About(BaseModel):
     def __str__(self):
         return self.titulo
     
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
-        new_quinta_seccion_imagen = compress(self.quinta_seccion_imagen)
-        self.quinta_seccion_imagen = new_quinta_seccion_imagen
-        self.primera_seccion_imagen = new_primera_seccion_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(About, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
+       quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+    
 
 # Agregar más campos en base a https://desa.sbmundo.com/starken/responsabilidad-social.html
 # TODO revisar campos de artículos
@@ -241,13 +225,12 @@ class Articulo(BaseModel):
         return self.titulo
     
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
-        new_segunda_seccion_imagen = compress(self.segunda_seccion_imagen)
-        self.segunda_seccion_imagen = new_segunda_seccion_imagen
-        self.primera_seccion_imagen = new_primera_seccion_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(Articulo, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       segunda_seccion_imagen = Image.open(self.segunda_seccion_imagen.path)
+       segunda_seccion_imagen.save(self.segunda_seccion_imagen.path,quality=20,optimize=True)
+    
         
         
 # Starken PRO
@@ -281,12 +264,12 @@ class StarkenPro(BaseModel):
     def __str__(self):
         return self.titulo
     
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
-        self.primera_seccion_imagen = new_primera_seccion_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(StarkenPro, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+    
 
 class StarkenProBeneficio(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
@@ -299,12 +282,12 @@ class StarkenProBeneficio(BaseModel):
     def __str__(self):
         return self.titulo
     
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_imagen = compress(self.imagen)
-        self.imagen = new_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(StarkenProBeneficio, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+    
 
 class StarkenProPaso(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
@@ -400,12 +383,12 @@ class CentrodeAyuda(BaseModel):
         verbose_name = 'centro de ayuda'
         verbose_name_plural = 'centros de ayuda'
     
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_cuarta_seccion_imagen = compress(self.cuarta_seccion_imagen)
-        self.cuarta_seccion_imagen = new_cuarta_seccion_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(CentrodeAyuda, self).save(*args, **kwargs)
+       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+    
     
 class CentrodeAyudaBeneficio(BaseModel):
     centro_de_ayuda = models.ForeignKey(CentrodeAyuda, on_delete=models.CASCADE, verbose_name='Centro de Ayuda', null=True, blank=True)
@@ -418,12 +401,12 @@ class CentrodeAyudaBeneficio(BaseModel):
     def __str__(self):
         return self.titulo
     
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_image = compress(self.image)
-        self.image = new_image
-        # save
-        super().save(*args, **kwargs)
+       super(CentrodeAyudaBeneficio, self).save(*args, **kwargs)
+       image = Image.open(self.image.path)
+       image.save(self.image.path,quality=20,optimize=True)
+    
 
 #Condiciones de Servicio
 class TerminosdeServicio(BaseModel):
@@ -478,13 +461,13 @@ class Contactanos(BaseModel):
     class Meta:
         verbose_name = 'Contáctanos'
         verbose_name_plural = 'Contáctanos'
-        
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_tercera_seccion_imagen = compress(self.tercera_seccion_imagen)
-        self.tercera_seccion_imagen = new_tercera_seccion_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(Contactanos, self).save(*args, **kwargs)
+       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       
+    
         
 class Datos(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
@@ -497,13 +480,12 @@ class Datos(models.Model):
     class Meta:
         verbose_name = 'Contáctanos Datos'
         verbose_name_plural = 'Contáctanos Datos'
-        
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_imagen = compress(self.imagen)
-        self.imagen = new_imagen
-        # save
-        super().save(*args, **kwargs)
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+        
 
 class Iconos(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
@@ -512,10 +494,8 @@ class Iconos(models.Model):
     class Meta:
         verbose_name = 'Íconos'
         verbose_name_plural = 'Íconos'
-        
+    
     def save(self, *args, **kwargs):
-        # call the compress function
-        new_icono = compress(self.icono)
-        self.icono = new_icono
-        # save
-        super().save(*args, **kwargs)
+       super(Iconos, self).save(*args, **kwargs)
+       icono = Image.open(self.icono.path)
+       icono.save(self.icono.path,quality=20,optimize=True)
