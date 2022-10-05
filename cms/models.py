@@ -1,6 +1,18 @@
 from django.db import models
-
+from io import BytesIO
+from PIL import Image
+from django.core.files import File
 from ckeditor_uploader.fields import RichTextUploadingField
+
+def compress(image):
+    im = Image.open(image)
+    # create a BytesIO object
+    im_io = BytesIO() 
+    # save image to BytesIO object
+    im.save(im_io, 'JPEG', quality=70) 
+    # create a Django-friendly Files object
+    new_image = File(im_io, name=image.name)
+    return new_image
 
 class BaseModel(models.Model):
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -16,6 +28,15 @@ class Servicio(BaseModel):
 
     class Meta:
         verbose_name = 'servicio'
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_imagen = compress(self.imagen)
+        # set self.imagen to new_imagen
+        self.imagen = new_imagen
+        # save
+        super().save(*args, **kwargs)
+
 
 class Home(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -76,6 +97,15 @@ class Home(BaseModel):
     def __str__(self):
         return self.titulo
     
+    def save(self, *args, **kwargs):
+        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
+        new_cuarta_seccion_tarjeta_1_imagen = compress(self.cuarta_seccion_tarjeta_1_imagen)
+        new_cuarta_seccion_tarjeta_2_imagen = compress(self.cuarta_seccion_tarjeta_2_imagen)
+        self.cuarta_seccion_tarjeta_2_imagen = new_cuarta_seccion_tarjeta_2_imagen
+        self.cuarta_seccion_tarjeta_1_imagen = new_cuarta_seccion_tarjeta_1_imagen
+        self.primera_seccion_imagen = new_primera_seccion_imagen
+        super().save(*args, **kwargs)
+    
     def titulo_destacado(self, seccion):
         return self.__dict__[f'{seccion}_seccion_titulo'].replace(self.__dict__[f'{seccion}_seccion_destacado'], f'<strong class="fw-bold text-primary">{self.__dict__[f"{seccion}_seccion_destacado"]}</strong>')
 
@@ -94,6 +124,14 @@ class Banner(BaseModel):
 
     def __str__(self):
         return self.titulo
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_imagen = compress(self.imagen)
+        # set self.imagen to new_imagen
+        self.imagen = new_imagen
+        # save
+        super().save(*args, **kwargs)
 
 # Option -> HomeOption
 class Opcion(BaseModel):
@@ -110,6 +148,14 @@ class Opcion(BaseModel):
 
     def __str__(self):
         return self.titulo
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_imagen = compress(self.imagen)
+        # set self.imagen to new_imagen
+        self.imagen = new_imagen
+        # save
+        super().save(*args, **kwargs)
 
 # SOMOS STARKEN
 
@@ -150,42 +196,41 @@ class About(BaseModel):
     
     def __str__(self):
         return self.titulo
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
+        new_quinta_seccion_imagen = compress(self.quinta_seccion_imagen)
+        self.quinta_seccion_imagen = new_quinta_seccion_imagen
+        self.primera_seccion_imagen = new_primera_seccion_imagen
+        # save
+        super().save(*args, **kwargs)
 
 # Agregar más campos en base a https://desa.sbmundo.com/starken/responsabilidad-social.html
 # TODO revisar campos de artículos
-class RedesSociales(models.Model):
-    imagen = models.ImageField(upload_to='articles', verbose_name='imagen', null=True, blank=True)
-    url = models.URLField(verbose_name='url', null=True, blank=True)
-    
-    class Meta:
-        verbose_name = 'Artículos Redes Sociales'
-        verbose_name_plural = 'Artículos Redes Sociales'
+
 
 class Articulo(BaseModel):
     class Tipo(models.TextChoices):
         NOTICIA = 'noticia', 'Noticia'
         RESPONSABILIDAD_SOCIAL = 'responsabilidad social', 'Responsabilidad social'
         SUSTENTABILIDAD = 'sustentabilidad', 'Sustentabilidad'
-    primera_seccion_logo = models.ImageField(upload_to='logos', verbose_name='logo', null=True, blank=True)
-    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
     tipo = models.CharField(max_length=255, choices=Tipo.choices, verbose_name='tipo', null=True, blank=True)
-    segunda_seccion_etiqueta = models.CharField(max_length=255, verbose_name='etiqueta', null=True, blank=True)
-    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    segunda_seccion_fecha_de_creacion = models.DateField(verbose_name='fecha de creación', null=True, blank=True)
-    segunda_seccion_imagen = models.ImageField(upload_to='articles', verbose_name='imagen', null=True, blank=True)
-    segunda_seccion_contenido = RichTextUploadingField(verbose_name='contenido', null=True, blank=True)
-    redes_sociales = models.ManyToManyField(RedesSociales, verbose_name='Redes Sociales', blank=True)
+    primera_seccion_etiqueta = models.CharField(max_length=255, verbose_name='etiqueta', null=True, blank=True)
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_fecha_de_creacion = models.DateField(verbose_name='fecha de creación', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='articles', verbose_name='imagen', null=True, blank=True)
+    primera_seccion_contenido = RichTextUploadingField(verbose_name='contenido', null=True, blank=True)
     fecha_de_actualizacion = models.DateField(verbose_name='fecha de actualización', null=True, blank=True)
     
-    tercera_seccion_imagen = models.ImageField(upload_to='articles', verbose_name='imagen', null=True, blank=True)
-    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
-    tercera_seccion_url_primer_boton = models.URLField(verbose_name='url del primer botón', null=True, blank=True)
-    tercera_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
-    tercera_seccion_url_segundo_boton = models.URLField(verbose_name='url del segundo botón', null=True, blank=True)
+    segunda_seccion_imagen = models.ImageField(upload_to='articles', verbose_name='imagen', null=True, blank=True)
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
+    segunda_seccion_url_primer_boton = models.URLField(verbose_name='url del primer botón', null=True, blank=True)
+    segunda_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
+    segunda_seccion_url_segundo_boton = models.URLField(verbose_name='url del segundo botón', null=True, blank=True)
     
 
     class Meta:
@@ -195,16 +240,14 @@ class Articulo(BaseModel):
     def __str__(self):
         return self.titulo
     
-class ContenidoArticulo(BaseModel):
-    articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE, verbose_name='Artículo', null=True, blank=True)
-    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    imagen = models.ImageField(upload_to='articles', verbose_name='imagen', null=True, blank=True)
-    contenido = models.TextField(verbose_name='contenido', null=True, blank=True)
-    fecha_de_creacion = models.DateField(verbose_name='fecha de creación', null=True, blank=True)
-    
-    class Meta:
-        verbose_name = 'Contenido de Artículo'
-        verbose_name_plural = 'Contenido de Artículo'
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
+        new_segunda_seccion_imagen = compress(self.segunda_seccion_imagen)
+        self.segunda_seccion_imagen = new_segunda_seccion_imagen
+        self.primera_seccion_imagen = new_primera_seccion_imagen
+        # save
+        super().save(*args, **kwargs)
         
         
 # Starken PRO
@@ -237,6 +280,13 @@ class StarkenPro(BaseModel):
     
     def __str__(self):
         return self.titulo
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_primera_seccion_imagen = compress(self.primera_seccion_imagen)
+        self.primera_seccion_imagen = new_primera_seccion_imagen
+        # save
+        super().save(*args, **kwargs)
 
 class StarkenProBeneficio(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
@@ -248,6 +298,13 @@ class StarkenProBeneficio(BaseModel):
     
     def __str__(self):
         return self.titulo
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_imagen = compress(self.imagen)
+        self.imagen = new_imagen
+        # save
+        super().save(*args, **kwargs)
 
 class StarkenProPaso(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
@@ -260,39 +317,18 @@ class StarkenProPaso(BaseModel):
         return self.titulo
     
 #Preguntas Frecuentes
-class PreguntasFrecuentes(BaseModel):
-    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    primera_seccion_boton_buscar = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    
-    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    
-    segunda_seccion_titulo_primer_bloque = models.CharField(max_length=255, verbose_name='título primer bloque', null=True, blank=True)
-    segunda_seccion_descripcion_primer_bloque = models.TextField(verbose_name='descripción primer bloque', null=True, blank=True)
-    
-    segunda_seccion_titulo_segundo_bloque = models.CharField(max_length=255, verbose_name='título segundo bloque', null=True, blank=True)
-    segunda_seccion_descripcion_segundo_bloque = models.TextField(verbose_name='descripción segundo bloque', null=True, blank=True)
-    
-    class Meta:
-        verbose_name = 'Pregunta Frecuente'
-        verbose_name_plural = 'Preguntas Frecuentes'
-    
-    def __str__(self):
-        return self.primera_seccion_titulo
-    
 class PreguntasCategoria(BaseModel):
-    categoria = models.ForeignKey(PreguntasFrecuentes, on_delete=models.CASCADE, verbose_name='Categoría de Preguntas', null=True, blank=True)
-    titulo_categoria = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    titulo_categoria = models.CharField(max_length=255, verbose_name='Título de categoría', null=True, blank=True)
     
     class Meta:
-        verbose_name = 'Preguntas categoría'
-        verbose_name_plural = 'Preguntas categoría'
+        verbose_name = 'FAQ - Categoría'
+        verbose_name_plural = 'FAQ - Categoría'
     
     def __str__(self):
         return self.titulo_categoria
     
 class Preguntas(models.Model):
-    pregunta = models.ForeignKey(PreguntasCategoria, on_delete=models.CASCADE, verbose_name='Preguntas', null=True, blank=True)
+    pregunta = models.ForeignKey(PreguntasCategoria, on_delete=models.CASCADE, related_name='preguntas',  verbose_name='Preguntas', null=True, blank=True)
     pregunta_titulo = models.CharField(max_length=255, verbose_name='pregunta título', null=True, blank=True)
     pregunta_descripcion = models.TextField(verbose_name='pregunta descripción', null=True, blank=True)
     
@@ -302,6 +338,29 @@ class Preguntas(models.Model):
     
     def __str__(self):
         return self.titulo_categoria
+class PreguntasFrecuentes(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_boton_buscar = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    
+    segunda_seccion_categoria = models.ManyToManyField(PreguntasCategoria, verbose_name='Categorías', blank=True)
+    
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    tercera_seccion_titulo_primer_bloque = models.CharField(max_length=255, verbose_name='título primer bloque', null=True, blank=True)
+    tercera_seccion_descripcion_primer_bloque = models.TextField(verbose_name='descripción primer bloque', null=True, blank=True)
+    
+    tercera_seccion_titulo_segundo_bloque = models.CharField(max_length=255, verbose_name='título segundo bloque', null=True, blank=True)
+    tercera_seccion_descripcion_segundo_bloque = models.TextField(verbose_name='descripción segundo bloque', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQ'
+    
+    def __str__(self):
+        return self.primera_seccion_titulo
+    
+
     
     
 #Help Center
@@ -327,6 +386,7 @@ class CentrodeAyuda(BaseModel):
     tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
     tercera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     tercera_seccion_boton_principal_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    tercera_seccion_preguntas = models.ManyToManyField(PreguntasCategoria, verbose_name='Preguntas', blank=True)
     
     formulario_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
@@ -339,12 +399,13 @@ class CentrodeAyuda(BaseModel):
     class Meta:
         verbose_name = 'centro de ayuda'
         verbose_name_plural = 'centros de ayuda'
-        
-class CentrodeAyudaPregunta(BaseModel):
-    centro_de_ayuda = models.ForeignKey(CentrodeAyuda, on_delete=models.CASCADE, verbose_name='Centro de Ayuda', null=True, blank=True)
-    class Meta:
-        verbose_name = 'pregunta'
-        verbose_name_plural = 'preguntas'
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_cuarta_seccion_imagen = compress(self.cuarta_seccion_imagen)
+        self.cuarta_seccion_imagen = new_cuarta_seccion_imagen
+        # save
+        super().save(*args, **kwargs)
     
 class CentrodeAyudaBeneficio(BaseModel):
     centro_de_ayuda = models.ForeignKey(CentrodeAyuda, on_delete=models.CASCADE, verbose_name='Centro de Ayuda', null=True, blank=True)
@@ -356,6 +417,13 @@ class CentrodeAyudaBeneficio(BaseModel):
     
     def __str__(self):
         return self.titulo
+    
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_image = compress(self.image)
+        self.image = new_image
+        # save
+        super().save(*args, **kwargs)
 
 #Condiciones de Servicio
 class TerminosdeServicio(BaseModel):
@@ -372,7 +440,15 @@ class TerminosdeServicio(BaseModel):
     class Meta:
         verbose_name = 'Condición de Servicio'
         verbose_name_plural = 'Condiciones de Servicio'
-
+class TerminosdeServicioSeccion(models.Model):
+    terminos_de_servicio = models.ForeignKey(TerminosdeServicio, on_delete=models.CASCADE, verbose_name='Términos de Servicio', null=True, blank=True)
+    seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Nueva Sección'
+        verbose_name_plural = 'Nueva Sección'
+    
 class TerminosdeServicioPunto(models.Model):
     terminos_de_servicio = models.ForeignKey(TerminosdeServicio, on_delete=models.CASCADE, verbose_name='Términos de Servicio', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título de término', null=True, blank=True)
@@ -403,6 +479,13 @@ class Contactanos(BaseModel):
         verbose_name = 'Contáctanos'
         verbose_name_plural = 'Contáctanos'
         
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_tercera_seccion_imagen = compress(self.tercera_seccion_imagen)
+        self.tercera_seccion_imagen = new_tercera_seccion_imagen
+        # save
+        super().save(*args, **kwargs)
+        
 class Datos(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
     imagen = models.ImageField(upload_to='datos', verbose_name='imagen', null=True, blank=True)
@@ -414,6 +497,13 @@ class Datos(models.Model):
     class Meta:
         verbose_name = 'Contáctanos Datos'
         verbose_name_plural = 'Contáctanos Datos'
+        
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_imagen = compress(self.imagen)
+        self.imagen = new_imagen
+        # save
+        super().save(*args, **kwargs)
 
 class Iconos(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
@@ -422,3 +512,10 @@ class Iconos(models.Model):
     class Meta:
         verbose_name = 'Íconos'
         verbose_name_plural = 'Íconos'
+        
+    def save(self, *args, **kwargs):
+        # call the compress function
+        new_icono = compress(self.icono)
+        self.icono = new_icono
+        # save
+        super().save(*args, **kwargs)

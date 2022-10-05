@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from cms.models import *
 
+
 @admin.register(Servicio)
 class ServicioAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'descripcion', 'imagen', 'boton', 'boton_url')
@@ -117,18 +118,10 @@ class AboutAdmin(admin.ModelAdmin):
         }),
     )
 
-@admin.register(RedesSociales)
-class ContenidoArticuloInline(admin.ModelAdmin):
-    model = RedesSociales
-    
-    
-class ContenidoArticuloInline(admin.StackedInline):
-    model = ContenidoArticulo
-    extra = 0
 
 @admin.register(Articulo)
 class ArticuloAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'tipo', 'segunda_seccion_fecha_de_creacion']
+    list_display = ['titulo', 'tipo', 'primera_seccion_fecha_de_creacion']
     search_fields = ['titulo']
     list_filter = ['tipo']
     fieldsets = (
@@ -137,36 +130,27 @@ class ArticuloAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
-                'primera_seccion_logo',
+                'tipo',
+                'primera_seccion_etiqueta',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
+                'primera_seccion_fecha_de_creacion',
+                'primera_seccion_imagen',
+                'primera_seccion_contenido',
             )
         }),
         ('Segunda Sección', {
             'fields': (
-                'tipo',
-                'segunda_seccion_etiqueta',
-                'segunda_seccion_titulo',
-                'segunda_seccion_descripcion',
-                'segunda_seccion_fecha_de_creacion',
                 'segunda_seccion_imagen',
-                'segunda_seccion_contenido',
-                'redes_sociales',
-            )
-        }),
-        ('Tercera Sección', {
-            'fields': (
-                'tercera_seccion_imagen',
-                'tercera_seccion_titulo',
-                'tercera_seccion_primer_boton',
-                'tercera_seccion_url_primer_boton',
-                'tercera_seccion_segundo_boton',
-                'tercera_seccion_url_segundo_boton',
+                'segunda_seccion_titulo',
+                'segunda_seccion_primer_boton',
+                'segunda_seccion_url_primer_boton',
+                'segunda_seccion_segundo_boton',
+                'segunda_seccion_url_segundo_boton',
             )
         }),
     )
     
-    inlines = [ContenidoArticuloInline]
     
 class StarkenProBeneficioInline(admin.StackedInline):
     model = StarkenProBeneficio
@@ -217,12 +201,7 @@ class StarkenProAdmin(admin.ModelAdmin):
 
 class CentrodeAyudaBeneficioInline(admin.StackedInline):
     model = CentrodeAyudaBeneficio
-    extra = 0
-
-class CentrodeAyudaPreguntaInline(admin.StackedInline):
-    model = CentrodeAyudaPregunta
-    extra = 0
-    
+    extra = 0    
 
 @admin.register(CentrodeAyuda)
 class CentrodeAyudaAdmin(admin.ModelAdmin):
@@ -258,6 +237,7 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
                 'tercera_seccion_descripcion',
                 ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
+                'tercera_seccion_preguntas',
             )
         }),
         ('Cuarta Sección', {
@@ -273,13 +253,16 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         }),
     )
 
-    inlines = [CentrodeAyudaBeneficioInline, CentrodeAyudaPreguntaInline]
+    inlines = [CentrodeAyudaBeneficioInline]
     
 
 class TerminosdeServicioPuntoInline(admin.StackedInline):
     model = TerminosdeServicioPunto
     extra = 0
     
+class TerminosdeServicioSeccionInline(admin.StackedInline):
+    model = TerminosdeServicioSeccion
+    extra = 0
 
 @admin.register(TerminosdeServicio)
 class TerminosdeServicioAdmin(admin.ModelAdmin):
@@ -296,21 +279,9 @@ class TerminosdeServicioAdmin(admin.ModelAdmin):
                 'primera_seccion_descripcion',
             )
         }),
-        ('Segunda Sección', {
-            'fields': (
-                'segunda_seccion_titulo',
-                'segunda_seccion_descripcion',
-            )
-        }),
-        ('Tercera Sección', {
-            'fields': (
-                'tercera_seccion_titulo',
-                'tercera_seccion_descripcion',
-            )
-        }),
     )
 
-    inlines = [TerminosdeServicioPuntoInline]    
+    inlines = [TerminosdeServicioPuntoInline, TerminosdeServicioSeccionInline]    
 
 class PreguntasInline(admin.StackedInline):
     model = Preguntas
@@ -319,7 +290,11 @@ class PreguntasInline(admin.StackedInline):
 @admin.register(PreguntasCategoria)
 class PreguntasCategoriaInline(admin.ModelAdmin):
     model = PreguntasCategoria
-    extra = 0
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion', 'titulo_categoria')
+        }),
+    )
     
     inlines = [PreguntasInline]
 
@@ -339,12 +314,17 @@ class PreguntasFrecuentesAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
-                'segunda_seccion_titulo',
-                'segunda_seccion_descripcion',
-                'segunda_seccion_titulo_primer_bloque',
-                'segunda_seccion_descripcion_primer_bloque',
-                'segunda_seccion_titulo_segundo_bloque',
-                'segunda_seccion_descripcion_segundo_bloque',
+                'segunda_seccion_categoria',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_titulo',
+                'tercera_seccion_descripcion',
+                'tercera_seccion_titulo_primer_bloque',
+                'tercera_seccion_descripcion_primer_bloque',
+                'tercera_seccion_titulo_segundo_bloque',
+                'tercera_seccion_descripcion_segundo_bloque',
             )
         }),
     )
