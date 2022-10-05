@@ -380,3 +380,45 @@ class TerminosdeServicioPunto(models.Model):
     class Meta:
         verbose_name = 'Punto de Condición de Servicio'
         verbose_name_plural = 'Puntos de Condiciones de Servicio'
+        
+#Contactanos
+class Contactanos(BaseModel):
+    formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario')
+    formulario_descripcion = models.TextField(blank=True, verbose_name='descripción de formulario')
+    formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón de formulario')
+    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre')
+    etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email')
+    etiqueta_mensaje = models.CharField(max_length=255, verbose_name='etiqueta mensaje')
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', default='')
+    
+    tercera_seccion_imagen = models.ImageField(upload_to='contactanos', verbose_name='imagen')
+    tercera_seccion_formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario')
+    tercera_seccion_formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón de formulario')
+    tercera_seccion_etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre')
+    tercera_seccion_etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email')
+    tercera_seccion_etiqueta_comentario = models.CharField(max_length=255, verbose_name='etiqueta comentario')
+    
+    class Meta:
+        verbose_name = 'Contáctanos'
+        verbose_name_plural = 'Contáctanos'
+        
+class Datos(models.Model):
+    contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto')
+    imagen = models.ImageField(upload_to='datos', verbose_name='imagen')
+    titulo = models.CharField(max_length=255, verbose_name='título', default='')
+    primera_descripcion = models.TextField(blank=True, verbose_name='primera descripción', default='')
+    segunda_descripcion = models.TextField(blank=True, verbose_name='segunda descripción', default='')
+    
+
+    class Meta:
+        verbose_name = 'Contáctanos Datos'
+        verbose_name_plural = 'Contáctanos Datos'
+
+class Iconos(models.Model):
+    contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto')
+    icono = models.ImageField(upload_to='iconos', verbose_name='imagen')
+
+    class Meta:
+        verbose_name = 'Íconos'
+        verbose_name_plural = 'Íconos'

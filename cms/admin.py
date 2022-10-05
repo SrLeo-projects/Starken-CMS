@@ -312,7 +312,7 @@ class TerminosdeServicioAdmin(admin.ModelAdmin):
 
     inlines = [TerminosdeServicioPuntoInline]    
 
-class PreguntasInline(admin.TabularInline):
+class PreguntasInline(admin.StackedInline):
     model = Preguntas
     extra = 0
     
@@ -348,3 +348,47 @@ class PreguntasFrecuentesAdmin(admin.ModelAdmin):
             )
         }),
     )
+    
+
+class DatosInline(admin.StackedInline):
+    model = Datos
+    extra = 0
+   
+class IconosInline(admin.StackedInline):
+    model = Iconos
+    extra = 0 
+
+@admin.register(Contactanos)
+class ContactanosAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+                'etiqueta_nombre', 
+                'etiqueta_email', 
+                'etiqueta_mensaje',
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_imagen',
+                'tercera_seccion_formulario_titulo',
+                'tercera_seccion_formulario_boton_principal',
+                'tercera_seccion_etiqueta_nombre', 
+                'tercera_seccion_etiqueta_email', 
+                'tercera_seccion_etiqueta_comentario',
+            )
+        }),
+    )
+    
+    inlines = [DatosInline, IconosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Contáctanos Datos", "Tercera Sección")
