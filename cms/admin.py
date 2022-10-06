@@ -5,7 +5,7 @@ from cms.models import *
 
 @admin.register(Servicio)
 class ServicioAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'descripcion', 'imagen', 'boton', 'boton_url')
+    list_display = ('titulo', 'descripcion','titulo_imagen', 'alt_imagen', 'imagen', 'boton', 'boton_url')
     list_filter = ('titulo', 'descripcion', 'imagen', 'boton', 'boton_url')
 
 class BannerInline(admin.StackedInline):
@@ -32,6 +32,7 @@ class HomeAdmin(admin.ModelAdmin):
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
                 ('primera_seccion_boton_secundario', 'primera_seccion_boton_secundario_url'),
+                ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
                 ('primera_seccion_subtitulo', 'primera_seccion_subtitulo_descripcion'),
                 ('primera_seccion_link', 'primera_seccion_link_texto'),
@@ -54,7 +55,10 @@ class HomeAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
-                ('cuarta_seccion_tarjeta_1_imagen', 'cuarta_seccion_tarjeta_2_imagen'),
+                ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
+                'cuarta_seccion_tarjeta_1_imagen',
+                ('cuarta_seccion_tarjeta_2_titulo_imagen', 'cuarta_seccion_tarjeta_2_alt_imagen'),
+                'cuarta_seccion_tarjeta_2_imagen',
                 ('cuarta_seccion_tarjeta_1_titulo', 'cuarta_seccion_tarjeta_2_titulo'),
                 ('cuarta_seccion_tarjeta_1_descripcion', 'cuarta_seccion_tarjeta_2_descripcion'),
                 ('cuarta_seccion_tarjeta_1_boton', 'cuarta_seccion_tarjeta_2_boton'),
@@ -109,6 +113,7 @@ class AboutAdmin(admin.ModelAdmin):
         }),
         ('Quinta Sección', {
             'fields': (
+                ('quinta_seccion_titulo_imagen', 'quinta_seccion_alt_imagen'),
                 'quinta_seccion_imagen',
                 ('quinta_seccion_titulo', 'quinta_seccion_destacado'),
                 'quinta_seccion_subtitulo',
@@ -135,12 +140,14 @@ class ArticuloAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
                 'primera_seccion_fecha_de_creacion',
+                ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
                 'primera_seccion_contenido',
             )
         }),
         ('Segunda Sección', {
             'fields': (
+                ('segunda_seccion_titulo_imagen', 'segunda_seccion_alt_imagen'),
                 'segunda_seccion_imagen',
                 'segunda_seccion_titulo',
                 'segunda_seccion_primer_boton',
@@ -170,6 +177,7 @@ class StarkenProAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
                 ('primera_seccion_titulo', 'primera_seccion_destacado'),
                 'primera_seccion_descripcion',
@@ -206,7 +214,7 @@ class CentrodeAyudaBeneficioInline(admin.StackedInline):
 @admin.register(CentrodeAyuda)
 class CentrodeAyudaAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
-
+    filter_horizontal = ['tercera_seccion_preguntas']
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -242,6 +250,7 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
                 'cuarta_seccion_imagen',
                 'formulario_titulo',
                 'formulario_descripcion',
@@ -301,7 +310,7 @@ class PreguntasCategoriaInline(admin.ModelAdmin):
 @admin.register(PreguntasFrecuentes)
 class PreguntasFrecuentesAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
-
+    filter_horizontal = ['segunda_seccion_preguntas']
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -314,7 +323,7 @@ class PreguntasFrecuentesAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
-                'segunda_seccion_categoria',
+                'segunda_seccion_preguntas',
             )
         }),
         ('Tercera Sección', {
@@ -360,6 +369,7 @@ class ContactanosAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
                 'tercera_seccion_imagen',
                 'tercera_seccion_formulario_titulo',
                 'tercera_seccion_formulario_boton_principal',
