@@ -592,8 +592,8 @@ class Advertencia(models.Model):
 
 #DHL
 class DHL(BaseModel):
+    primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
@@ -603,9 +603,8 @@ class DHL(BaseModel):
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     
-    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
-    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+
+    tercera_seccion_contenido = RichTextUploadingField(verbose_name='contenido', null=True, blank=True)
     
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -744,3 +743,75 @@ class EmpresasCarrusel(models.Model):
        super(Datos, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+
+
+#Envíos internacionales
+class EnviosInternacionales(BaseModel):
+    primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='envios internacionales', verbose_name='imagen de fondo', null=True, blank=True)
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    
+    tercera_seccion_imagen_primer_bloque = models.ImageField(upload_to='envios internacionales', verbose_name='imagen de fondo primer bloque', null=True, blank=True)
+    tercera_seccion_titulo_primer_bloque = models.CharField(max_length=255, verbose_name='título primer bloque', null=True, blank=True)
+    tercera_seccion_descripcion_primer_bloque = models.TextField(blank=True, verbose_name='descripción primer bloque', null=True)
+    tercera_seccion_boton_primer_bloque = models.CharField(max_length=255, verbose_name='botón primer bloque', null=True, blank=True)
+    tercera_seccion_boton_url_primer_bloque = models.URLField(verbose_name='url del botón primer bloque', null=True, blank=True)
+    tercera_seccion_imagen_segundo_bloque = models.ImageField(upload_to='envios internacionales', verbose_name='imagen de fondo segundo bloque', null=True, blank=True)
+    tercera_seccion_titulo_segundo_bloque = models.CharField(max_length=255, verbose_name='título segundo bloque', null=True, blank=True)
+    tercera_seccion_descripcion_segundo_bloque = models.TextField(blank=True, verbose_name='descripción segundo bloque', null=True)
+    tercera_seccion_boton_segundo_bloque = models.CharField(max_length=255, verbose_name='botón segundo bloque', null=True, blank=True)
+    tercera_seccion_boton_url_segundo_bloque = models.URLField(verbose_name='url del botón segundo bloque', null=True, blank=True)
+    
+    cuarta_seccion_imagen = models.ImageField(upload_to='envios internacionales', verbose_name='imagen', null=True, blank=True)
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    cuarta_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    
+    quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    quinta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    quinta_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    quinta_seccion_imagen = models.ImageField(upload_to='envios internacionales', verbose_name='imagen', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Envíos Internacionales'
+        verbose_name_plural = 'Envíos Internacionales'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       tercera_seccion_imagen_primer_bloque = Image.open(self.tercera_seccion_imagen_primer_bloque.path)
+       tercera_seccion_imagen_primer_bloque.save(self.tercera_seccion_imagen_primer_bloque.path,quality=20,optimize=True)
+       tercera_seccion_imagen_segundo_bloque = Image.open(self.tercera_seccion_imagen_segundo_bloque.path)
+       tercera_seccion_imagen_segundo_bloque.save(self.tercera_seccion_imagen_segundo_bloque.path,quality=20,optimize=True)
+       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+       quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
+       quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+       
+class EnviosInternacionalesBeneficios(models.Model):
+    beneficio = models.ForeignKey(EnviosInternacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
+    imagen = models.ImageField(upload_to='envios internacionales', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Beneficios'
+        verbose_name_plural = 'Beneficios'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+       

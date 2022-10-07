@@ -444,8 +444,8 @@ class DHLAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_subtitulo',
                 'primera_seccion_titulo',
-                'primera_seccion_destacado',
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
@@ -461,9 +461,7 @@ class DHLAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
-                'tercera_seccion_titulo',
-                'tercera_seccion_subtitulo',
-                'tercera_seccion_descripcion',
+                'tercera_seccion_contenido',
             )
         }),
         ('Cuarta Sección', {
@@ -557,3 +555,71 @@ class EmpresasAdmin(admin.ModelAdmin):
     
     inlines = [EmpresasCarruselInline, EmpresasBeneficiosInline]
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Imágenes", "Cuarta Sección", "Quinta Sección")
+    
+    
+
+class EnviosInternacionalesBeneficiosInline(admin.StackedInline):
+    model = EnviosInternacionalesBeneficios
+    extra = 0
+
+@admin.register(EnviosInternacionales)
+class EnviosInternacionalesAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_subtitulo',
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_imagen',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_imagen_primer_bloque',
+                'tercera_seccion_titulo_primer_bloque',
+                'tercera_seccion_descripcion_primer_bloque',
+                'tercera_seccion_boton_primer_bloque',
+                'tercera_seccion_boton_url_primer_bloque',
+                'tercera_seccion_imagen_segundo_bloque',
+                'tercera_seccion_titulo_segundo_bloque',
+                'tercera_seccion_descripcion_segundo_bloque',
+                'tercera_seccion_boton_segundo_bloque',
+                'tercera_seccion_boton_url_segundo_bloque',
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_imagen',
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_descripcion',
+                'cuarta_seccion_boton',
+                'cuarta_seccion_boton_url',
+            )
+        }),
+        ('Quinta Sección', {
+            'fields': (
+                'quinta_seccion_imagen',
+                'quinta_seccion_titulo',
+                'quinta_seccion_descripcion',
+                'quinta_seccion_boton',
+                'quinta_seccion_boton_url',
+            )
+        }),
+    )
+    
+    inlines = [EnviosInternacionalesBeneficiosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Quinta Sección")
