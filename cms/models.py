@@ -333,10 +333,12 @@ class StarkenProBeneficio(BaseModel):
 
 class StarkenProPaso(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
-
+    number = models.IntegerField(verbose_name='Número de Indicación', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     class Meta:
-        verbose_name = 'paso'
-        verbose_name_plural = 'pasos'
+        verbose_name = 'indicaciones'
+        verbose_name_plural = 'indicaciones'
     
     
     
@@ -679,8 +681,8 @@ class Empresas(BaseModel):
     tercera_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='logo', null=True, blank=True)
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
-    tercera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    tercera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    tercera_seccion_enlace = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
+    tercera_seccion_enlace_url = models.URLField(verbose_name='url del enlace', null=True, blank=True)
     
     cuarta_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='imagen', null=True, blank=True)
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -815,3 +817,219 @@ class EnviosInternacionalesBeneficios(models.Model):
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
+
+
+
+#Envíos Nacionales
+class EnviosNacionales(BaseModel):
+    primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen de fondo', null=True, blank=True)
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    
+    tercera_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen', null=True, blank=True)
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    tercera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    tercera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    
+    cuarta_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen', null=True, blank=True)
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    cuarta_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Envíos Nacionales'
+        verbose_name_plural = 'Envíos Nacionales'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+       
+class EnviosNacionalesBeneficios(models.Model):
+    beneficio = models.ForeignKey(EnviosNacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
+    imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Beneficios'
+        verbose_name_plural = 'Beneficios'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+
+class EnviosNacionalesRecomendaciones(models.Model):
+    recomendacion = models.ForeignKey(EnviosNacionales, on_delete=models.CASCADE, verbose_name='Recomendaciones', null=True, blank=True)
+    imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Recomendaciones'
+        verbose_name_plural = 'Recomendaciones'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+
+
+#Mi Primer Envío
+class MiPrimerEnvio(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen de fondo', null=True, blank=True)
+    
+    
+    class Meta:
+        verbose_name = 'Mi Primer Envío'
+        verbose_name_plural = 'Mi Primer Envío'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       
+class MiPrimerEnvioStep(models.Model):
+    beneficio = models.ForeignKey(MiPrimerEnvio, on_delete=models.CASCADE, verbose_name='Step', null=True, blank=True)
+    imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Indicaciones'
+        verbose_name_plural = 'Indicaciones'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+
+
+#Mypymes
+class Mypymes(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_video = models.FileField(upload_to='mypymes', verbose_name='video', null=True, blank=True)
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    
+    tercera_seccion_imagen_fondo = models.ImageField(upload_to='mypymes', verbose_name='imagen de fondo', null=True, blank=True)
+    formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
+    formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
+    formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
+    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
+    etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
+    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta número telefónico', null=True, blank=True)
+    etiqueta_tipo_de_negocio = models.CharField(max_length=255, verbose_name='etiqueta tipo de negocio', null=True, blank=True)
+    tercera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='logo', null=True, blank=True)
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
+    tercera_seccion_enlace = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
+    tercera_seccion_enlace_url = models.URLField(verbose_name='url del enlace', null=True, blank=True)
+    
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    
+    quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    quinta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    
+    sexta_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
+    sexta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    sexta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    sexta_seccion_titulo_interno = models.CharField(max_length=255, verbose_name='título interno', null=True, blank=True)
+    sexta_seccion_subtitulo_interno = models.CharField(max_length=255, verbose_name='subtítulo interno', null=True, blank=True)
+    sexta_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
+    sexta_seccion_primer_boton_url = models.URLField(verbose_name='url del primer botón', null=True, blank=True)
+    sexta_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
+    sexta_seccion_segundo_boton_url = models.URLField(verbose_name='url del segundo botón', null=True, blank=True)
+    
+    septima_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    septima_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    septima_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    septima_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    septima_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'MYPYMES'
+        verbose_name_plural = 'MYPYMES'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
+       tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
+       sexta_seccion_imagen = Image.open(self.sexta_seccion_imagen.path)
+       sexta_seccion_imagen.save(self.sexta_seccion_imagen.path,quality=20,optimize=True)
+       septima_seccion_imagen = Image.open(self.septima_seccion_imagen.path)
+       septima_seccion_imagen.save(self.septima_seccion_imagen.path,quality=20,optimize=True)
+       
+class MypymesBeneficios(models.Model):
+    beneficio = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
+    imagen = models.ImageField(upload_to='mypymes', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Beneficios'
+        verbose_name_plural = 'Beneficios'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+class MypymesIndicaciones(models.Model):
+    mypymes = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Mypymes', null=True, blank=True)
+    number = models.IntegerField(verbose_name='Número de Indicación', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    class Meta:
+        verbose_name = 'indicaciones'
+        verbose_name_plural = 'indicaciones'
+        
+
+class MypymesTestimonios(models.Model):
+    mypymes = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Mypymes', null=True, blank=True)
+    testimonio = models.TextField(verbose_name='testimonio', null=True, blank=True)
+    nombre = models.CharField(max_length=255, verbose_name='Nombre', null=True, blank=True)
+    apellido = models.CharField(max_length=255, verbose_name='Apellido', null=True, blank=True)
+    puesto_laboral = models.CharField(max_length=255, verbose_name='Puesto Laboral', null=True, blank=True)
+    imagen = models.ImageField(upload_to='mypymes', verbose_name='Imagen de Perfil', null=True, blank=True)
+    class Meta:
+        verbose_name = 'Testimonios'
+        verbose_name_plural = 'Testimonios'
+    
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)

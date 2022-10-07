@@ -605,6 +605,7 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
             'fields': (
                 'cuarta_seccion_imagen',
                 'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
                 'cuarta_seccion_descripcion',
                 'cuarta_seccion_boton',
                 'cuarta_seccion_boton_url',
@@ -623,3 +624,187 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
     
     inlines = [EnviosInternacionalesBeneficiosInline]
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Quinta Sección")
+    
+    
+    
+    
+class EnviosNacionalesBeneficiosInline(admin.StackedInline):
+    model = EnviosNacionalesBeneficios
+    extra = 0
+
+class EnviosNacionalesRecomendacionesInline(admin.StackedInline):
+    model = EnviosNacionalesRecomendaciones
+    extra = 0
+
+@admin.register(EnviosNacionales)
+class EnviosNacionalesAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_subtitulo',
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_imagen',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercara_seccion_imagen',
+                'tercara_seccion_titulo',
+                'tercara_seccion_destacado',
+                'tercara_seccion_descripcion',
+                'tercara_seccion_boton',
+                'tercara_seccion_boton_url',
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_imagen',
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
+                'cuarta_seccion_subtitulo',
+                'cuarta_seccion_boton',
+                'cuarta_seccion_boton_url',
+            )
+        }),
+    )
+    
+    inlines = [EnviosNacionalesBeneficiosInline, EnviosNacionalesRecomendacionesInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Recomendaciones")
+    
+    
+
+class MiPrimerEnvioStepInline(admin.StackedInline):
+    model = MiPrimerEnvioStep
+    extra = 0
+
+@admin.register(MiPrimerEnvio)
+class MiPrimerEnvioAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_imagen',
+            )
+        }),
+       
+    )
+    
+    inlines = [MiPrimerEnvioStepInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Indicaciones")
+    
+    
+    
+class MypymesBeneficiosInline(admin.StackedInline):
+    model = MypymesBeneficios
+    extra = 0
+   
+class MypymesIndicacionesInline(admin.StackedInline):
+    model = MypymesIndicaciones
+    extra = 0 
+
+class MypymesTestimoniosInline(admin.StackedInline):
+    model = MypymesTestimonios
+    extra = 0 
+
+@admin.register(Mypymes)
+class MypymesAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_imagen',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_imagen_fondo',
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+                'etiqueta_nombre', 
+                'etiqueta_email',  
+                'etiqueta_telefono', 
+                'etiqueta_tipo_de_negocio',
+                'tercera_seccion_imagen',
+                'tercera_seccion_titulo',
+                'tercera_seccion_descripcion',
+                'tercera_seccion_enlace',
+                'tercera_seccion_enlace_url',
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
+            )
+        }),
+        ('Quinta Sección', {
+            'fields': (
+                'quinta_seccion_titulo',
+                'quinta_seccion_destacado',
+            )
+        }),
+        ('Sexta Sección', {
+            'fields': (
+                'sexta_seccion_imagen',
+                'sexta_seccion_titulo',
+                'sexta_seccion_descripcion',
+                'sexta_seccion_titulo_interno',
+                'sexta_seccion_subtitulo_interno',
+                'sexta_seccion_primer_boton',
+                'sexta_seccion_primer_boton_url',
+                'sexta_seccion_segundo_boton',
+                'sexta_seccion_segundo_boton_url',
+            )
+        }),
+        ('Séptima Sección', {
+            'fields': (
+                'septima_seccion_imagen',
+                'septima_seccion_titulo',
+                'septima_seccion_descripcion',
+                'septima_seccion_boton',
+                'septima_seccion_boton_url',
+            )
+        }),
+    )
+    
+    inlines = [MypymesIndicacionesInline, MypymesBeneficiosInline, MypymesTestimoniosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Indicaciones", "Quinta Sección", "Testimonios", "Sexta Sección", "Séptima Sección")
