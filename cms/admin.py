@@ -382,3 +382,178 @@ class ContactanosAdmin(admin.ModelAdmin):
     
     inlines = [DatosInline, IconosInline]
     jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Contáctanos Datos", "Tercera Sección")
+    
+    
+class BotonInline(admin.StackedInline):
+    model = Boton
+    extra = 0
+   
+class AdvertenciaInline(admin.StackedInline):
+    model = Advertencia
+    extra = 0 
+
+@admin.register(Cotizador)
+class CotizadorAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_destacado',
+                'etiqueta_origen',
+                'etiqueta_destino',
+                'etiqueta_encomienda',
+                'etiqueta_dimensiones',
+                'etiqueta_peso',
+                'etiqueta_servicio',
+                'etiqueta_tipo_de_entrega',
+                'boton_principal'
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_advertencia',
+            )
+        }),
+    )
+    
+    inlines = [BotonInline, AdvertenciaInline]
+    
+    
+
+class AccionInline(admin.StackedInline):
+    model = Accion
+    extra = 0
+   
+class ModalidadesInline(admin.StackedInline):
+    model = Modalidades
+    extra = 0 
+
+@admin.register(DHL)
+class DHLAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_destacado',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_imagen',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_titulo',
+                'tercera_seccion_subtitulo',
+                'tercera_seccion_descripcion',
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
+                'cuarta_seccion_descripcion',
+                'cuarta_seccion_boton',
+                'cuarta_seccion_boton_url',
+            )
+        }),
+    )
+    
+    inlines = [ModalidadesInline, AccionInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Modalidades de Servicio", "Tercera Sección", "Cuarta Sección", "Acciones")
+    
+
+
+class EmpresasBeneficiosInline(admin.StackedInline):
+    model = EmpresasBeneficios
+    extra = 0
+   
+class EmpresasCarruselInline(admin.StackedInline):
+    model = EmpresasCarrusel
+    extra = 0 
+
+@admin.register(Empresas)
+class EmpresasAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_imagen',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_imagen_fondo',
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+                'etiqueta_nombre', 
+                'etiqueta_email',  
+                'etiqueta_telefono', 
+                'etiqueta_tipo_de_negocio',
+                'tercera_seccion_imagen',
+                'tercera_seccion_titulo',
+                'tercera_seccion_descripcion',
+                'tercera_seccion_boton',
+                'tercera_seccion_boton_url',
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_imagen',
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_descripcion',
+                'cuarta_seccion_titulo_interno',
+                'cuarta_seccion_subtitulo_interno',
+                'cuarta_seccion_primer_boton',
+                'cuarta_seccion_primer_boton_url',
+                'cuarta_seccion_segundo_boton',
+                'cuarta_seccion_segundo_boton_url',
+            )
+        }),
+        ('Quinta Sección', {
+            'fields': (
+                'quinta_seccion_imagen',
+                'quinta_seccion_titulo',
+                'quinta_seccion_descripcion',
+                'quinta_seccion_boton',
+                'quinta_seccion_boton_url',
+            )
+        }),
+    )
+    
+    inlines = [EmpresasCarruselInline, EmpresasBeneficiosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Imágenes", "Cuarta Sección", "Quinta Sección")

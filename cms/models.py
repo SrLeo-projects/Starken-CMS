@@ -1,7 +1,34 @@
 from enum import unique
+import os
 from django.db import models
 from PIL import Image
 from ckeditor_uploader.fields import RichTextUploadingField
+
+
+class CustomImage(models.ImageField):
+    def __init__(self, *args, **kwargs):
+        super(CustomImage, self).__init__(*args, **kwargs)
+        
+    def get_db_prep_value(self, value, connection, prepared=False):
+        value = super().get_db_prep_value(value, connection, prepared)
+        
+        img_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),'media/'+ value)
+        img = Image.open(img_path)
+        file_size = os.path.getsize(img_path)
+        print(file_size)
+        file_size_kb = file_size/1000
+        print(file_size_kb)
+        if file_size_kb > 200:
+            porcentaje = int(20000/file_size_kb)
+            print(porcentaje)
+            img.save(img_path,quality=20,optimize=True)
+            file_new_size = os.path.getsize(img_path)
+            print(file_new_size)
+        else:
+            img.save(img_path,quality=20,optimize=True)
+            file_new_size = os.path.getsize(img_path)
+            print(file_new_size)
+        return img.filename.split('media/')[1]
 
 
 class BaseModel(models.Model):
@@ -20,12 +47,11 @@ class Servicio(BaseModel):
 
     class Meta:
         verbose_name = 'servicio'
-    
+
     def save(self, *args, **kwargs):
-       super(Servicio, self).save(*args, **kwargs)
+       super(Home, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
-
 
 class Home(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -89,9 +115,6 @@ class Home(BaseModel):
     class Meta:
         verbose_name_plural = 'home'
     
-    def __str__(self):
-        return self.titulo
-    
        
     def save(self, *args, **kwargs):
        super(Home, self).save(*args, **kwargs)
@@ -121,8 +144,7 @@ class Banner(BaseModel):
     titulo_corto = models.CharField(max_length=255, verbose_name='título corto', null=True, blank=True)
     descripcion_corta = models.CharField(max_length=255, verbose_name='descripción corta', null=True, blank=True)
 
-    def __str__(self):
-        return self.titulo
+    
     
     
     def save(self, *args, **kwargs):
@@ -146,8 +168,7 @@ class Opcion(BaseModel):
         verbose_name = 'opción'
         verbose_name_plural = 'opciones'
 
-    def __str__(self):
-        return self.titulo
+    
     
     def save(self, *args, **kwargs):
        super(Opcion, self).save(*args, **kwargs)
@@ -195,8 +216,7 @@ class About(BaseModel):
         verbose_name = 'somos STARKEN'
         verbose_name_plural = 'somos STARKEN'
     
-    def __str__(self):
-        return self.titulo
+    
     
     
     def save(self, *args, **kwargs):
@@ -242,8 +262,7 @@ class Articulo(BaseModel):
         verbose_name = 'artículo'
         verbose_name_plural = 'artículos'
     
-    def __str__(self):
-        return self.titulo
+    
     
     def save(self, *args, **kwargs):
        super(Articulo, self).save(*args, **kwargs)
@@ -284,8 +303,7 @@ class StarkenPro(BaseModel):
         verbose_name = 'starken PRO'
         verbose_name_plural = 'starken PRO'
     
-    def __str__(self):
-        return self.titulo
+    
     
     
     def save(self, *args, **kwargs):
@@ -304,8 +322,7 @@ class StarkenProBeneficio(BaseModel):
         verbose_name = 'beneficio'
         verbose_name_plural = 'beneficios'
     
-    def __str__(self):
-        return self.titulo
+    
     
     
     def save(self, *args, **kwargs):
@@ -321,8 +338,7 @@ class StarkenProPaso(BaseModel):
         verbose_name = 'paso'
         verbose_name_plural = 'pasos'
     
-    def __str__(self):
-        return self.titulo
+    
     
 #Preguntas Frecuentes
 class PreguntasCategoria(models.Model):
@@ -332,8 +348,6 @@ class PreguntasCategoria(models.Model):
         verbose_name = 'FAQ - Categoría'
         verbose_name_plural = 'FAQ - Categoría'
     
-    def __str__(self):
-        return self.titulo_categoria
     
 class Preguntas(models.Model):
     pregunta = models.ForeignKey(PreguntasCategoria, on_delete=models.CASCADE, related_name='preguntas',  verbose_name='Preguntas', null=True, blank=True)
@@ -344,8 +358,7 @@ class Preguntas(models.Model):
         verbose_name = 'pregunta'
         verbose_name_plural = 'preguntas'
     
-    def __str__(self):
-        return self.titulo_categoria
+
 class PreguntasFrecuentes(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_boton_buscar = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
@@ -427,8 +440,6 @@ class CentrodeAyudaBeneficio(BaseModel):
         verbose_name = 'beneficio'
         verbose_name_plural = 'beneficios'
     
-    def __str__(self):
-        return self.titulo
     
     
     def save(self, *args, **kwargs):
@@ -534,6 +545,202 @@ class Iconos(models.Model):
     def save(self, *args, **kwargs):
        super(Iconos, self).save(*args, **kwargs)
        icono = Image.open(self.icono.path)
+       
+       size_icono= os.path.getsize(self.icono.path)
+
        #Calcular la cantidad de peso en la imagen en kbytes
        #Calcular la cantidad de porcentaje segun el peso actual de la imagen y el ideal 200 kbytes
        icono.save(self.icono.path,quality=20,optimize=True)
+       
+       
+#
+class Cotizador(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    etiqueta_origen = models.CharField(max_length=255, verbose_name='etiqueta origen', null=True, blank=True)
+    etiqueta_destino = models.CharField(max_length=255, verbose_name='etiqueta destino', null=True, blank=True)
+    etiqueta_encomienda = models.CharField(max_length=255, verbose_name='etiqueta encomienda', null=True, blank=True)
+    etiqueta_dimensiones = models.CharField(max_length=255, verbose_name='etiqueta dimensiones', null=True, blank=True)
+    etiqueta_peso = models.CharField(max_length=255, verbose_name='etiqueta peso', null=True, blank=True)
+    etiqueta_servicio = models.CharField(max_length=255, verbose_name='etiqueta servicio', null=True, blank=True)
+    etiqueta_tipo_de_entrega = models.CharField(max_length=255, verbose_name='etiqueta tipo de entrega', null=True, blank=True)
+    boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
+    
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_advertencia = models.CharField(max_length=255, verbose_name='advertencia', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Cotizador'
+        verbose_name_plural = 'Cotizadores'
+        
+class Boton(models.Model):
+    cotizador = models.ForeignKey(Cotizador, on_delete=models.CASCADE, verbose_name='Cotizador', null=True, blank=True)
+    etiqueta_boton = models.CharField(max_length=255, verbose_name='etiqueta botón', null=True, blank=True)
+    destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Botón'
+        verbose_name_plural = 'Botones'
+class Advertencia(models.Model):
+    cotizador = models.ForeignKey(Cotizador, on_delete=models.CASCADE, verbose_name='Cotizador', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    class Meta:
+        verbose_name = 'Advertencia'
+        verbose_name_plural = 'Advertencias'
+        
+
+#DHL
+class DHL(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='dhl', verbose_name='imagen de fondo', null=True, blank=True)
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    cuarta_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'DHL'
+        verbose_name_plural = 'DHL'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       
+
+class Modalidades(models.Model):
+    modalidad = models.ForeignKey(DHL, on_delete=models.CASCADE, verbose_name='Modalidad', null=True, blank=True)
+    imagen = models.ImageField(upload_to='dhl', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Modalidades de Servicio'
+        verbose_name_plural = 'Modalidades de Servicio'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+class Accion(models.Model):
+    accion = models.ForeignKey(DHL, on_delete=models.CASCADE, verbose_name='Acción', null=True, blank=True)
+    imagen = models.ImageField(upload_to='dhl', verbose_name='imagen', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    
+    
+    class Meta:
+        verbose_name = 'Acciones'
+        verbose_name_plural = 'Acciones'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+       
+#Empresas
+class Empresas(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='imagen de fondo', null=True, blank=True)
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    
+    tercera_seccion_imagen_fondo = models.ImageField(upload_to='empresas', verbose_name='imagen de fondo', null=True, blank=True)
+    formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
+    formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
+    formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
+    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
+    etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
+    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta número telefónico', null=True, blank=True)
+    etiqueta_tipo_de_negocio = models.CharField(max_length=255, verbose_name='etiqueta tipo de negocio', null=True, blank=True)
+    tercera_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='logo', null=True, blank=True)
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
+    tercera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    tercera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    
+    cuarta_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='imagen', null=True, blank=True)
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    cuarta_seccion_titulo_interno = models.CharField(max_length=255, verbose_name='título interno', null=True, blank=True)
+    cuarta_seccion_subtitulo_interno = models.CharField(max_length=255, verbose_name='subtítulo interno', null=True, blank=True)
+    cuarta_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
+    cuarta_seccion_primer_boton_url = models.URLField(verbose_name='url del primer botón', null=True, blank=True)
+    cuarta_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
+    cuarta_seccion_segundo_boton_url = models.URLField(verbose_name='url del segundo botón', null=True, blank=True)
+    
+    quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    quinta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    quinta_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    quinta_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='imagen', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Empresa'
+        verbose_name_plural = 'Empresas'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
+       tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
+       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+       quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
+       quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+       
+class EmpresasBeneficios(models.Model):
+    beneficio = models.ForeignKey(Empresas, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
+    imagen = models.ImageField(upload_to='empresas', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Beneficios'
+        verbose_name_plural = 'Beneficios'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+
+class EmpresasCarrusel(models.Model):
+    beneficio = models.ForeignKey(Empresas, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
+    imagen = models.ImageField(upload_to='empresas', verbose_name='imagen', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Imágenes'
+        verbose_name_plural = 'Imágenes'
+        
+    def save(self, *args, **kwargs):
+       super(Datos, self).save(*args, **kwargs)
+       imagen = Image.open(self.imagen.path)
+       imagen.save(self.imagen.path,quality=20,optimize=True)
