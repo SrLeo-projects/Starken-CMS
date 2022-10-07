@@ -3,6 +3,7 @@ import os
 from django.db import models
 from PIL import Image
 from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 
 
 class CustomImage(models.ImageField):
@@ -333,7 +334,6 @@ class StarkenProBeneficio(BaseModel):
 
 class StarkenProPaso(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
-    number = models.IntegerField(verbose_name='Número de Indicación', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     class Meta:
@@ -619,7 +619,7 @@ class DHL(BaseModel):
         verbose_name_plural = 'DHL'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(DHL, self).save(*args, **kwargs)
        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
@@ -635,7 +635,7 @@ class Modalidades(models.Model):
         verbose_name_plural = 'Modalidades de Servicio'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(Modalidades, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
@@ -653,7 +653,7 @@ class Accion(models.Model):
         verbose_name_plural = 'Acciones'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(Accion, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
@@ -705,7 +705,7 @@ class Empresas(BaseModel):
         verbose_name_plural = 'Empresas'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(Empresas, self).save(*args, **kwargs)
        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
@@ -728,7 +728,7 @@ class EmpresasBeneficios(models.Model):
         verbose_name_plural = 'Beneficios'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(EmpresasBeneficios, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
@@ -742,7 +742,7 @@ class EmpresasCarrusel(models.Model):
         verbose_name_plural = 'Imágenes'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(EmpresasCarrusel, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
@@ -790,7 +790,7 @@ class EnviosInternacionales(BaseModel):
         verbose_name_plural = 'Envíos Internacionales'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(EnviosInternacionales, self).save(*args, **kwargs)
        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        tercera_seccion_imagen_primer_bloque = Image.open(self.tercera_seccion_imagen_primer_bloque.path)
@@ -813,7 +813,7 @@ class EnviosInternacionalesBeneficios(models.Model):
         verbose_name_plural = 'Beneficios'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(EnviosInternacionalesBeneficios, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
@@ -852,7 +852,7 @@ class EnviosNacionales(BaseModel):
         verbose_name_plural = 'Envíos Nacionales'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(EnviosNacionales, self).save(*args, **kwargs)
        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
@@ -871,7 +871,7 @@ class EnviosNacionalesBeneficios(models.Model):
         verbose_name_plural = 'Beneficios'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(EnviosNacionalesBeneficios, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
@@ -881,13 +881,14 @@ class EnviosNacionalesRecomendaciones(models.Model):
     imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    url = models.URLField(verbose_name='url', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Recomendaciones'
         verbose_name_plural = 'Recomendaciones'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(EnviosNacionalesRecomendaciones, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
@@ -907,7 +908,7 @@ class MiPrimerEnvio(BaseModel):
         verbose_name_plural = 'Mi Primer Envío'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(MiPrimerEnvio, self).save(*args, **kwargs)
        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
@@ -915,14 +916,14 @@ class MiPrimerEnvioStep(models.Model):
     beneficio = models.ForeignKey(MiPrimerEnvio, on_delete=models.CASCADE, verbose_name='Step', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Indicaciones'
         verbose_name_plural = 'Indicaciones'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(MiPrimerEnvioStep, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
 
@@ -934,7 +935,8 @@ class Mypymes(BaseModel):
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen de fondo', null=True, blank=True)
-    primera_seccion_video = models.FileField(upload_to='mypymes', verbose_name='video', null=True, blank=True)
+    primera_seccion_video = models.URLField(verbose_name='video', null=True, blank=True)
+    primera_seccion_miniatura = models.ImageField(upload_to='mypymes', verbose_name='imagen miniatura', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -981,9 +983,11 @@ class Mypymes(BaseModel):
         verbose_name_plural = 'MYPYMES'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(Mypymes, self).save(*args, **kwargs)
        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       primera_seccion_miniatura = Image.open(self.primera_seccion_miniatura.path)
+       primera_seccion_miniatura.save(self.primera_seccion_miniatura.path,quality=20,optimize=True)
        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
        tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
@@ -1004,13 +1008,12 @@ class MypymesBeneficios(models.Model):
         verbose_name_plural = 'Beneficios'
         
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(MypymesBeneficios, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 class MypymesIndicaciones(models.Model):
     mypymes = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Mypymes', null=True, blank=True)
-    number = models.IntegerField(verbose_name='Número de Indicación', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     class Meta:
@@ -1030,6 +1033,6 @@ class MypymesTestimonios(models.Model):
         verbose_name_plural = 'Testimonios'
     
     def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
+       super(MypymesTestimonios, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)

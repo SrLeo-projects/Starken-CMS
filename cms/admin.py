@@ -663,12 +663,12 @@ class EnviosNacionalesAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
-                'tercara_seccion_imagen',
-                'tercara_seccion_titulo',
-                'tercara_seccion_destacado',
-                'tercara_seccion_descripcion',
-                'tercara_seccion_boton',
-                'tercara_seccion_boton_url',
+                'tercera_seccion_imagen',
+                'tercera_seccion_titulo',
+                'tercera_seccion_destacado',
+                'tercera_seccion_descripcion',
+                'tercera_seccion_boton',
+                'tercera_seccion_boton_url',
             )
         }),
         ('Cuarta Sección', {
@@ -744,6 +744,8 @@ class MypymesAdmin(admin.ModelAdmin):
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
                 'primera_seccion_imagen',
+                'primera_seccion_video',
+                'primera_seccion_miniatura',
             )
         }),
         ('Segunda Sección', {
