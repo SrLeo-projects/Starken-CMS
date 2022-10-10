@@ -1260,3 +1260,15 @@ class SeguimientoIndicaciones(models.Model):
        super(SeguimientoIndicaciones, self).save(*args, **kwargs)
        imagen = Image.open(self.imagen.path)
        imagen.save(self.imagen.path,quality=20,optimize=True)
+       
+
+#Sucursales
+class Sucursales(BaseModel):
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    class Meta:
+        verbose_name = 'Sucursales'
+        verbose_name_plural = 'Sucursales'
+    
+    

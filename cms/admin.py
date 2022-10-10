@@ -999,3 +999,22 @@ class SeguimientoAdmin(admin.ModelAdmin):
     
     inlines = [SeguimientoIndicacionesInline]
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Indicaciones", "Tercera Sección", "Cuarta Sección")
+    
+    
+    
+@admin.register(Sucursales)
+class SucursalesAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_titulo',
+                'primera_seccion_destacado',
+                'primera_seccion_descripcion',
+            )
+        }),
+    )
