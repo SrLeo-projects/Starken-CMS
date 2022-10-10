@@ -305,7 +305,7 @@ class PreguntasCategoriaInline(admin.ModelAdmin):
     model = PreguntasCategoria
     fieldsets = (
         ('General', {
-            'fields': ('titulo', 'descripcion', 'titulo_categoria')
+            'fields': ('titulo_categoria',)
         }),
     )
     
@@ -537,8 +537,8 @@ class EmpresasAdmin(admin.ModelAdmin):
                 'tercera_seccion_imagen',
                 'tercera_seccion_titulo',
                 'tercera_seccion_descripcion',
-                'tercera_seccion_boton',
-                'tercera_seccion_boton_url',
+                'tercera_seccion_enlace',
+                'tercera_seccion_enlace_url',
             )
         }),
         ('Cuarta Sección', {
@@ -795,8 +795,8 @@ class MypymesAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
-                'primera_seccion_titulo_imagen_fondo',
-                'primera_seccion_alt_imagen_fondo',
+                'tercera_seccion_titulo_imagen_fondo',
+                'tercera_seccion_alt_imagen_fondo',
                 'tercera_seccion_imagen_fondo',
                 'formulario_titulo',
                 'formulario_descripcion',
