@@ -57,12 +57,16 @@ class HomeAdmin(admin.ModelAdmin):
             'fields': (
                 ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
                 'cuarta_seccion_tarjeta_1_imagen',
+                'cuarta_seccion_tarjeta_1_titulo',
+                'cuarta_seccion_tarjeta_1_descripcion',
+                'cuarta_seccion_tarjeta_1_boton',
+                'cuarta_seccion_tarjeta_1_boton_url',
                 ('cuarta_seccion_tarjeta_2_titulo_imagen', 'cuarta_seccion_tarjeta_2_alt_imagen'),
                 'cuarta_seccion_tarjeta_2_imagen',
-                ('cuarta_seccion_tarjeta_1_titulo', 'cuarta_seccion_tarjeta_2_titulo'),
-                ('cuarta_seccion_tarjeta_1_descripcion', 'cuarta_seccion_tarjeta_2_descripcion'),
-                ('cuarta_seccion_tarjeta_1_boton', 'cuarta_seccion_tarjeta_2_boton'),
-                ('cuarta_seccion_tarjeta_1_boton_url', 'cuarta_seccion_tarjeta_2_boton_url'),
+                'cuarta_seccion_tarjeta_2_titulo',
+                'cuarta_seccion_tarjeta_2_descripcion',
+                'cuarta_seccion_tarjeta_2_boton',
+                'cuarta_seccion_tarjeta_2_boton_url',
             )
         }),
         ('Quinta Sección', {
@@ -918,7 +922,6 @@ class RecomendacionesCategoriaInline(admin.ModelAdmin):
 @admin.register(RecomendacionesEmbalaje)
 class RecomendacionesEmbalajeAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
-    filter_horizontal = ['segunda_seccion_recomendaciones']
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -932,11 +935,6 @@ class RecomendacionesEmbalajeAdmin(admin.ModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
-            )
-        }),
-        ('Segunda Sección', {
-            'fields': (
-                'segunda_seccion_recomendaciones',
             )
         }),
     )
@@ -961,49 +959,43 @@ class SeguimientoAdmin(admin.ModelAdmin):
                 'primera_seccion_imagen',
                 'primera_seccion_titulo',
                 'primera_seccion_subtitulo',
+                'primera_seccion_boton_principal',
+                'primera_seccion_etiqueta_codigo',
             )
         }),
         ('Segunda Sección', {
             'fields': (
-                'segunda_seccion_titulo',
-                'segunda_seccion_subtitulo',
-                'segunda_seccion_boton_principal',
-                'segunda_seccion_etiqueta_codigo',
+                ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
+                'segunda_seccion_descripcion',
             )
         }),
         ('Tercera Sección', {
             'fields': (
-                ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
-                'tercera_seccion_descripcion',
+                ('tercera_seccion_tarjeta_1_titulo_imagen', 'tercera_seccion_tarjeta_1_alt_imagen'),
+                'tercera_seccion_tarjeta_1_imagen',
+                'tercera_seccion_tarjeta_1_titulo',
+                'tercera_seccion_tarjeta_1_descripcion',
+                'tercera_seccion_tarjeta_1_boton',
+                'tercera_seccion_tarjeta_1_boton_url',
+                ('tercera_seccion_tarjeta_2_titulo_imagen', 'tercera_seccion_tarjeta_2_alt_imagen'),
+                'tercera_seccion_tarjeta_2_imagen',
+                'tercera_seccion_tarjeta_2_titulo',
+                'tercera_seccion_tarjeta_2_descripcion',
+                'tercera_seccion_tarjeta_2_boton',
+                'tercera_seccion_tarjeta_2_boton_url',
             )
         }),
         ('Cuarta Sección', {
             'fields': (
-                ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
-                'cuarta_seccion_tarjeta_1_imagen',
-                'cuarta_seccion_tarjeta_1_titulo',
-                'cuarta_seccion_tarjeta_1_descripcion',
-                'cuarta_seccion_tarjeta_1_boton',
-                'cuarta_seccion_tarjeta_1_boton_url',
-                ('cuarta_seccion_tarjeta_2_titulo_imagen', 'cuarta_seccion_tarjeta_2_alt_imagen'),
-                'cuarta_seccion_tarjeta_2_imagen',
-                'cuarta_seccion_tarjeta_2_titulo',
-                'cuarta_seccion_tarjeta_2_descripcion',
-                'cuarta_seccion_tarjeta_2_boton',
-                'cuarta_seccion_tarjeta_2_boton_url',
+                ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
+                'cuarta_seccion_imagen',
+                ('cuarta_seccion_titulo', 'cuarta_seccion_palabras'),
+                'cuarta_seccion_descripcion',
+                ('cuarta_seccion_boton_principal', 'cuarta_seccion_boton_principal_url'),
                 
-            )
-        }),
-        ('Quinta Sección', {
-            'fields': (
-                ('quinta_seccion_titulo_imagen', 'quinta_seccion_alt_imagen'),
-                'quinta_seccion_imagen',
-                ('quinta_seccion_titulo', 'quinta_seccion_palabras'),
-                'quinta_seccion_descripcion',
-                ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
             )
         }),
     )
     
     inlines = [SeguimientoIndicacionesInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Indicaciones", "Cuarta Sección", "Quinta Sección")
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Indicaciones", "Tercera Sección", "Cuarta Sección")

@@ -1122,7 +1122,7 @@ class Reclamos(BaseModel):
     
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
-    tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
     tercera_seccion_enlace_url = models.URLField(verbose_name='url del enlace', null=True, blank=True)
     tercera_seccion_preguntas = models.ManyToManyField(Preguntas, verbose_name='Preguntas', blank=True)
     
@@ -1152,8 +1152,9 @@ class Recomendaciones(models.Model):
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='recomendaciones', verbose_name='imagen', null=True, blank=True)
-    pregunta_titulo = models.CharField(max_length=255, verbose_name='recomendación título', null=True, blank=True)
-    recomendación_descripcion = models.TextField(verbose_name='pregunta descripción', null=True, blank=True)
+    recomendacion_titulo = models.CharField(max_length=255, verbose_name='recomendación título', null=True, blank=True)
+    recomendación_descripcion = models.TextField(verbose_name='recomendación descripción', null=True, blank=True)
+    recomendacion_activo = models.BooleanField(verbose_name='recomendación activa', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Recomendación'
@@ -1174,7 +1175,6 @@ class RecomendacionesEmbalaje(BaseModel):
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
     
-    segunda_seccion_recomendaciones = models.ManyToManyField(Recomendaciones, verbose_name='Recomendaciones', blank=True)
     
     class Meta:
         verbose_name = 'Recomendaciones de Embalaje'
@@ -1192,42 +1192,40 @@ class Seguimiento(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen de fondo', null=True, blank=True)
+    
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
+    primera_seccion_etiqueta_codigo = models.CharField(max_length=255, verbose_name='etiqueta código', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
-    segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
-    segunda_seccion_etiqueta_codigo = models.CharField(max_length=255, verbose_name='etiqueta código', null=True, blank=True)
+    segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
-    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    
-    cuarta_seccion_tarjeta_1_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    cuarta_seccion_tarjeta_1_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    cuarta_seccion_tarjeta_1_imagen = models.ImageField(upload_to='home', verbose_name='imagen', null=True, blank=True)
-    cuarta_seccion_tarjeta_1_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    cuarta_seccion_tarjeta_1_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    cuarta_seccion_tarjeta_1_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    cuarta_seccion_tarjeta_1_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    tercera_seccion_tarjeta_1_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    tercera_seccion_tarjeta_1_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    tercera_seccion_tarjeta_1_imagen = models.ImageField(upload_to='home', verbose_name='imagen', null=True, blank=True)
+    tercera_seccion_tarjeta_1_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_tarjeta_1_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    tercera_seccion_tarjeta_1_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    tercera_seccion_tarjeta_1_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
 
-    cuarta_seccion_tarjeta_2_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    cuarta_seccion_tarjeta_2_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    cuarta_seccion_tarjeta_2_imagen = models.ImageField(upload_to='home', verbose_name='imagen', null=True, blank=True)
-    cuarta_seccion_tarjeta_2_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    cuarta_seccion_tarjeta_2_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    cuarta_seccion_tarjeta_2_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    cuarta_seccion_tarjeta_2_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    tercera_seccion_tarjeta_2_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    tercera_seccion_tarjeta_2_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    tercera_seccion_tarjeta_2_imagen = models.ImageField(upload_to='home', verbose_name='imagen', null=True, blank=True)
+    tercera_seccion_tarjeta_2_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_tarjeta_2_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    tercera_seccion_tarjeta_2_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    tercera_seccion_tarjeta_2_boton_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
 
-    quinta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    quinta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    quinta_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
-    quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    quinta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
-    quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    quinta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    quinta_seccion_boton_principal_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
+    cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    cuarta_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
+    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    cuarta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    cuarta_seccion_boton_principal_url = models.URLField(verbose_name='url del botón', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Seguimiento de Envío'
@@ -1237,19 +1235,19 @@ class Seguimiento(BaseModel):
        super(Seguimiento, self).save(*args, **kwargs)
        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       cuarta_seccion_tarjeta_1_imagen = Image.open(self.cuarta_seccion_tarjeta_1_imagen.path)
-       cuarta_seccion_tarjeta_1_imagen.save(self.cuarta_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
-       cuarta_seccion_tarjeta_2_imagen = Image.open(self.cuarta_seccion_tarjeta_2_imagen.path)
-       cuarta_seccion_tarjeta_2_imagen.save(self.cuarta_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
-       quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
-       quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+       tercera_seccion_tarjeta_1_imagen = Image.open(self.tercera_seccion_tarjeta_1_imagen.path)
+       tercera_seccion_tarjeta_1_imagen.save(self.tercera_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
+       tercera_seccion_tarjeta_2_imagen = Image.open(self.tercera_seccion_tarjeta_2_imagen.path)
+       tercera_seccion_tarjeta_2_imagen.save(self.tercera_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
+       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
        
        
 class SeguimientoIndicaciones(models.Model):
     seguimiento = models.ForeignKey(Seguimiento, on_delete=models.CASCADE, verbose_name='Seguimiento', null=True, blank=True)
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='seguimiento', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     enlace = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
