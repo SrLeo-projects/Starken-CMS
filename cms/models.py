@@ -50,9 +50,10 @@ class Servicio(BaseModel):
         verbose_name = 'servicio'
 
     def save(self, *args, **kwargs):
-       super(Home, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       super(Servicio, self).save(*args, **kwargs)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
 
 class Home(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -123,15 +124,18 @@ class Home(BaseModel):
     class Meta:
         verbose_name_plural = 'home'
     
-       
+    
     def save(self, *args, **kwargs):
        super(Home, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       cuarta_seccion_tarjeta_1_imagen = Image.open(self.cuarta_seccion_tarjeta_1_imagen.path)
-       cuarta_seccion_tarjeta_1_imagen.save(self.cuarta_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
-       cuarta_seccion_tarjeta_2_imagen = Image.open(self.cuarta_seccion_tarjeta_2_imagen.path)
-       cuarta_seccion_tarjeta_2_imagen.save(self.cuarta_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.cuarta_seccion_tarjeta_1_imagen):
+        cuarta_seccion_tarjeta_1_imagen = Image.open(self.cuarta_seccion_tarjeta_1_imagen.path)
+        cuarta_seccion_tarjeta_1_imagen.save(self.cuarta_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
+       if(self.cuarta_seccion_tarjeta_2_imagen):
+        cuarta_seccion_tarjeta_2_imagen = Image.open(self.cuarta_seccion_tarjeta_2_imagen.path)
+        cuarta_seccion_tarjeta_2_imagen.save(self.cuarta_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
     
     
     def titulo_destacado(self, seccion):
@@ -151,18 +155,16 @@ class Banner(BaseModel):
 
     boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     boton_url = models.CharField(max_length=255, verbose_name='url del botón', null=True, blank=True)
-
+    segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
+    segundo_boton_url = models.CharField(max_length=255, verbose_name='url del segundo botón', null=True, blank=True)
     titulo_corto = models.CharField(max_length=255, verbose_name='título corto', null=True, blank=True)
     descripcion_corta = models.CharField(max_length=255, verbose_name='descripción corta', null=True, blank=True)
 
-
-    
-    
-    
     def save(self, *args, **kwargs):
        super(Banner, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
     
 
 # Option -> HomeOption
@@ -180,12 +182,11 @@ class Opcion(BaseModel):
         verbose_name = 'opción'
         verbose_name_plural = 'opciones'
 
-    
-    
     def save(self, *args, **kwargs):
        super(Opcion, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
 
 # SOMOS STARKEN
 
@@ -239,10 +240,12 @@ class About(BaseModel):
     
     def save(self, *args, **kwargs):
        super(About, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
-       quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.quinta_seccion_imagen):
+        quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
+        quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
     
 
 # Agregar más campos en base a https://desa.sbmundo.com/starken/responsabilidad-social.html
@@ -286,11 +289,13 @@ class Articulo(BaseModel):
     
     
     def save(self, *args, **kwargs):
-       super(Articulo, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       segunda_seccion_imagen = Image.open(self.segunda_seccion_imagen.path)
-       segunda_seccion_imagen.save(self.segunda_seccion_imagen.path,quality=20,optimize=True)
+        super(Articulo, self).save(*args, **kwargs)
+        if(self.primera_seccion_imagen):
+            primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+            primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+        if(self.segunda_seccion_imagen):
+            segunda_seccion_imagen = Image.open(self.segunda_seccion_imagen.path)
+            segunda_seccion_imagen.save(self.segunda_seccion_imagen.path,quality=20,optimize=True)
     
         
         
@@ -333,8 +338,9 @@ class StarkenPro(BaseModel):
     
     def save(self, *args, **kwargs):
        super(StarkenPro, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
     
 
 class StarkenProBeneficio(BaseModel):
@@ -347,13 +353,11 @@ class StarkenProBeneficio(BaseModel):
         verbose_name = 'beneficio'
         verbose_name_plural = 'beneficios'
     
-    
-    
-    
     def save(self, *args, **kwargs):
        super(StarkenProBeneficio, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
     
 
 class StarkenProPaso(BaseModel):
@@ -363,7 +367,6 @@ class StarkenProPaso(BaseModel):
     class Meta:
         verbose_name = 'indicaciones'
         verbose_name_plural = 'indicaciones'
-    
     
     
 #Preguntas Frecuentes
@@ -413,32 +416,21 @@ class PreguntasFrecuentes(BaseModel):
         return self.primera_seccion_titulo
     
 
-    
-    
+      
 #Help Center
 class CentrodeAyuda(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_principal_url = models.CharField(max_length=255, verbose_name='url del botón', null=True, blank=True)
-    formulario_titulo_contacto = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
-    formulario_descripcion_contacto = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
-    formulario_boton_principal_contacto = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
-    etiqueta_nombre_contacto = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
-    etiqueta_email_contacto = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
-    etiqueta_telefono_contacto = models.CharField(max_length=255, verbose_name='etiqueta phone', null=True, blank=True)
-    etiqueta_tipo_de_negocio_contacto = models.CharField(max_length=255, verbose_name='etiqueta tipo de negocio', null=True, blank=True)
-    etiqueta_mensaje_contacto = models.CharField(max_length=255, verbose_name='etiqueta mensaje', null=True, blank=True)
+    
+    
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     segunda_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
-    
-    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
-    tercera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    tercera_seccion_boton_principal_url = models.CharField(max_length=255, verbose_name='url del botón', null=True, blank=True)
-    tercera_seccion_preguntas = models.ManyToManyField(PreguntasCategoria, verbose_name='Preguntas', blank=True)
+    segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    segunda_seccion_boton_principal_url = models.CharField(max_length=255, verbose_name='url del botón', null=True, blank=True)
+    segunda_seccion_preguntas = models.ManyToManyField(PreguntasCategoria, verbose_name='Preguntas', blank=True)
     
     formulario_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
@@ -446,24 +438,24 @@ class CentrodeAyuda(BaseModel):
     etiqueta_nombre = models.CharField(max_length=255, verbose_name='nombre', null=True, blank=True)
     etiqueta_email = models.CharField(max_length=255, verbose_name='email', null=True, blank=True)
     etiqueta_mensaje = models.CharField(max_length=255, verbose_name='mensaje', null=True, blank=True)
-    cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    cuarta_seccion_imagen = models.ImageField(upload_to='CentrodeAyuda', verbose_name='imagen', null=True, blank=True)
+    tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    tercera_seccion_imagen = models.ImageField(upload_to='CentrodeAyuda', verbose_name='imagen', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     tercera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
-    cuarta_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
     class Meta:
         verbose_name = 'centro de ayuda'
-        verbose_name_plural = 'centros de ayuda'
+        verbose_name_plural = 'centro de ayuda'
     
     
     def save(self, *args, **kwargs):
-       super(CentrodeAyuda, self).save(*args, **kwargs)
-       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+        super(CentrodeAyuda, self).save(*args, **kwargs)
+        if(self.tercera_seccion_imagen):
+            tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+            tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
     
     
 class CentrodeAyudaBeneficio(BaseModel):
@@ -480,8 +472,9 @@ class CentrodeAyudaBeneficio(BaseModel):
     
     def save(self, *args, **kwargs):
        super(CentrodeAyudaBeneficio, self).save(*args, **kwargs)
-       image = Image.open(self.image.path)
-       image.save(self.image.path,quality=20,optimize=True)
+       if(self.image):
+        image = Image.open(self.image.path)
+        image.save(self.image.path,quality=20,optimize=True)
     
 
 #Condiciones de Servicio
@@ -550,8 +543,9 @@ class Contactanos(BaseModel):
     
     def save(self, *args, **kwargs):
        super(Contactanos, self).save(*args, **kwargs)
-       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen):
+        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
        
     
         
@@ -571,8 +565,9 @@ class Datos(models.Model):
     
     def save(self, *args, **kwargs):
        super(Datos, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
         
 
 class Iconos(models.Model):
@@ -587,13 +582,9 @@ class Iconos(models.Model):
     
     def save(self, *args, **kwargs):
        super(Iconos, self).save(*args, **kwargs)
-       icono = Image.open(self.icono.path)
-       
-       size_icono= os.path.getsize(self.icono.path)
-
-       #Calcular la cantidad de peso en la imagen en kbytes
-       #Calcular la cantidad de porcentaje segun el peso actual de la imagen y el ideal 200 kbytes
-       icono.save(self.icono.path,quality=20,optimize=True)
+       if(self.icono):
+        icono = Image.open(self.icono.path)
+        icono.save(self.icono.path,quality=20,optimize=True)
        
        
 #
@@ -618,7 +609,7 @@ class Cotizador(BaseModel):
     
     class Meta:
         verbose_name = 'Cotizador'
-        verbose_name_plural = 'Cotizadores'
+        verbose_name_plural = 'Cotizador'
         
 class Boton(models.Model):
     cotizador = models.ForeignKey(Cotizador, on_delete=models.CASCADE, verbose_name='Cotizador', null=True, blank=True)
@@ -671,8 +662,9 @@ class DHL(BaseModel):
         
     def save(self, *args, **kwargs):
        super(DHL, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
 
 class Modalidades(models.Model):
@@ -689,8 +681,9 @@ class Modalidades(models.Model):
         
     def save(self, *args, **kwargs):
        super(Modalidades, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 class Accion(models.Model):
     accion = models.ForeignKey(DHL, on_delete=models.CASCADE, verbose_name='Acción', null=True, blank=True)
@@ -709,8 +702,9 @@ class Accion(models.Model):
         
     def save(self, *args, **kwargs):
        super(Accion, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
        
 #Empresas
@@ -777,16 +771,21 @@ class Empresas(BaseModel):
         
     def save(self, *args, **kwargs):
        super(Empresas, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
-       tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
-       tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
-       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
-       quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
-       quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen):
+        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen_fondo):
+        tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
+        tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
+       if(self.cuarta_seccion_imagen):
+        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.quinta_seccion_imagen):
+        quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
+        quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
        
 class EmpresasBeneficios(models.Model):
     beneficio = models.ForeignKey(Empresas, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -802,8 +801,9 @@ class EmpresasBeneficios(models.Model):
         
     def save(self, *args, **kwargs):
        super(EmpresasBeneficios, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 class EmpresasCarrusel(models.Model):
@@ -818,8 +818,9 @@ class EmpresasCarrusel(models.Model):
         
     def save(self, *args, **kwargs):
        super(EmpresasCarrusel, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 
@@ -882,16 +883,21 @@ class EnviosInternacionales(BaseModel):
         
     def save(self, *args, **kwargs):
        super(EnviosInternacionales, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       tercera_seccion_imagen_primer_bloque = Image.open(self.tercera_seccion_imagen_primer_bloque.path)
-       tercera_seccion_imagen_primer_bloque.save(self.tercera_seccion_imagen_primer_bloque.path,quality=20,optimize=True)
-       tercera_seccion_imagen_segundo_bloque = Image.open(self.tercera_seccion_imagen_segundo_bloque.path)
-       tercera_seccion_imagen_segundo_bloque.save(self.tercera_seccion_imagen_segundo_bloque.path,quality=20,optimize=True)
-       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
-       quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
-       quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen_primer_bloque):
+        tercera_seccion_imagen_primer_bloque = Image.open(self.tercera_seccion_imagen_primer_bloque.path)
+        tercera_seccion_imagen_primer_bloque.save(self.tercera_seccion_imagen_primer_bloque.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen_segundo_bloque):
+        tercera_seccion_imagen_segundo_bloque = Image.open(self.tercera_seccion_imagen_segundo_bloque.path)
+        tercera_seccion_imagen_segundo_bloque.save(self.tercera_seccion_imagen_segundo_bloque.path,quality=20,optimize=True)
+       if(self.cuarta_seccion_imagen):
+        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.quinta_seccion_imagen):
+        quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
+        quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
        
 class EnviosInternacionalesBeneficios(models.Model):
     beneficio = models.ForeignKey(EnviosInternacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -907,8 +913,9 @@ class EnviosInternacionalesBeneficios(models.Model):
         
     def save(self, *args, **kwargs):
        super(EnviosInternacionalesBeneficios, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 
@@ -957,12 +964,15 @@ class EnviosNacionales(BaseModel):
         
     def save(self, *args, **kwargs):
        super(EnviosNacionales, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
-       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen):
+        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.cuarta_seccion_imagen):
+        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
        
 class EnviosNacionalesBeneficios(models.Model):
     beneficio = models.ForeignKey(EnviosNacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -978,8 +988,9 @@ class EnviosNacionalesBeneficios(models.Model):
         
     def save(self, *args, **kwargs):
        super(EnviosNacionalesBeneficios, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 class EnviosNacionalesRecomendaciones(models.Model):
@@ -997,8 +1008,9 @@ class EnviosNacionalesRecomendaciones(models.Model):
         
     def save(self, *args, **kwargs):
        super(EnviosNacionalesRecomendaciones, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 
@@ -1021,8 +1033,9 @@ class MiPrimerEnvio(BaseModel):
         
     def save(self, *args, **kwargs):
        super(MiPrimerEnvio, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
 class MiPrimerEnvioStep(models.Model):
     beneficio = models.ForeignKey(MiPrimerEnvio, on_delete=models.CASCADE, verbose_name='Step', null=True, blank=True)
@@ -1038,8 +1051,9 @@ class MiPrimerEnvioStep(models.Model):
         
     def save(self, *args, **kwargs):
        super(MiPrimerEnvioStep, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
 
 
 #Mypymes
@@ -1120,18 +1134,24 @@ class Mypymes(BaseModel):
         
     def save(self, *args, **kwargs):
        super(Mypymes, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       primera_seccion_miniatura = Image.open(self.primera_seccion_miniatura.path)
-       primera_seccion_miniatura.save(self.primera_seccion_miniatura.path,quality=20,optimize=True)
-       tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-       tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
-       tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
-       tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
-       sexta_seccion_imagen = Image.open(self.sexta_seccion_imagen.path)
-       sexta_seccion_imagen.save(self.sexta_seccion_imagen.path,quality=20,optimize=True)
-       septima_seccion_imagen = Image.open(self.septima_seccion_imagen.path)
-       septima_seccion_imagen.save(self.septima_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_miniatura):
+        primera_seccion_miniatura = Image.open(self.primera_seccion_miniatura.path)
+        primera_seccion_miniatura.save(self.primera_seccion_miniatura.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen):
+        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
+        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_imagen_fondo):
+        tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
+        tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
+       if(self.sexta_seccion_imagen):
+        sexta_seccion_imagen = Image.open(self.sexta_seccion_imagen.path)
+        sexta_seccion_imagen.save(self.sexta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.septima_seccion_imagen):
+        septima_seccion_imagen = Image.open(self.septima_seccion_imagen.path)
+        septima_seccion_imagen.save(self.septima_seccion_imagen.path,quality=20,optimize=True)
        
 class MypymesBeneficios(models.Model):
     beneficio = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -1147,8 +1167,9 @@ class MypymesBeneficios(models.Model):
         
     def save(self, *args, **kwargs):
        super(MypymesBeneficios, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 class MypymesIndicaciones(models.Model):
     mypymes = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Mypymes', null=True, blank=True)
@@ -1174,8 +1195,9 @@ class MypymesTestimonios(models.Model):
     
     def save(self, *args, **kwargs):
        super(MypymesTestimonios, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
        
 #Reclamos
@@ -1209,13 +1231,14 @@ class Reclamos(BaseModel):
     tercera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
     class Meta:
-        verbose_name = 'Reclamos'
-        verbose_name_plural = 'Reclamos'
+        verbose_name = 'Centro de Contacto'
+        verbose_name_plural = 'Centro de Contacto'
     
     def save(self, *args, **kwargs):
        super(Reclamos, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
        
        
@@ -1244,8 +1267,9 @@ class Recomendaciones(models.Model):
     
     def save(self, *args, **kwargs):
        super(Recomendaciones, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
 
 
 class RecomendacionesEmbalaje(BaseModel):
@@ -1265,8 +1289,9 @@ class RecomendacionesEmbalaje(BaseModel):
     
     def save(self, *args, **kwargs):
        super(RecomendacionesEmbalaje, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
 
 
 #Seguimiento de envío
@@ -1321,14 +1346,18 @@ class Seguimiento(BaseModel):
     
     def save(self, *args, **kwargs):
        super(Seguimiento, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       tercera_seccion_tarjeta_1_imagen = Image.open(self.tercera_seccion_tarjeta_1_imagen.path)
-       tercera_seccion_tarjeta_1_imagen.save(self.tercera_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
-       tercera_seccion_tarjeta_2_imagen = Image.open(self.tercera_seccion_tarjeta_2_imagen.path)
-       tercera_seccion_tarjeta_2_imagen.save(self.tercera_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
-       cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-       cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_tarjeta_1_imagen):
+        tercera_seccion_tarjeta_1_imagen = Image.open(self.tercera_seccion_tarjeta_1_imagen.path)
+        tercera_seccion_tarjeta_1_imagen.save(self.tercera_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
+       if(self.tercera_seccion_tarjeta_2_imagen):
+        tercera_seccion_tarjeta_2_imagen = Image.open(self.tercera_seccion_tarjeta_2_imagen.path)
+        tercera_seccion_tarjeta_2_imagen.save(self.tercera_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
+       if(self.cuarta_seccion_imagen):
+        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
+        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
        
        
 class SeguimientoIndicaciones(models.Model):
@@ -1346,8 +1375,9 @@ class SeguimientoIndicaciones(models.Model):
     
     def save(self, *args, **kwargs):
        super(SeguimientoIndicaciones, self).save(*args, **kwargs)
-       imagen = Image.open(self.imagen.path)
-       imagen.save(self.imagen.path,quality=20,optimize=True)
+       if(self.imagen):
+        imagen = Image.open(self.imagen.path)
+        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 #Sucursales
@@ -1380,8 +1410,9 @@ class Covid(BaseModel):
     
     def save(self, *args, **kwargs):
        super(Covid, self).save(*args, **kwargs)
-       primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-       primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+       if(self.primera_seccion_imagen):
+        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
+        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
 class CovidComunicado(models.Model):
     covid = models.ForeignKey(Covid, on_delete=models.CASCADE, verbose_name='Covid', null=True, blank=True)

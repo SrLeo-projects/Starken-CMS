@@ -19,7 +19,6 @@ class OpcionInline(admin.StackedInline):
 @admin.register(Home)
 class HomeAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
-    
     filter_horizontal = ['servicios']
 
     fieldsets = (
@@ -232,7 +231,7 @@ class CentrodeAyudaBeneficioInline(admin.StackedInline):
 @admin.register(CentrodeAyuda)
 class CentrodeAyudaAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
-    filter_horizontal = ['tercera_seccion_preguntas']
+    filter_horizontal = ['segunda_seccion_preguntas']
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -250,30 +249,15 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
                 'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
-                'formulario_titulo_contacto',
-                'formulario_descripcion_contacto',
-                'formulario_boton_principal_contacto',
-                'etiqueta_nombre_contacto', 
-                'etiqueta_email_contacto', 
-                'etiqueta_mensaje_contacto', 
-                'etiqueta_telefono_contacto', 
-                'etiqueta_tipo_de_negocio_contacto'
+                ('segunda_seccion_boton_principal', 'segunda_seccion_boton_principal_url'),
+                'segunda_seccion_preguntas',
             )
         }),
         ('Tercera Sección', {
             'fields': (
                 'tercera_seccion_ocultar',
-                ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
-                'tercera_seccion_descripcion',
-                ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
-                'tercera_seccion_preguntas',
-            )
-        }),
-        ('Cuarta Sección', {
-            'fields': (
-                'cuarta_seccion_ocultar',
-                ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
-                'cuarta_seccion_imagen',
+                ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
+                'tercera_seccion_imagen',
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
