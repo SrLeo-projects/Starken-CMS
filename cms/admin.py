@@ -28,6 +28,7 @@ class HomeAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 ('primera_seccion_titulo', 'primera_seccion_destacado'),
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
@@ -40,6 +41,7 @@ class HomeAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
                 ('segunda_seccion_boton_principal', 'segunda_seccion_boton_principal_url'),
@@ -48,6 +50,7 @@ class HomeAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
                 'tercera_seccion_descripcion',
                 ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
@@ -55,6 +58,7 @@ class HomeAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
                 'cuarta_seccion_tarjeta_1_imagen',
                 'cuarta_seccion_tarjeta_1_titulo',
@@ -71,6 +75,7 @@ class HomeAdmin(admin.ModelAdmin):
         }),
         ('Quinta Sección', {
             'fields': (
+                'quinta_seccion_ocultar',
                 ('quinta_seccion_titulo', 'quinta_seccion_palabras'),
                 'quinta_seccion_descripcion',
                 ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
@@ -90,6 +95,7 @@ class AboutAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 ('primera_seccion_imagen', 'primera_seccion_titulo'),
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
@@ -97,12 +103,14 @@ class AboutAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
             )
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
                 'tercera_seccion_descripcion',
                 ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
@@ -110,6 +118,7 @@ class AboutAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 ('cuarta_seccion_titulo', 'cuarta_seccion_destacado'),
                 'cuarta_seccion_descripcion',
                 ('cuarta_seccion_boton_principal', 'cuarta_seccion_boton_principal_url'),
@@ -117,6 +126,7 @@ class AboutAdmin(admin.ModelAdmin):
         }),
         ('Quinta Sección', {
             'fields': (
+                'quinta_seccion_ocultar',
                 ('quinta_seccion_titulo_imagen', 'quinta_seccion_alt_imagen'),
                 'quinta_seccion_imagen',
                 ('quinta_seccion_titulo', 'quinta_seccion_destacado'),
@@ -135,11 +145,11 @@ class ArticuloAdmin(admin.ModelAdmin):
     list_filter = ['tipo']
     fieldsets = (
         ('General', {
-            'fields': ('titulo', 'descripcion')
+            'fields': ('tipo', 'titulo', 'descripcion')
         }),
         ('Primera Sección', {
             'fields': (
-                'tipo',
+                'primera_seccion_ocultar',
                 'primera_seccion_etiqueta',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
@@ -151,6 +161,7 @@ class ArticuloAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo_imagen', 'segunda_seccion_alt_imagen'),
                 'segunda_seccion_imagen',
                 'segunda_seccion_titulo',
@@ -181,6 +192,7 @@ class StarkenProAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
                 ('primera_seccion_titulo', 'primera_seccion_destacado'),
@@ -197,12 +209,14 @@ class StarkenProAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
             )
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
             )
         }),
@@ -225,6 +239,7 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
@@ -232,6 +247,7 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
                 'formulario_titulo_contacto',
@@ -246,6 +262,7 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
                 'tercera_seccion_descripcion',
                 ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
@@ -254,6 +271,7 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
                 'cuarta_seccion_imagen',
                 'formulario_titulo',
@@ -287,6 +305,7 @@ class TerminosdeServicioAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_subtitulo',
                 'primera_seccion_descripcion',
@@ -305,7 +324,7 @@ class PreguntasCategoriaInline(admin.ModelAdmin):
     model = PreguntasCategoria
     fieldsets = (
         ('General', {
-            'fields': ('titulo_categoria',)
+            'fields': ('titulo_categoria', 'primera_seccion_ocultar',)
         }),
     )
     
@@ -321,17 +340,20 @@ class PreguntasFrecuentesAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_boton_buscar',
             )
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'segunda_seccion_preguntas',
             )
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 'tercera_seccion_titulo',
                 'tercera_seccion_descripcion',
                 'tercera_seccion_titulo_primer_bloque',
@@ -361,6 +383,7 @@ class ContactanosAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
@@ -373,6 +396,7 @@ class ContactanosAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
                 'tercera_seccion_imagen',
                 'tercera_seccion_formulario_titulo',
@@ -406,6 +430,7 @@ class CotizadorAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_destacado',
                 'etiqueta_origen',
@@ -420,6 +445,7 @@ class CotizadorAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'segunda_seccion_titulo',
                 'segunda_seccion_advertencia',
             )
@@ -448,6 +474,7 @@ class DHLAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_subtitulo',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
@@ -460,6 +487,7 @@ class DHLAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
@@ -467,11 +495,13 @@ class DHLAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 'tercera_seccion_contenido',
             )
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo',
                 'cuarta_seccion_destacado',
                 'cuarta_seccion_descripcion',
@@ -504,6 +534,7 @@ class EmpresasAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
@@ -515,6 +546,7 @@ class EmpresasAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
@@ -522,6 +554,7 @@ class EmpresasAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 'tercera_seccion_titulo_imagen_fondo',
                 'tercera_seccion_alt_imagen_fondo',
                 'tercera_seccion_imagen_fondo',
@@ -543,6 +576,7 @@ class EmpresasAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo_imagen',
                 'cuarta_seccion_alt_imagen',
                 'cuarta_seccion_imagen',
@@ -558,6 +592,7 @@ class EmpresasAdmin(admin.ModelAdmin):
         }),
         ('Quinta Sección', {
             'fields': (
+                'quinta_seccion_ocultar',
                 'quinta_seccion_titulo_imagen',
                 'quinta_seccion_alt_imagen',
                 'quinta_seccion_imagen',
@@ -588,6 +623,7 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_subtitulo',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
@@ -600,6 +636,7 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
@@ -607,6 +644,7 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 'tercera_seccion_titulo_imagen_primer_bloque',
                 'tercera_seccion_alt_imagen_primer_bloque',
                 'tercera_seccion_imagen_primer_bloque',
@@ -625,6 +663,7 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo_imagen',
                 'cuarta_seccion_alt_imagen',
                 'cuarta_seccion_imagen',
@@ -637,6 +676,7 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
         }),
         ('Quinta Sección', {
             'fields': (
+                'quinta_seccion_ocultar',
                 'quinta_seccion_titulo_imagen',
                 'quinta_seccion_alt_imagen',
                 'quinta_seccion_imagen',
@@ -672,6 +712,7 @@ class EnviosNacionalesAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_subtitulo',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
@@ -684,6 +725,7 @@ class EnviosNacionalesAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
@@ -691,6 +733,7 @@ class EnviosNacionalesAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 'tercera_seccion_titulo_imagen',
                 'tercera_seccion_alt_imagen',
                 'tercera_seccion_imagen',
@@ -703,6 +746,7 @@ class EnviosNacionalesAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo_imagen',
                 'cuarta_seccion_alt_imagen',
                 'cuarta_seccion_imagen',
@@ -734,6 +778,7 @@ class MiPrimerEnvioAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
@@ -773,6 +818,7 @@ class MypymesAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
@@ -788,13 +834,17 @@ class MypymesAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
+                'segunda_seccion_boton',
+                'segunda_seccion_boton_url',
             )
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 'tercera_seccion_titulo_imagen_fondo',
                 'tercera_seccion_alt_imagen_fondo',
                 'tercera_seccion_imagen_fondo',
@@ -816,18 +866,21 @@ class MypymesAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo',
                 'cuarta_seccion_destacado',
             )
         }),
         ('Quinta Sección', {
             'fields': (
+                'quinta_seccion_ocultar',
                 'quinta_seccion_titulo',
                 'quinta_seccion_destacado',
             )
         }),
         ('Sexta Sección', {
             'fields': (
+                'sexta_seccion_ocultar',
                 'sexta_seccion_titulo_imagen',
                 'sexta_seccion_alt_imagen',
                 'sexta_seccion_imagen',
@@ -843,6 +896,7 @@ class MypymesAdmin(admin.ModelAdmin):
         }),
         ('Séptima Sección', {
             'fields': (
+                'septima_seccion_ocultar',
                 'septima_seccion_titulo_imagen',
                 'septima_seccion_alt_imagen',
                 'septima_seccion_imagen',
@@ -869,6 +923,7 @@ class ReclamosAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -880,6 +935,7 @@ class ReclamosAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
@@ -893,6 +949,7 @@ class ReclamosAdmin(admin.ModelAdmin):
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 'tercera_seccion_titulo',
                 'tercera_seccion_subtitulo',
                 'tercera_seccion_destacado',
@@ -913,7 +970,7 @@ class RecomendacionesCategoriaInline(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
     fieldsets = (
         ('General', {
-            'fields': ('titulo', 'descripcion', 'titulo_categoria')
+            'fields': ('titulo', 'descripcion', 'titulo_categoria', 'primera_seccion_ocultar',)
         }),
     )
     
@@ -928,6 +985,7 @@ class RecomendacionesEmbalajeAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -955,6 +1013,7 @@ class SeguimientoAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
                 'primera_seccion_titulo',
@@ -965,12 +1024,14 @@ class SeguimientoAdmin(admin.ModelAdmin):
         }),
         ('Segunda Sección', {
             'fields': (
+                'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
             )
         }),
         ('Tercera Sección', {
             'fields': (
+                'tercera_seccion_ocultar',
                 ('tercera_seccion_tarjeta_1_titulo_imagen', 'tercera_seccion_tarjeta_1_alt_imagen'),
                 'tercera_seccion_tarjeta_1_imagen',
                 'tercera_seccion_tarjeta_1_titulo',
@@ -987,6 +1048,7 @@ class SeguimientoAdmin(admin.ModelAdmin):
         }),
         ('Cuarta Sección', {
             'fields': (
+                'cuarta_seccion_ocultar',
                 ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
                 'cuarta_seccion_imagen',
                 ('cuarta_seccion_titulo', 'cuarta_seccion_palabras'),
@@ -1012,9 +1074,41 @@ class SucursalesAdmin(admin.ModelAdmin):
         }),
         ('Primera Sección', {
             'fields': (
+                'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_destacado',
                 'primera_seccion_descripcion',
             )
         }),
     )
+    
+    
+class CovidComunicadoInline(admin.StackedInline):
+    model = CovidComunicado
+    extra = 0
+    
+@admin.register(Covid)
+class CovidInline(admin.ModelAdmin):
+    list_display = ['titulo', 'descripcion']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_video_url',
+                'primera_seccion_titulo',
+                'primera_seccion_fecha',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                )
+        }),
+    )
+    
+    
+    inlines = [CovidComunicadoInline]
