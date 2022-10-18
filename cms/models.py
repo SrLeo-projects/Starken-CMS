@@ -2,6 +2,8 @@ from enum import unique
 import os
 from django.db import models
 from PIL import Image
+from io import BytesIO
+from django.core.files import File
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.fields import RichTextField
 
@@ -12,25 +14,27 @@ class CustomImage(models.ImageField):
         
     def get_db_prep_value(self, value, connection, prepared=False):
         value = super().get_db_prep_value(value, connection, prepared)
-        
-        img_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),'media/'+ value)
-        img = Image.open(img_path)
-        file_size = os.path.getsize(img_path)
-        print(file_size)
-        file_size_kb = file_size/1000
-        print(file_size_kb)
-        if file_size_kb > 200:
-            porcentaje = int(20000/file_size_kb)
-            print(porcentaje)
-            img.save(img_path,quality=20,optimize=True)
-            file_new_size = os.path.getsize(img_path)
-            print(file_new_size)
-        else:
-            img.save(img_path,quality=20,optimize=True)
-            file_new_size = os.path.getsize(img_path)
-            print(file_new_size)
-        return img.filename.split('media/')[1]
-
+        if(value):
+            img_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),'media/'+ value)
+            img = Image.open(img_path)
+            file_size = os.path.getsize(img_path)
+            print(file_size)
+            file_size_kb = file_size/1000
+            print(file_size_kb)
+            if file_size_kb > 200: 
+                if img.filename.split('.')[1] == 'png':
+                    bg = Image.new("RGB", img.size, (255,255,255))
+                    bg.paste(img, (0,0), img)
+                    porcentaje = int(48000/file_size_kb)
+                    img = bg.save(fp=os.path.join("media/", value + ".jpg"), optimize=True, quality=porcentaje)
+                    os.remove('media/'+ value)
+                    return value.replace(".png", ".jpg")
+                else:
+                    porcentaje = int(142500/file_size_kb)
+                    img = img.save(img_path, optimize=True, quality=porcentaje)
+                    return value
+            else:
+                return value
 
 class BaseModel(models.Model):
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -48,12 +52,6 @@ class Servicio(BaseModel):
 
     class Meta:
         verbose_name = 'servicio'
-
-    def save(self, *args, **kwargs):
-       super(Servicio, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
 
 class Home(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -125,19 +123,6 @@ class Home(BaseModel):
         verbose_name_plural = 'home'
     
     
-    def save(self, *args, **kwargs):
-       super(Home, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.cuarta_seccion_tarjeta_1_imagen):
-        cuarta_seccion_tarjeta_1_imagen = Image.open(self.cuarta_seccion_tarjeta_1_imagen.path)
-        cuarta_seccion_tarjeta_1_imagen.save(self.cuarta_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
-       if(self.cuarta_seccion_tarjeta_2_imagen):
-        cuarta_seccion_tarjeta_2_imagen = Image.open(self.cuarta_seccion_tarjeta_2_imagen.path)
-        cuarta_seccion_tarjeta_2_imagen.save(self.cuarta_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
-    
-    
     def titulo_destacado(self, seccion):
         return self.__dict__[f'{seccion}_seccion_titulo'].replace(self.__dict__[f'{seccion}_seccion_destacado'], f'<strong class="fw-bold text-primary">{self.__dict__[f"{seccion}_seccion_destacado"]}</strong>')
 
@@ -160,11 +145,6 @@ class Banner(BaseModel):
     titulo_corto = models.CharField(max_length=255, verbose_name='título corto', null=True, blank=True)
     descripcion_corta = models.CharField(max_length=255, verbose_name='descripción corta', null=True, blank=True)
 
-    def save(self, *args, **kwargs):
-       super(Banner, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
     
 
 # Option -> HomeOption
@@ -182,11 +162,6 @@ class Opcion(BaseModel):
         verbose_name = 'opción'
         verbose_name_plural = 'opciones'
 
-    def save(self, *args, **kwargs):
-       super(Opcion, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
 
 # SOMOS STARKEN
 
@@ -194,6 +169,9 @@ class About(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='about', verbose_name='imagen', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
@@ -235,17 +213,7 @@ class About(BaseModel):
         verbose_name = 'somos STARKEN'
         verbose_name_plural = 'somos STARKEN'
     
-    
-    
-    
-    def save(self, *args, **kwargs):
-       super(About, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.quinta_seccion_imagen):
-        quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
-        quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
+
     
 
 # Agregar más campos en base a https://desa.sbmundo.com/starken/responsabilidad-social.html
@@ -287,15 +255,7 @@ class Articulo(BaseModel):
         verbose_name_plural = 'artículos'
     
     
-    
-    def save(self, *args, **kwargs):
-        super(Articulo, self).save(*args, **kwargs)
-        if(self.primera_seccion_imagen):
-            primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-            primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-        if(self.segunda_seccion_imagen):
-            segunda_seccion_imagen = Image.open(self.segunda_seccion_imagen.path)
-            segunda_seccion_imagen.save(self.segunda_seccion_imagen.path,quality=20,optimize=True)
+
     
         
         
@@ -332,15 +292,7 @@ class StarkenPro(BaseModel):
     class Meta:
         verbose_name = 'starken PRO'
         verbose_name_plural = 'starken PRO'
-    
-    
-    
-    
-    def save(self, *args, **kwargs):
-       super(StarkenPro, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+
     
 
 class StarkenProBeneficio(BaseModel):
@@ -353,21 +305,19 @@ class StarkenProBeneficio(BaseModel):
         verbose_name = 'beneficio'
         verbose_name_plural = 'beneficios'
     
-    def save(self, *args, **kwargs):
-       super(StarkenProBeneficio, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
+
     
 
 class StarkenProPaso(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
+    paso = models.CharField(max_length=255, verbose_name='número de indicación', null=True, blank=True)
+    imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     class Meta:
         verbose_name = 'indicaciones'
         verbose_name_plural = 'indicaciones'
-    
+        
     
 #Preguntas Frecuentes
 class PreguntasCategoria(models.Model):
@@ -412,8 +362,6 @@ class PreguntasFrecuentes(BaseModel):
         verbose_name = 'FAQ'
         verbose_name_plural = 'FAQ'
     
-    def __str__(self):
-        return self.primera_seccion_titulo
     
 
       
@@ -450,12 +398,7 @@ class CentrodeAyuda(BaseModel):
         verbose_name = 'centro de ayuda'
         verbose_name_plural = 'centro de ayuda'
     
-    
-    def save(self, *args, **kwargs):
-        super(CentrodeAyuda, self).save(*args, **kwargs)
-        if(self.tercera_seccion_imagen):
-            tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-            tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
+
     
     
 class CentrodeAyudaBeneficio(BaseModel):
@@ -468,13 +411,6 @@ class CentrodeAyudaBeneficio(BaseModel):
         verbose_name = 'beneficio'
         verbose_name_plural = 'beneficios'
     
-    
-    
-    def save(self, *args, **kwargs):
-       super(CentrodeAyudaBeneficio, self).save(*args, **kwargs)
-       if(self.image):
-        image = Image.open(self.image.path)
-        image.save(self.image.path,quality=20,optimize=True)
     
 
 #Condiciones de Servicio
@@ -516,6 +452,12 @@ class TerminosdeServicioPunto(models.Model):
         
 #Contactanos
 class Contactanos(BaseModel):
+    primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='dhl', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
     formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario', null=True, blank=True)
     formulario_descripcion = models.TextField(verbose_name='descripción de formulario', null=True, blank=True)
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón de formulario', null=True, blank=True)
@@ -541,13 +483,6 @@ class Contactanos(BaseModel):
         verbose_name = 'Contáctanos'
         verbose_name_plural = 'Contáctanos'
     
-    def save(self, *args, **kwargs):
-       super(Contactanos, self).save(*args, **kwargs)
-       if(self.tercera_seccion_imagen):
-        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
-       
-    
         
 class Datos(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
@@ -562,13 +497,6 @@ class Datos(models.Model):
     class Meta:
         verbose_name = 'Contáctanos Datos'
         verbose_name_plural = 'Contáctanos Datos'
-    
-    def save(self, *args, **kwargs):
-       super(Datos, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
-        
 
 class Iconos(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
@@ -579,13 +507,7 @@ class Iconos(models.Model):
     class Meta:
         verbose_name = 'Íconos'
         verbose_name_plural = 'Íconos'
-    
-    def save(self, *args, **kwargs):
-       super(Iconos, self).save(*args, **kwargs)
-       if(self.icono):
-        icono = Image.open(self.icono.path)
-        icono.save(self.icono.path,quality=20,optimize=True)
-       
+ 
        
 #
 class Cotizador(BaseModel):
@@ -637,6 +559,9 @@ class DHL(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='dhl', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -659,13 +584,7 @@ class DHL(BaseModel):
     class Meta:
         verbose_name = 'DHL'
         verbose_name_plural = 'DHL'
-        
-    def save(self, *args, **kwargs):
-       super(DHL, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       
+          
 
 class Modalidades(models.Model):
     modalidad = models.ForeignKey(DHL, on_delete=models.CASCADE, verbose_name='Modalidad', null=True, blank=True)
@@ -678,12 +597,6 @@ class Modalidades(models.Model):
     class Meta:
         verbose_name = 'Modalidades de Servicio'
         verbose_name_plural = 'Modalidades de Servicio'
-        
-    def save(self, *args, **kwargs):
-       super(Modalidades, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 class Accion(models.Model):
     accion = models.ForeignKey(DHL, on_delete=models.CASCADE, verbose_name='Acción', null=True, blank=True)
@@ -699,13 +612,6 @@ class Accion(models.Model):
     class Meta:
         verbose_name = 'Acciones'
         verbose_name_plural = 'Acciones'
-        
-    def save(self, *args, **kwargs):
-       super(Accion, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
-       
        
 #Empresas
 class Empresas(BaseModel):
@@ -716,6 +622,9 @@ class Empresas(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -768,24 +677,6 @@ class Empresas(BaseModel):
     class Meta:
         verbose_name = 'Empresa'
         verbose_name_plural = 'Empresas'
-        
-    def save(self, *args, **kwargs):
-       super(Empresas, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.tercera_seccion_imagen):
-        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.tercera_seccion_imagen_fondo):
-        tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
-        tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
-       if(self.cuarta_seccion_imagen):
-        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
-       if(self.quinta_seccion_imagen):
-        quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
-        quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
        
 class EmpresasBeneficios(models.Model):
     beneficio = models.ForeignKey(Empresas, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -798,12 +689,6 @@ class EmpresasBeneficios(models.Model):
     class Meta:
         verbose_name = 'Beneficios'
         verbose_name_plural = 'Beneficios'
-        
-    def save(self, *args, **kwargs):
-       super(EmpresasBeneficios, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 class EmpresasCarrusel(models.Model):
@@ -815,12 +700,6 @@ class EmpresasCarrusel(models.Model):
     class Meta:
         verbose_name = 'Imágenes'
         verbose_name_plural = 'Imágenes'
-        
-    def save(self, *args, **kwargs):
-       super(EmpresasCarrusel, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 
@@ -834,6 +713,9 @@ class EnviosInternacionales(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='envios internacionales', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -881,23 +763,6 @@ class EnviosInternacionales(BaseModel):
         verbose_name = 'Envíos Internacionales'
         verbose_name_plural = 'Envíos Internacionales'
         
-    def save(self, *args, **kwargs):
-       super(EnviosInternacionales, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.tercera_seccion_imagen_primer_bloque):
-        tercera_seccion_imagen_primer_bloque = Image.open(self.tercera_seccion_imagen_primer_bloque.path)
-        tercera_seccion_imagen_primer_bloque.save(self.tercera_seccion_imagen_primer_bloque.path,quality=20,optimize=True)
-       if(self.tercera_seccion_imagen_segundo_bloque):
-        tercera_seccion_imagen_segundo_bloque = Image.open(self.tercera_seccion_imagen_segundo_bloque.path)
-        tercera_seccion_imagen_segundo_bloque.save(self.tercera_seccion_imagen_segundo_bloque.path,quality=20,optimize=True)
-       if(self.cuarta_seccion_imagen):
-        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
-       if(self.quinta_seccion_imagen):
-        quinta_seccion_imagen = Image.open(self.quinta_seccion_imagen.path)
-        quinta_seccion_imagen.save(self.quinta_seccion_imagen.path,quality=20,optimize=True)
        
 class EnviosInternacionalesBeneficios(models.Model):
     beneficio = models.ForeignKey(EnviosInternacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -910,13 +775,6 @@ class EnviosInternacionalesBeneficios(models.Model):
     class Meta:
         verbose_name = 'Beneficios'
         verbose_name_plural = 'Beneficios'
-        
-    def save(self, *args, **kwargs):
-       super(EnviosInternacionalesBeneficios, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
-       
 
 
 
@@ -930,6 +788,9 @@ class EnviosNacionales(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -961,18 +822,6 @@ class EnviosNacionales(BaseModel):
     class Meta:
         verbose_name = 'Envíos Nacionales'
         verbose_name_plural = 'Envíos Nacionales'
-        
-    def save(self, *args, **kwargs):
-       super(EnviosNacionales, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.tercera_seccion_imagen):
-        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.cuarta_seccion_imagen):
-        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
        
 class EnviosNacionalesBeneficios(models.Model):
     beneficio = models.ForeignKey(EnviosNacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -985,12 +834,6 @@ class EnviosNacionalesBeneficios(models.Model):
     class Meta:
         verbose_name = 'Beneficios'
         verbose_name_plural = 'Beneficios'
-        
-    def save(self, *args, **kwargs):
-       super(EnviosNacionalesBeneficios, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 class EnviosNacionalesRecomendaciones(models.Model):
@@ -1005,12 +848,6 @@ class EnviosNacionalesRecomendaciones(models.Model):
     class Meta:
         verbose_name = 'Recomendaciones'
         verbose_name_plural = 'Recomendaciones'
-        
-    def save(self, *args, **kwargs):
-       super(EnviosNacionalesRecomendaciones, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 
 
@@ -1030,12 +867,6 @@ class MiPrimerEnvio(BaseModel):
     class Meta:
         verbose_name = 'Mi Primer Envío'
         verbose_name_plural = 'Mi Primer Envío'
-        
-    def save(self, *args, **kwargs):
-       super(MiPrimerEnvio, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
 class MiPrimerEnvioStep(models.Model):
     beneficio = models.ForeignKey(MiPrimerEnvio, on_delete=models.CASCADE, verbose_name='Step', null=True, blank=True)
@@ -1048,12 +879,6 @@ class MiPrimerEnvioStep(models.Model):
     class Meta:
         verbose_name = 'Indicaciones'
         verbose_name_plural = 'Indicaciones'
-        
-    def save(self, *args, **kwargs):
-       super(MiPrimerEnvioStep, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
 
 
 #Mypymes
@@ -1065,6 +890,9 @@ class Mypymes(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen de fondo móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen de fondo móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen de fondo móvil', null=True, blank=True)
     primera_seccion_video = models.CharField(max_length=255, verbose_name='video', null=True, blank=True)
     primera_seccion_titulo_imagen_miniatura = models.CharField(max_length=255, verbose_name='título imagen miniatura', null=True, blank=True)
     primera_seccion_alt_imagen_miniatura = models.CharField(max_length=255, verbose_name='alt imagen miniatura', null=True, blank=True)
@@ -1131,27 +959,6 @@ class Mypymes(BaseModel):
     class Meta:
         verbose_name = 'MYPYMES'
         verbose_name_plural = 'MYPYMES'
-        
-    def save(self, *args, **kwargs):
-       super(Mypymes, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.primera_seccion_miniatura):
-        primera_seccion_miniatura = Image.open(self.primera_seccion_miniatura.path)
-        primera_seccion_miniatura.save(self.primera_seccion_miniatura.path,quality=20,optimize=True)
-       if(self.tercera_seccion_imagen):
-        tercera_seccion_imagen = Image.open(self.tercera_seccion_imagen.path)
-        tercera_seccion_imagen.save(self.tercera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.tercera_seccion_imagen_fondo):
-        tercera_seccion_imagen_fondo = Image.open(self.tercera_seccion_imagen_fondo.path)
-        tercera_seccion_imagen_fondo.save(self.tercera_seccion_imagen_fondo.path,quality=20,optimize=True)
-       if(self.sexta_seccion_imagen):
-        sexta_seccion_imagen = Image.open(self.sexta_seccion_imagen.path)
-        sexta_seccion_imagen.save(self.sexta_seccion_imagen.path,quality=20,optimize=True)
-       if(self.septima_seccion_imagen):
-        septima_seccion_imagen = Image.open(self.septima_seccion_imagen.path)
-        septima_seccion_imagen.save(self.septima_seccion_imagen.path,quality=20,optimize=True)
        
 class MypymesBeneficios(models.Model):
     beneficio = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
@@ -1164,12 +971,6 @@ class MypymesBeneficios(models.Model):
     class Meta:
         verbose_name = 'Beneficios'
         verbose_name_plural = 'Beneficios'
-        
-    def save(self, *args, **kwargs):
-       super(MypymesBeneficios, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
        
 class MypymesIndicaciones(models.Model):
     mypymes = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Mypymes', null=True, blank=True)
@@ -1192,12 +993,6 @@ class MypymesTestimonios(models.Model):
     class Meta:
         verbose_name = 'Testimonios'
         verbose_name_plural = 'Testimonios'
-    
-    def save(self, *args, **kwargs):
-       super(MypymesTestimonios, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
        
        
 #Reclamos
@@ -1233,12 +1028,6 @@ class Reclamos(BaseModel):
     class Meta:
         verbose_name = 'Centro de Contacto'
         verbose_name_plural = 'Centro de Contacto'
-    
-    def save(self, *args, **kwargs):
-       super(Reclamos, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
        
        
        
@@ -1264,12 +1053,6 @@ class Recomendaciones(models.Model):
     class Meta:
         verbose_name = 'Recomendación'
         verbose_name_plural = 'Recomendaciones'
-    
-    def save(self, *args, **kwargs):
-       super(Recomendaciones, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
 
 
 class RecomendacionesEmbalaje(BaseModel):
@@ -1286,12 +1069,6 @@ class RecomendacionesEmbalaje(BaseModel):
     class Meta:
         verbose_name = 'Recomendaciones de Embalaje'
         verbose_name_plural = 'Recomendaciones de Embalaje'
-    
-    def save(self, *args, **kwargs):
-       super(RecomendacionesEmbalaje, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
 
 
 #Seguimiento de envío
@@ -1343,21 +1120,6 @@ class Seguimiento(BaseModel):
     class Meta:
         verbose_name = 'Seguimiento de Envío'
         verbose_name_plural = 'Seguimiento de Envío'
-    
-    def save(self, *args, **kwargs):
-       super(Seguimiento, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
-       if(self.tercera_seccion_tarjeta_1_imagen):
-        tercera_seccion_tarjeta_1_imagen = Image.open(self.tercera_seccion_tarjeta_1_imagen.path)
-        tercera_seccion_tarjeta_1_imagen.save(self.tercera_seccion_tarjeta_1_imagen.path,quality=20,optimize=True)
-       if(self.tercera_seccion_tarjeta_2_imagen):
-        tercera_seccion_tarjeta_2_imagen = Image.open(self.tercera_seccion_tarjeta_2_imagen.path)
-        tercera_seccion_tarjeta_2_imagen.save(self.tercera_seccion_tarjeta_2_imagen.path,quality=20,optimize=True)
-       if(self.cuarta_seccion_imagen):
-        cuarta_seccion_imagen = Image.open(self.cuarta_seccion_imagen.path)
-        cuarta_seccion_imagen.save(self.cuarta_seccion_imagen.path,quality=20,optimize=True)
        
        
 class SeguimientoIndicaciones(models.Model):
@@ -1373,11 +1135,7 @@ class SeguimientoIndicaciones(models.Model):
         verbose_name = 'Indicaciones'
         verbose_name_plural = 'Indicaciones'
     
-    def save(self, *args, **kwargs):
-       super(SeguimientoIndicaciones, self).save(*args, **kwargs)
-       if(self.imagen):
-        imagen = Image.open(self.imagen.path)
-        imagen.save(self.imagen.path,quality=20,optimize=True)
+
        
 
 #Sucursales
@@ -1407,12 +1165,7 @@ class Covid(BaseModel):
     class Meta:
         verbose_name = 'Covid-19'
         verbose_name_plural = 'Covid-19'
-    
-    def save(self, *args, **kwargs):
-       super(Covid, self).save(*args, **kwargs)
-       if(self.primera_seccion_imagen):
-        primera_seccion_imagen = Image.open(self.primera_seccion_imagen.path)
-        primera_seccion_imagen.save(self.primera_seccion_imagen.path,quality=20,optimize=True)
+
        
 class CovidComunicado(models.Model):
     covid = models.ForeignKey(Covid, on_delete=models.CASCADE, verbose_name='Covid', null=True, blank=True)

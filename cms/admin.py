@@ -95,7 +95,13 @@ class AboutAdmin(admin.ModelAdmin):
         ('Primera Sección', {
             'fields': (
                 'primera_seccion_ocultar',
-                ('primera_seccion_imagen', 'primera_seccion_titulo'),
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
+                'primera_seccion_titulo',
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
             )
@@ -368,6 +374,12 @@ class ContactanosAdmin(admin.ModelAdmin):
         ('Primera Sección', {
             'fields': (
                 'primera_seccion_ocultar',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
@@ -467,6 +479,9 @@ class DHLAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -526,6 +541,9 @@ class EmpresasAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -616,6 +634,9 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -705,6 +726,9 @@ class EnviosNacionalesAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -810,6 +834,9 @@ class MypymesAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
                 'primera_seccion_video',
                 'primera_seccion_titulo_imagen_miniatura',
                 'primera_seccion_alt_imagen_miniatura',
