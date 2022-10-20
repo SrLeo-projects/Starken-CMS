@@ -19,7 +19,6 @@ class OpcionInline(admin.StackedInline):
 @admin.register(Home)
 class HomeAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
-    
     filter_horizontal = ['servicios']
 
     fieldsets = (
@@ -96,7 +95,13 @@ class AboutAdmin(admin.ModelAdmin):
         ('Primera Sección', {
             'fields': (
                 'primera_seccion_ocultar',
-                ('primera_seccion_imagen', 'primera_seccion_titulo'),
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
+                'primera_seccion_titulo',
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
             )
@@ -232,7 +237,7 @@ class CentrodeAyudaBeneficioInline(admin.StackedInline):
 @admin.register(CentrodeAyuda)
 class CentrodeAyudaAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
-    filter_horizontal = ['tercera_seccion_preguntas']
+    filter_horizontal = ['segunda_seccion_preguntas']
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -250,30 +255,15 @@ class CentrodeAyudaAdmin(admin.ModelAdmin):
                 'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
-                'formulario_titulo_contacto',
-                'formulario_descripcion_contacto',
-                'formulario_boton_principal_contacto',
-                'etiqueta_nombre_contacto', 
-                'etiqueta_email_contacto', 
-                'etiqueta_mensaje_contacto', 
-                'etiqueta_telefono_contacto', 
-                'etiqueta_tipo_de_negocio_contacto'
+                ('segunda_seccion_boton_principal', 'segunda_seccion_boton_principal_url'),
+                'segunda_seccion_preguntas',
             )
         }),
         ('Tercera Sección', {
             'fields': (
                 'tercera_seccion_ocultar',
-                ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
-                'tercera_seccion_descripcion',
-                ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
-                'tercera_seccion_preguntas',
-            )
-        }),
-        ('Cuarta Sección', {
-            'fields': (
-                'cuarta_seccion_ocultar',
-                ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
-                'cuarta_seccion_imagen',
+                ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
+                'tercera_seccion_imagen',
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
@@ -384,6 +374,12 @@ class ContactanosAdmin(admin.ModelAdmin):
         ('Primera Sección', {
             'fields': (
                 'primera_seccion_ocultar',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
@@ -483,6 +479,9 @@ class DHLAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -542,6 +541,9 @@ class EmpresasAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -632,6 +634,9 @@ class EnviosInternacionalesAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -721,6 +726,9 @@ class EnviosNacionalesAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -826,6 +834,9 @@ class MypymesAdmin(admin.ModelAdmin):
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
                 'primera_seccion_video',
                 'primera_seccion_titulo_imagen_miniatura',
                 'primera_seccion_alt_imagen_miniatura',

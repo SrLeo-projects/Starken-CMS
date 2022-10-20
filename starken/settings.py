@@ -211,7 +211,7 @@ JAZZMIN_SETTINGS = {
     "show_sidebar": True,
 
     # Whether to aut expand the menu
-    "navigation_expanded": True,
+    "navigation_expanded": False,
 
     # Hide these apps when generating side menu e.g (auth)
     "hide_apps": [],
@@ -222,6 +222,39 @@ JAZZMIN_SETTINGS = {
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
 
+    #list
+    'fieldset': [
+        {
+            'name': 'Páginas',
+            'models': 
+                    [
+                       'cms.home', 
+                       'cms.about', 
+                       'cms.starkenpro', 
+                       'cms.preguntasfrecuentes', 
+                       'cms.centrodeayuda', 
+                       'cms.terminosdeservicio', 
+                       'cms.contactanos', 
+                       'cms.cotizador', 
+                       'cms.dhl', 
+                       'cms.empresas', 
+                       'cms.enviosinternacionales', 
+                       'cms.enviosnacionales', 
+                       'cms.miprimerenvio', 
+                       'cms.mypymes',
+                       'cms.reclamos',
+                       'cms.recomendacionesembalaje',
+                       'cms.seguimiento',
+                       'cms.sucursales',
+                       'cms.covid',
+                    ],
+        },
+        {
+            'name': 'Elementos',
+            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria'],
+        },
+    ],
+    
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
         "books": [{
