@@ -53,6 +53,8 @@ class HomeAdmin(admin.ModelAdmin):
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
                 'tercera_seccion_descripcion',
                 ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
+                ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
+                'tercera_seccion_imagen',
             )
         }),
         ('Cuarta Sección', {
@@ -78,6 +80,8 @@ class HomeAdmin(admin.ModelAdmin):
                 ('quinta_seccion_titulo', 'quinta_seccion_palabras'),
                 'quinta_seccion_descripcion',
                 ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
+                ('quinta_seccion_titulo_imagen', 'quinta_seccion_alt_imagen'),
+                'quinta_seccion_imagen',
             )
         }),
     )
@@ -223,6 +227,7 @@ class StarkenProAdmin(admin.ModelAdmin):
             'fields': (
                 'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
+                'tercera_seccion_descripcion',
             )
         }),
     )
