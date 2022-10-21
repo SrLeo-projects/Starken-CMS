@@ -56,34 +56,31 @@ class Servicio(BaseModel):
 class Home(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    
+    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True) 
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     primera_seccion_boton_principal_url = models.CharField(max_length=255, verbose_name='url del botón principal', null=True, blank=True)
-
     primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
     primera_seccion_boton_secundario_url = models.CharField(max_length=255, verbose_name='url del botón secundario', null=True, blank=True)
-
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='home', verbose_name='imagen', null=True, blank=True)
     primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     primera_seccion_subtitulo_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-
     primera_seccion_link = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
     primera_seccion_link_texto = models.CharField(max_length=255, verbose_name='texto del enlace', null=True, blank=True)
 
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-
     segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     segunda_seccion_boton_principal_url = models.CharField(max_length=255, verbose_name='url del botón principal', null=True, blank=True)
 
+    tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    tercera_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-
     tercera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     tercera_seccion_boton_principal_url = models.CharField(max_length=255, verbose_name='url del botón principal', null=True, blank=True)
 
@@ -103,6 +100,9 @@ class Home(BaseModel):
     cuarta_seccion_tarjeta_2_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     cuarta_seccion_tarjeta_2_boton_url = models.CharField(max_length=255, verbose_name='url del botón', null=True, blank=True)
 
+    quinta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    quinta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    quinta_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
     quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -284,6 +284,7 @@ class StarkenPro(BaseModel):
 
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
