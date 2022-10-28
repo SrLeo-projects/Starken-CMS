@@ -36,6 +36,39 @@ class CustomImage(models.ImageField):
             else:
                 return value
 
+class Tipo(models.TextChoices):
+    ADVERTENCIA = "ADVERTENCIA", "ADVERTENCIA"
+    APROBADO = "APROBADO", "APROBADO"
+    URGENTE = "URGENTE", "URGENTE"
+    
+    def color_class(self):
+        if self.value == 'ADVENTENCIA':
+            return 'warning'
+        elif self.value == 'APROBADO':
+            return 'primary'
+        elif self.value == 'URGENTE':
+            return 'danger'
+class Notificacion(models.Model):
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    fecha_de_caducidad = models.DateField(verbose_name='fecha de caducidad', null=True, blank=True)
+    tipo = models.CharField(max_length=20, choices=Tipo.choices, null=True, blank=True, default=Tipo.ADVERTENCIA, verbose_name='Tipo')
+    
+    def get_tipo_color_class(self):
+        return Tipo(self.status).color_class()
+    
+    class Meta:
+        verbose_name = 'Notificación'
+        verbose_name_plural = 'Notificaciones'
+    
+    
+    
+class URL(models.TextChoices):
+    Home = "home", "home"
+    Contactanos = "Contactanos", "Contactanos"
+    StarkenPro = "StarkenPro", "StarkenPro"
+    Empresas = "Empresas", "Empresas"
+    Mypymes = "Mypymes", "Mypymes"
+
 class BaseModel(models.Model):
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -902,8 +935,6 @@ class Mypymes(BaseModel):
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
-    segunda_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    segunda_seccion_boton_url = models.CharField(max_length=255, verbose_name='url del botón', null=True, blank=True)
     
     tercera_seccion_titulo_imagen_fondo = models.CharField(max_length=255, verbose_name='título imagen de fondo', null=True, blank=True)
     tercera_seccion_alt_imagen_fondo = models.CharField(max_length=255, verbose_name='alt imagen de fondo', null=True, blank=True)

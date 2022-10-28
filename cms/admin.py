@@ -1,6 +1,12 @@
 from django.contrib import admin
-
 from cms.models import *
+from django_select2 import forms as s2forms
+
+
+@admin.register(Notificacion)
+class NotificacionAdmin(admin.ModelAdmin):
+    list_display = ('tipo', 'descripcion','fecha_de_caducidad')
+    list_filter = ('tipo',)
 
 
 @admin.register(Servicio)
@@ -20,7 +26,7 @@ class OpcionInline(admin.StackedInline):
 class HomeAdmin(admin.ModelAdmin):
     list_display = ['titulo', 'descripcion']
     filter_horizontal = ['servicios']
-
+    
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -85,6 +91,8 @@ class HomeAdmin(admin.ModelAdmin):
             )
         }),
     )
+    
+
 
     inlines = [BannerInline, OpcionInline]
 
