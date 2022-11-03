@@ -1,10 +1,21 @@
 from django.contrib import admin
-
+from import_export.admin import ImportExportModelAdmin
+from tabular_export.admin import export_to_csv_action, export_to_excel_action
 from cms.models import *
+from django import forms
+from django_select2 import forms as s2forms
+
+
+@admin.register(Notificacion)
+class NotificacionAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ('tipo', 'descripcion','fecha_de_caducidad')
+    list_filter = ('tipo',)
 
 
 @admin.register(Servicio)
-class ServicioAdmin(admin.ModelAdmin):
+class ServicioAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'descripcion','titulo_imagen', 'alt_imagen', 'imagen', 'boton', 'boton_url')
     list_filter = ('titulo', 'descripcion', 'imagen', 'boton', 'boton_url')
 
@@ -16,11 +27,17 @@ class OpcionInline(admin.StackedInline):
     model = Opcion
     extra = 0
 
-@admin.register(Home)
-class HomeAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'descripcion']
-    filter_horizontal = ['servicios']
+@admin.register(URL)
+class URLAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['nombre']
 
+
+@admin.register(Home)
+class HomeAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion', 'primera_seccion_boton_principal_url']
+    filter_horizontal = ['servicios']
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -85,11 +102,12 @@ class HomeAdmin(admin.ModelAdmin):
             )
         }),
     )
-
+        
     inlines = [BannerInline, OpcionInline]
 
 @admin.register(About)
-class AboutAdmin(admin.ModelAdmin):
+class AboutAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -106,6 +124,7 @@ class AboutAdmin(admin.ModelAdmin):
                 'primera_seccion_alt_imagen_movil',
                 'primera_seccion_imagen_movil',
                 'primera_seccion_titulo',
+                'primera_seccion_subtitulo',
                 'primera_seccion_descripcion',
                 ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
             )
@@ -148,10 +167,12 @@ class AboutAdmin(admin.ModelAdmin):
 
 
 @admin.register(Articulo)
-class ArticuloAdmin(admin.ModelAdmin):
-    list_display = ['titulo', 'tipo', 'primera_seccion_fecha_de_creacion']
+class ArticuloAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'tipo', 'primera_seccion_fecha_de_creacion', 'slug']
     search_fields = ['titulo']
     list_filter = ['tipo']
+    readonly_fields = ('slug',)
     fieldsets = (
         ('General', {
             'fields': ('tipo', 'titulo', 'descripcion')
@@ -192,7 +213,8 @@ class StarkenProPasoInline(admin.StackedInline):
     extra = 0
 
 @admin.register(StarkenPro)
-class StarkenProAdmin(admin.ModelAdmin):
+class StarkenProAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -240,7 +262,8 @@ class CentrodeAyudaBeneficioInline(admin.StackedInline):
     extra = 0    
 
 @admin.register(CentrodeAyuda)
-class CentrodeAyudaAdmin(admin.ModelAdmin):
+class CentrodeAyudaAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
     filter_horizontal = ['segunda_seccion_preguntas']
     fieldsets = (
@@ -291,7 +314,8 @@ class TerminosdeServicioSeccionInline(admin.StackedInline):
     extra = 0
 
 @admin.register(TerminosdeServicio)
-class TerminosdeServicioAdmin(admin.ModelAdmin):
+class TerminosdeServicioAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -315,7 +339,8 @@ class PreguntasInline(admin.StackedInline):
     extra = 0
     
 @admin.register(PreguntasCategoria)
-class PreguntasCategoriaInline(admin.ModelAdmin):
+class PreguntasCategoriaInline(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     model = PreguntasCategoria
     fieldsets = (
         ('General', {
@@ -326,7 +351,8 @@ class PreguntasCategoriaInline(admin.ModelAdmin):
     inlines = [PreguntasInline]
 
 @admin.register(PreguntasFrecuentes)
-class PreguntasFrecuentesAdmin(admin.ModelAdmin):
+class PreguntasFrecuentesAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
     filter_horizontal = ['segunda_seccion_preguntas']
     fieldsets = (
@@ -369,7 +395,8 @@ class IconosInline(admin.StackedInline):
     extra = 0 
 
 @admin.register(Contactanos)
-class ContactanosAdmin(admin.ModelAdmin):
+class ContactanosAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -422,7 +449,8 @@ class AdvertenciaInline(admin.StackedInline):
     extra = 0 
 
 @admin.register(Cotizador)
-class CotizadorAdmin(admin.ModelAdmin):
+class CotizadorAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -466,7 +494,8 @@ class ModalidadesInline(admin.StackedInline):
     extra = 0 
 
 @admin.register(DHL)
-class DHLAdmin(admin.ModelAdmin):
+class DHLAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -529,7 +558,8 @@ class EmpresasCarruselInline(admin.StackedInline):
     extra = 0 
 
 @admin.register(Empresas)
-class EmpresasAdmin(admin.ModelAdmin):
+class EmpresasAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -621,7 +651,8 @@ class EnviosInternacionalesBeneficiosInline(admin.StackedInline):
     extra = 0
 
 @admin.register(EnviosInternacionales)
-class EnviosInternacionalesAdmin(admin.ModelAdmin):
+class EnviosInternacionalesAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -713,7 +744,8 @@ class EnviosNacionalesRecomendacionesInline(admin.StackedInline):
     extra = 0
 
 @admin.register(EnviosNacionales)
-class EnviosNacionalesAdmin(admin.ModelAdmin):
+class EnviosNacionalesAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -782,7 +814,8 @@ class MiPrimerEnvioStepInline(admin.StackedInline):
     extra = 0
 
 @admin.register(MiPrimerEnvio)
-class MiPrimerEnvioAdmin(admin.ModelAdmin):
+class MiPrimerEnvioAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -822,7 +855,8 @@ class MypymesTestimoniosInline(admin.StackedInline):
     extra = 0 
 
 @admin.register(Mypymes)
-class MypymesAdmin(admin.ModelAdmin):
+class MypymesAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -930,7 +964,8 @@ class MypymesAdmin(admin.ModelAdmin):
     
 
 @admin.register(Reclamos)
-class ReclamosAdmin(admin.ModelAdmin):
+class ReclamosAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
     filter_horizontal = ['tercera_seccion_preguntas']
     fieldsets = (
@@ -981,7 +1016,8 @@ class RecomendacionesInline(admin.StackedInline):
     extra = 0
     
 @admin.register(RecomendacionesCategoria)
-class RecomendacionesCategoriaInline(admin.ModelAdmin):
+class RecomendacionesCategoriaInline(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     model = RecomendacionesCategoria
     list_display = ['titulo', 'descripcion']
     fieldsets = (
@@ -993,7 +1029,8 @@ class RecomendacionesCategoriaInline(admin.ModelAdmin):
     inlines = [RecomendacionesInline]
 
 @admin.register(RecomendacionesEmbalaje)
-class RecomendacionesEmbalajeAdmin(admin.ModelAdmin):
+class RecomendacionesEmbalajeAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
     fieldsets = (
         ('General', {
@@ -1020,7 +1057,8 @@ class SeguimientoIndicacionesInline(admin.StackedInline):
     
 
 @admin.register(Seguimiento)
-class SeguimientoAdmin(admin.ModelAdmin):
+class SeguimientoAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -1081,7 +1119,8 @@ class SeguimientoAdmin(admin.ModelAdmin):
     
     
 @admin.register(Sucursales)
-class SucursalesAdmin(admin.ModelAdmin):
+class SucursalesAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
 
     fieldsets = (
@@ -1104,7 +1143,8 @@ class CovidComunicadoInline(admin.StackedInline):
     extra = 0
     
 @admin.register(Covid)
-class CovidInline(admin.ModelAdmin):
+class CovidInline(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
     fieldsets = (
         ('General', {
