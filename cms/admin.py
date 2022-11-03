@@ -169,12 +169,13 @@ class AboutAdmin(ImportExportModelAdmin):
 @admin.register(Articulo)
 class ArticuloAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
-    list_display = ['titulo', 'tipo', 'primera_seccion_fecha_de_creacion']
+    list_display = ['titulo', 'tipo', 'primera_seccion_fecha_de_creacion', 'slug']
     search_fields = ['titulo']
     list_filter = ['tipo']
+    readonly_fields = ('slug',)
     fieldsets = (
         ('General', {
-            'fields': ('tipo', 'titulo', 'descripcion', 'slug')
+            'fields': ('tipo', 'titulo', 'descripcion')
         }),
         ('Primera Sección', {
             'fields': (

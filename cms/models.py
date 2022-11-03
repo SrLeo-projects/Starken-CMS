@@ -6,6 +6,7 @@ from io import BytesIO
 from django.core.files import File
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
 
 
 class CustomImage(models.ImageField):
@@ -294,7 +295,9 @@ class Articulo(BaseModel):
         verbose_name_plural = 'artículos'
     
     
-
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titulo)
+        super(Articulo, self).save(*args, **kwargs)
     
         
         
