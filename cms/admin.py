@@ -476,6 +476,8 @@ class CotizadorAdmin(ImportExportModelAdmin):
             'fields': (
                 'segunda_seccion_ocultar',
                 'segunda_seccion_titulo',
+                'segunda_seccion_boton_principal',
+                'segunda_seccion_boton_principal_destacado',
                 'segunda_seccion_advertencia',
             )
         }),
