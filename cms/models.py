@@ -55,7 +55,7 @@ class Notificacion(models.Model):
     tipo = models.CharField(max_length=20, choices=Tipo.choices, null=True, blank=True, default=Tipo.ADVERTENCIA, verbose_name='Tipo')
     
     def get_tipo_color_class(self):
-        return Tipo(self.status).color_class()
+        return Tipo(self.value).color_class()
     
     class Meta:
         verbose_name = 'Notificación'
@@ -573,6 +573,8 @@ class Cotizador(BaseModel):
     
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
+    segunda_seccion_boton_principal_destacado = models.CharField(max_length=255, verbose_name='destacado botón principal', null=True, blank=True)
     segunda_seccion_advertencia = models.CharField(max_length=255, verbose_name='advertencia', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -586,7 +588,7 @@ class Boton(models.Model):
     cotizador = models.ForeignKey(Cotizador, on_delete=models.CASCADE, verbose_name='Cotizador', null=True, blank=True)
     etiqueta_boton = models.CharField(max_length=255, verbose_name='etiqueta botón', null=True, blank=True)
     destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    
+    url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_cotizador', null=True, blank=True)
     class Meta:
         verbose_name = 'Botón'
         verbose_name_plural = 'Botones'
