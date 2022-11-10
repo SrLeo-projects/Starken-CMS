@@ -600,10 +600,16 @@ class EmpresasAdmin(ImportExportModelAdmin):
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
-                'etiqueta_nombre', 
-                'etiqueta_email',  
-                'etiqueta_telefono', 
-                'etiqueta_tipo_de_negocio',
+                'etiqueta_rut_empresa',
+                'etiqueta_nombre_contacto',
+                'etiqueta_razon_social',
+                'etiqueta_rut_contacto',
+                'etiqueta_direccion',
+                'etiqueta_email_contacto',
+                'etiqueta_comuna',  
+                'etiqueta_telefono_contacto', 
+                'etiqueta_rubro',
+                'etiqueta_comentario',
                 'tercera_seccion_titulo_imagen',
                 'tercera_seccion_alt_imagen',
                 'tercera_seccion_imagen',
@@ -890,8 +896,6 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
-                'segunda_seccion_boton',
-                'segunda_seccion_boton_url',
             )
         }),
         ('Tercera Sección', {
@@ -903,10 +907,20 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'formulario_titulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
+                'etiqueta_tipo_de_cliente',
+                'etiqueta_rut',
                 'etiqueta_nombre', 
                 'etiqueta_email',  
-                'etiqueta_telefono', 
-                'etiqueta_tipo_de_negocio',
+                'etiqueta_telefono',
+                'etiqueta_fecha_de_nacimiento', 
+                'etiqueta_direccion',
+                'etiqueta_comuna',
+                'etiqueta_rubro',
+                'etiqueta_envios_mensuales',
+                'etiqueta_producto',
+                'etiqueta_url_facebook',
+                'etiqueta_url_instagram',
+                'etiqueta_dls_cajero',
                 'tercera_seccion_titulo_imagen',
                 'tercera_seccion_alt_imagen',
                 'tercera_seccion_imagen',
@@ -1170,3 +1184,29 @@ class CovidInline(ImportExportModelAdmin):
     
     
     inlines = [CovidComunicadoInline]
+    
+
+
+@admin.register(FormularioEmpresa)
+class FormularioEmpresaAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['rut_empresa', 'nombre_contacto', 'rut_contacto', 'razon_social', 'comuna', 'rubro', 'email', 'direccion', 'telefono' ]
+    search_fields = ['nombre_contacto', 'comuna', 'rubro', 'razon_social']
+    list_filter = ['nombre_contacto', 'comuna', 'rubro']
+    fieldsets = (
+        ('Formulario', {
+            'fields': ('rut_empresa', 'rut_contacto', 'nombre_contacto','razon_social', 'direccion', 'email', 'telefono', 'comuna', 'rubro', 'comentario',)
+        }),
+    )
+    
+@admin.register(FormularioMypymes)
+class FormularioMypymesAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['tipo', 'nombre', 'rut', 'comuna', 'rubro', 'email', 'direccion', 'telefono', 'fecha_nacimiento' ]
+    search_fields = ['nombre_contacto', 'comuna', 'rubro', 'tipo', 'dls_cajero']
+    list_filter = ['nombre', 'comuna', 'rubro']
+    fieldsets = (
+        ('Formulario', {
+            'fields': ('tipo', 'rut', 'nombre', 'email', 'telefono', 'fecha_nacimiento', 'direccion', 'comuna', 'rubro', 'envios_mensuales', 'producto', 'url_facebook', 'url_instagram', 'dls_cajero',)
+        }),
+    )
