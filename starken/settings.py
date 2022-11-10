@@ -40,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cms',
     'ckeditor',
+    'django_admin_select2',
+    'django_select2',
+    'easy_select2',
+    'import_export',
+    'fontawesome_5',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +140,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -251,7 +257,11 @@ JAZZMIN_SETTINGS = {
         },
         {
             'name': 'Elementos',
-            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria'],
+            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro',],
+        },
+        {
+            'name': 'Formularios',
+            'models': ['cms.formularioempresa', 'cms.formulariomypymes',],
         },
     ],
     
