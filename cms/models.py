@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import unique
 import os
 from django.db import models
@@ -7,6 +8,7 @@ from django.core.files import File
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
+from fontawesome_5.fields import IconField
 
 
 class CustomImage(models.ImageField):
@@ -589,6 +591,7 @@ class Boton(models.Model):
     etiqueta_boton = models.CharField(max_length=255, verbose_name='etiqueta botón', null=True, blank=True)
     destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_cotizador', null=True, blank=True)
+    icon = IconField()
     class Meta:
         verbose_name = 'Botón'
         verbose_name_plural = 'Botones'
@@ -684,13 +687,21 @@ class Empresas(BaseModel):
     tercera_seccion_titulo_imagen_fondo = models.CharField(max_length=255, verbose_name='título imagen de fondo', null=True, blank=True)
     tercera_seccion_alt_imagen_fondo = models.CharField(max_length=255, verbose_name='alt imagen de fondo', null=True, blank=True)
     tercera_seccion_imagen_fondo = models.ImageField(upload_to='empresas', verbose_name='imagen de fondo', null=True, blank=True)
+    
     formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
-    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
-    etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
-    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta número telefónico', null=True, blank=True)
-    etiqueta_tipo_de_negocio = models.CharField(max_length=255, verbose_name='etiqueta tipo de negocio', null=True, blank=True)
+    etiqueta_rut_empresa = models.CharField(max_length=255, verbose_name='etiqueta rut empresa', null=True, blank=True)
+    etiqueta_nombre_contacto = models.CharField(max_length=255, verbose_name='etiqueta nombre contacto', null=True, blank=True)
+    etiqueta_razon_social = models.CharField(max_length=255, verbose_name='etiqueta razón social', null=True, blank=True)
+    etiqueta_rut_contacto = models.CharField(max_length=255, verbose_name='etiqueta rut contacto', null=True, blank=True)
+    etiqueta_direccion = models.CharField(max_length=255, verbose_name='etiqueta dirección', null=True, blank=True)
+    etiqueta_email_contacto = models.CharField(max_length=255, verbose_name='etiqueta email contacto', null=True, blank=True)
+    etiqueta_comuna = models.CharField(max_length=255, verbose_name='etiqueta comuna', null=True, blank=True)
+    etiqueta_telefono_contacto = models.CharField(max_length=255, verbose_name='etiqueta teléfono contacto', null=True, blank=True)
+    etiqueta_rubro = models.CharField(max_length=255, verbose_name='etiqueta rubro', null=True, blank=True)
+    etiqueta_comentario = models.CharField(max_length=255, verbose_name='etiqueta comentario', null=True, blank=True)
+    
     tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     tercera_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='logo', null=True, blank=True)
@@ -956,13 +967,26 @@ class Mypymes(BaseModel):
     tercera_seccion_titulo_imagen_fondo = models.CharField(max_length=255, verbose_name='título imagen de fondo', null=True, blank=True)
     tercera_seccion_alt_imagen_fondo = models.CharField(max_length=255, verbose_name='alt imagen de fondo', null=True, blank=True)
     tercera_seccion_imagen_fondo = models.ImageField(upload_to='mypymes', verbose_name='imagen de fondo', null=True, blank=True)
+    
     formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
-    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
+    etiqueta_tipo_de_cliente = models.CharField(max_length=255, verbose_name='etiqueta tipo de cliente', null=True, blank=True)
+    etiqueta_rut = models.CharField(max_length=255, verbose_name='etiqueta rut', null=True, blank=True)
+    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre completo', null=True, blank=True)
     etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
-    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta número telefónico', null=True, blank=True)
-    etiqueta_tipo_de_negocio = models.CharField(max_length=255, verbose_name='etiqueta tipo de negocio', null=True, blank=True)
+    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta teléfono', null=True, blank=True)
+    etiqueta_fecha_de_nacimiento = models.CharField(max_length=255, verbose_name='etiqueta fecha de nacimiento', null=True, blank=True)
+    etiqueta_direccion = models.CharField(max_length=255, verbose_name='etiqueta dirección', null=True, blank=True)
+    etiqueta_comuna = models.CharField(max_length=255, verbose_name='etiqueta comuna', null=True, blank=True)
+    etiqueta_rubro = models.CharField(max_length=255, verbose_name='etiqueta rubro', null=True, blank=True)
+    etiqueta_envios_mensuales = models.CharField(max_length=255, verbose_name='etiqueta envíos mensuales', null=True, blank=True)
+    etiqueta_producto = models.CharField(max_length=255, verbose_name='etiqueta producto que comercializa', null=True, blank=True)
+    etiqueta_url_facebook = models.CharField(max_length=255, verbose_name='etiqueta url facebook', null=True, blank=True)
+    etiqueta_url_instagram = models.CharField(max_length=255, verbose_name='etiqueta url instagram', null=True, blank=True)
+    etiqueta_dls_cajero = models.CharField(max_length=255, verbose_name='etiqueta login usuario dls cajero', null=True, blank=True)
+    
+    
     tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     tercera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='logo', null=True, blank=True)
@@ -1223,3 +1247,45 @@ class CovidComunicado(models.Model):
     class Meta:
         verbose_name = 'Comunicado'
         verbose_name_plural = 'Comunicados'
+
+
+class FormularioEmpresa(models.Model):
+    rut_empresa = models.CharField(max_length=255, verbose_name='rut empresa', null=True, blank=True)
+    rut_contacto = models.CharField(max_length=255, verbose_name='rut contacto', null=True, blank=True)
+    nombre_contacto = models.CharField(max_length=255, verbose_name='nombre contacto', null=True, blank=True)
+    razon_social = models.CharField(max_length=255, verbose_name='razón social', null=True, blank=True)
+    direccion = models.CharField(max_length=255, verbose_name='dirección', null=True, blank=True)
+    email = models.EmailField(max_length=255, db_index=True, verbose_name='email contacto', null=True, blank=True)
+    comuna = models.CharField(max_length=255, verbose_name='comuna', null=True, blank=True)
+    telefono = models.CharField(max_length=255, verbose_name='teléfono contacto', null=True, blank=True)
+    rubro = models.CharField(max_length=255, verbose_name='rubro o actividad', null=True, blank=True)
+    comentario = models.TextField(verbose_name='comentario', null=True, blank=True)
+    class Meta:
+        verbose_name = 'Empresas'
+        verbose_name_plural = 'Empresa'
+     
+            
+class FormularioMypymes(models.Model):
+    class Tipo(models.TextChoices):
+        Masculino = 'MASCULINO', 'MASCULINO'
+        FEMENINO = 'FEMENINO', 'FEMENINO'
+        EMPRESA = 'EMPRESA', 'EMPRESA'
+    
+    tipo = models.CharField(max_length=20, choices=Tipo.choices, default=Tipo.Masculino, verbose_name='tipo cliente')
+    rut = models.CharField(max_length=255, verbose_name='rut', null=True, blank=True)
+    nombre = models.CharField(max_length=255, verbose_name='nombre', null=True, blank=True)
+    email = models.EmailField(max_length=255, db_index=True, verbose_name='correo electrónico', null=True, blank=True)
+    telefono = models.CharField(max_length=255, verbose_name='teléfono', null=True, blank=True)
+    fecha_nacimiento = models.DateField(default=datetime.now, verbose_name='fecha de nacimiento', null=True, blank=True)
+    direccion = models.CharField(max_length=255, verbose_name='dirección', null=True, blank=True)
+    comuna = models.CharField(max_length=255, verbose_name='comuna', null=True, blank=True)
+    rubro = models.CharField(max_length=255, verbose_name='rubro', null=True, blank=True)
+    envios_mensuales = models.CharField(max_length=255, verbose_name='envíos mensuales', null=True, blank=True)
+    producto = models.CharField(max_length=255, verbose_name='producto que comercializa', null=True, blank=True)
+    url_facebook = models.URLField(max_length=255, verbose_name='url facebook', null=True, blank=True)
+    url_instagram = models.URLField(max_length=255, verbose_name='url instagram', null=True, blank=True)
+    dls_cajero = models.CharField(max_length=255, verbose_name='login usuario dls cajero', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'MYPYMES'
+        verbose_name_plural = 'MYPYMES'
