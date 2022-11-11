@@ -1243,7 +1243,7 @@ class Covid(BaseModel):
 class CovidComunicado(models.Model):
     covid = models.ForeignKey(Covid, on_delete=models.CASCADE, verbose_name='Covid', null=True, blank=True)
     primera_seccion_fecha = models.DateField(verbose_name='fecha', null=True, blank=True)
-    primera_seccion_contenido = RichTextUploadingField(verbose_name='contenido', null=True, blank=True)
+    primera_seccion_contenido = RichTextField(verbose_name='contenido', null=True, blank=True)
     class Meta:
         verbose_name = 'Comunicado'
         verbose_name_plural = 'Comunicados'
