@@ -8,7 +8,7 @@ from django.core.files import File
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
-from fontawesome_5.fields import IconField
+from faicon.fields import FAIconField
 
 
 class CustomImage(models.ImageField):
@@ -591,7 +591,7 @@ class Boton(models.Model):
     etiqueta_boton = models.CharField(max_length=255, verbose_name='etiqueta botón', null=True, blank=True)
     destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_cotizador', null=True, blank=True)
-    icon = IconField()
+    icon = FAIconField(verbose_name='ícono', null=True, blank=True)
     class Meta:
         verbose_name = 'Botón'
         verbose_name_plural = 'Botones'

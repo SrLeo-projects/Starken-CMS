@@ -40,11 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cms',
     'ckeditor',
-    'django_admin_select2',
-    'django_select2',
-    'easy_select2',
     'import_export',
-    'fontawesome_5',
+    'faicon'
 ]
 
 MIDDLEWARE = [
