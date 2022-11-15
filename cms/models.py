@@ -114,6 +114,8 @@ class Home(BaseModel):
     segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     segunda_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='segunda_url_boton_principal', null=True, blank=True)
+    segunda_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    segunda_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='url_boton_secundario_segunda_seccion', null=True, blank=True)
 
     tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
@@ -123,6 +125,8 @@ class Home(BaseModel):
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     tercera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     tercera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='tercera_url_boton_principal', null=True, blank=True)
+    tercera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    tercera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='url_boton_secundario_tercera_seccion', null=True, blank=True)
 
     cuarta_seccion_tarjeta_1_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     cuarta_seccion_tarjeta_1_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
@@ -147,8 +151,10 @@ class Home(BaseModel):
     quinta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
     quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
 
-    quinta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    quinta_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='quinta_url_boton_principal', null=True, blank=True)
+    quinta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón PlayStore', null=True, blank=True)
+    quinta_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace playstore', related_name='quinta_url_boton_principal', null=True, blank=True)
+    quinta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón AppStore', null=True, blank=True)
+    quinta_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace appstore', related_name='url_boton_secundario_quinta_seccion', null=True, blank=True)
 
     servicios = models.ManyToManyField(Servicio, verbose_name='servicios', blank=True)
     
@@ -217,7 +223,9 @@ class About(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='primera_url_boton_principal_about', null=True, blank=True)
-
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='about_url_boton_secundario_primera_seccion', null=True, blank=True)
+    
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -227,12 +235,16 @@ class About(BaseModel):
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     tercera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     tercera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='tercera_url_boton_principal_about', null=True, blank=True)
-    
+    tercera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    tercera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='about_url_boton_secundario_tercera_seccion', null=True, blank=True)
+   
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     cuarta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     cuarta_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='cuarta_url_boton_principal_about', null=True, blank=True)
+    cuarta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    cuarta_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='about_url_boton_secundario_cuarta_seccion', null=True, blank=True)
 
     quinta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     quinta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
@@ -243,7 +255,9 @@ class About(BaseModel):
     quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     quinta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     quinta_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='quinta_url_boton_principal_about', null=True, blank=True)
-    
+    quinta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    quinta_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='about_url_boton_secundario_quinta_seccion', null=True, blank=True)
+   
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     tercera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -313,6 +327,8 @@ class StarkenPro(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='url_boton_principal_starkenpro', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='starkenpro_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_mensaje = models.CharField(max_length=255, verbose_name='mensaje', null=True, blank=True)
 
     formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario', null=True, blank=True)
@@ -422,13 +438,16 @@ class CentrodeAyuda(BaseModel):
     primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='primera_url_boton_principal_centro_de_ayuda', null=True, blank=True)
-    
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='centro_de_ayuda_url_boton_secundario_primera_seccion', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     segunda_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
     segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     segunda_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='segunda_url_boton_principal_centro_de_ayuda', null=True, blank=True)
+    segunda_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    segunda_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='centro_de_ayuda_url_boton_secundario_segunda_seccion', null=True, blank=True)
     segunda_seccion_preguntas = models.ManyToManyField(Preguntas, verbose_name='Preguntas', blank=True)
     
     formulario_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
@@ -610,6 +629,8 @@ class DHL(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='primera_url_boton_principal_dhl', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='dhl_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='dhl', verbose_name='imagen de fondo', null=True, blank=True)
@@ -629,6 +650,8 @@ class DHL(BaseModel):
     cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     cuarta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_principal_dhl', null=True, blank=True)
+    cuarta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    cuarta_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='dhl_url_boton_secundario_cuarta_seccion', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -673,6 +696,8 @@ class Empresas(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='primera_url_boton_empresas', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='empresas_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='imagen de fondo', null=True, blank=True)
@@ -772,6 +797,8 @@ class EnviosInternacionales(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='primera_url_boton_envios_internacionales', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='internacionales_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='envios internacionales', verbose_name='imagen de fondo', null=True, blank=True)
@@ -806,6 +833,8 @@ class EnviosInternacionales(BaseModel):
     cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     cuarta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_envios_internacionales', null=True, blank=True)
+    cuarta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    cuarta_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='internacionales_url_boton_secundario_cuarta_seccion', null=True, blank=True)
     
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -847,6 +876,8 @@ class EnviosNacionales(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='primera_url_boton_envios_nacionales', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='nacionales_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen de fondo', null=True, blank=True)
@@ -866,6 +897,8 @@ class EnviosNacionales(BaseModel):
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     tercera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     tercera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='tercera_url_boton_envios_nacionales', null=True, blank=True)
+    tercera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    tercera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='nacionales_url_boton_secundario_tercera_seccion', null=True, blank=True)
     
     cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
@@ -875,6 +908,8 @@ class EnviosNacionales(BaseModel):
     cuarta_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     cuarta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_envios_nacionales', null=True, blank=True)
+    cuarta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    cuarta_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='nacionales_url_boton_secundario_cuarta_seccion', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -919,6 +954,8 @@ class MiPrimerEnvio(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_mi_primer_envio', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='mi_primer_envio_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen de fondo', null=True, blank=True)
@@ -949,6 +986,8 @@ class Mypymes(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='primera_url_boton_mypymes', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='mypymes_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen de fondo', null=True, blank=True)
@@ -1078,6 +1117,8 @@ class Reclamos(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='primera_url_boton_reclamos', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='reclamos_url_boton_secundario_primera_seccion', null=True, blank=True)
     
     formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
@@ -1136,6 +1177,8 @@ class RecomendacionesEmbalaje(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_recomendaciones_embalaje', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='recomendaciones_embalaje_url_boton_secundario_primera_seccion', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
@@ -1182,8 +1225,10 @@ class Seguimiento(BaseModel):
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
     cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    cuarta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    cuarta_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='url_boton_principal_seguimiento', null=True, blank=True)
+    cuarta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón PlayStore', null=True, blank=True)
+    cuarta_seccion_boton_principal_enlace = models.CharField(max_length=255, verbose_name='enlace PlayStore', null=True, blank=True)
+    cuarta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón AppStore', null=True, blank=True)
+    cuarta_seccion_boton_secundario_enlace = models.CharField(max_length=255, verbose_name='enlace AppStore', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -1232,6 +1277,8 @@ class Covid(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_covid', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='covid_url_boton_secundario_primera_seccion', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
