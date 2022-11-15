@@ -1161,7 +1161,7 @@ class Recomendaciones(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='recomendaciones', verbose_name='imagen', null=True, blank=True)
     recomendacion_titulo = models.CharField(max_length=255, verbose_name='recomendación título', null=True, blank=True)
-    recomendación_descripcion = models.TextField(verbose_name='recomendación descripción', null=True, blank=True)
+    recomendacion_descripcion = models.TextField(verbose_name='recomendación descripción', null=True, blank=True)
     recomendacion_activo = models.BooleanField(verbose_name='recomendación activa', null=True, blank=True)
     
     class Meta:
