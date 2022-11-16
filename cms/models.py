@@ -578,10 +578,13 @@ class Datos(models.Model):
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='datos', verbose_name='imagen', null=True, blank=True)
-    enlace = models.URLField(max_length=255, verbose_name='enlace', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_descripcion = models.CharField(max_length=255, verbose_name='primera descripción', null=True, blank=True)
     segunda_descripcion = models.CharField(max_length=255, verbose_name='segunda descripción', null=True, blank=True)
+    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_principal_datos', null=True, blank=True)
+    boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='datos_url_boton_secundario', null=True, blank=True)
     
 
     class Meta:
@@ -1143,14 +1146,28 @@ class Reclamos(BaseModel):
     primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
     primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='reclamos_url_boton_secundario_primera_seccion', null=True, blank=True)
     
-    formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
-    formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
+    formulario_primer_titulo = models.CharField(max_length=255, verbose_name='primer título formulario', null=True, blank=True)
+    formulario_segundo_titulo = models.CharField(max_length=255, verbose_name='segundo título formulario', null=True, blank=True)
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
-    etiqueta_rut = models.CharField(max_length=255, verbose_name='etiqueta RUT', null=True, blank=True)
+    etiqueta_tipo_reclamo = models.CharField(max_length=255, verbose_name='etiqueta tipo de reclamo', null=True, blank=True)
+    valor_orden_de_flete = models.CharField(max_length=255, verbose_name='valor orden de flete', null=True, blank=True)
+    valor_atencion_al_cliente = models.CharField(max_length=255, verbose_name='valor atención al cliente', null=True, blank=True)
+    etiqueta_numero_orden_de_flete = models.CharField(max_length=255, verbose_name='etiqueta número orden de flete', null=True, blank=True)
+    etiqueta_inconveniente = models.CharField(max_length=255, verbose_name='etiqueta inconveniente', null=True, blank=True)
+    etiqueta_tipo_cliente = models.CharField(max_length=255, verbose_name='etiqueta tipo de cliente', null=True, blank=True)
+    valor_destinatario = models.CharField(max_length=255, verbose_name='valor destinatario', null=True, blank=True)
+    valor_remitente = models.CharField(max_length=255, verbose_name='valor remitente', null=True, blank=True)
+    etiqueta_rut = models.CharField(max_length=255, verbose_name='etiqueta rut', null=True, blank=True)
     etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
+    etiqueta_apellido_paterno = models.CharField(max_length=255, verbose_name='etiqueta apellido paterno', null=True, blank=True)
+    etiqueta_apellido_materno = models.CharField(max_length=255, verbose_name='etiqueta apellido materno', null=True, blank=True)
+    etiqueta_telefono_fijo = models.CharField(max_length=255, verbose_name='etiqueta teléfono fijo', null=True, blank=True)
+    etiqueta_telefono_celular = models.CharField(max_length=255, verbose_name='etiqueta teléfono celular', null=True, blank=True)
     etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
-    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta número telefónico', null=True, blank=True)
+    etiqueta_direccion = models.CharField(max_length=255, verbose_name='etiqueta dirección', null=True, blank=True)
     etiqueta_reclamo = models.CharField(max_length=255, verbose_name='etiqueta reclamo', null=True, blank=True)
+    mensaje= models.CharField(max_length=255, verbose_name='mensaje', null=True, blank=True)
+    
     
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
@@ -1364,6 +1381,7 @@ class FormularioMypymes(models.Model):
 
 class Servicios(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='primera_url_boton_servicios', null=True, blank=True)
