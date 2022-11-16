@@ -250,11 +250,14 @@ JAZZMIN_SETTINGS = {
                        'cms.seguimiento',
                        'cms.sucursales',
                        'cms.covid',
+                       'cms.servicios',
+                       'cms.registro',
+                       'cms.login',
                     ],
         },
         {
             'name': 'Elementos',
-            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro',],
+            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro', 'cms.servicio'],
         },
         {
             'name': 'Formularios',
