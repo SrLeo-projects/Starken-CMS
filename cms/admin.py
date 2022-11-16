@@ -263,7 +263,7 @@ class StarkenProAdmin(ImportExportModelAdmin):
                 'formulario_boton_principal',
                 'etiqueta_nombre', 
                 'etiqueta_email', 
-                'etiqueta_mensaje'
+                'etiqueta_mensaje',
             )
         }),
         ('Segunda Sección', {
@@ -327,10 +327,12 @@ class CentrodeAyudaAdmin(ImportExportModelAdmin):
                 ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
                 'tercera_seccion_imagen',
                 'formulario_titulo',
+                'formulario_subtitulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
                 'etiqueta_nombre', 
-                'etiqueta_email', 
+                'etiqueta_email',
+                'etiqueta_orden_de_flete',
                 'etiqueta_mensaje',
             )
         }),
@@ -468,10 +470,27 @@ class ContactanosAdmin(ImportExportModelAdmin):
                 'tercera_seccion_etiqueta_comentario',
             )
         }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_ocultar',
+                ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
+                'cuarta_seccion_tarjeta_1_imagen',
+                'cuarta_seccion_tarjeta_1_titulo',
+                'cuarta_seccion_tarjeta_1_descripcion',
+                'cuarta_seccion_tarjeta_1_boton',
+                'cuarta_seccion_tarjeta_1_boton_url',
+                ('cuarta_seccion_tarjeta_2_titulo_imagen', 'cuarta_seccion_tarjeta_2_alt_imagen'),
+                'cuarta_seccion_tarjeta_2_imagen',
+                'cuarta_seccion_tarjeta_2_titulo',
+                'cuarta_seccion_tarjeta_2_descripcion',
+                'cuarta_seccion_tarjeta_2_boton',
+                'cuarta_seccion_tarjeta_2_boton_url',
+            )
+        }),
     )
     
     inlines = [DatosInline, IconosInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Contáctanos Datos", "Tercera Sección")
+    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Contáctanos Datos", "Tercera Sección", "Cuarta Sección")
     
     
 class BotonInline(admin.StackedInline):
@@ -657,6 +676,7 @@ class EmpresasAdmin(ImportExportModelAdmin):
                 'tercera_seccion_descripcion',
                 'tercera_seccion_enlace',
                 'tercera_seccion_enlace_url',
+                'tercera_seccion_titulo_carrusel',
             )
         }),
         ('Cuarta Sección', {
@@ -1273,3 +1293,188 @@ class FormularioMypymesAdmin(ImportExportModelAdmin):
             'fields': ('tipo', 'rut', 'nombre', 'email', 'telefono', 'fecha_nacimiento', 'direccion', 'comuna', 'rubro', 'envios_mensuales', 'producto', 'url_facebook', 'url_instagram', 'dls_cajero',)
         }),
     )
+    
+
+class ServiciosCarruselInline(admin.StackedInline):
+    model = ServiciosCarrusel
+    extra = 0
+
+@admin.register(Servicios)
+class ServiciosAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']
+    filter_horizontal = ['segunda_seccion_servicios']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_servicios',
+                
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_ocultar',
+                'tercera_seccion_titulo_imagen',
+                'tercera_seccion_alt_imagen',
+                'tercera_seccion_imagen',
+                'tercera_seccion_titulo',
+                'tercera_seccion_descripcion',
+                'tercera_seccion_titulo_interno',
+                'tercera_seccion_subtitulo_interno',
+                'tercera_seccion_primer_boton',
+                'tercera_seccion_primer_boton_url',
+                'tercera_seccion_segundo_boton',
+                'tercera_seccion_segundo_boton_url',
+                
+            )
+        }),
+       
+    )
+    
+    inlines = [ServiciosCarruselInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Imágenes")
+
+
+class RegistroBeneficiosInline(admin.StackedInline):
+    model = RegistroBeneficios
+    extra = 0
+
+@admin.register(Registro)
+class RegistroAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+                'etiqueta_nombre',
+                'etiqueta_telefono', 
+                'etiqueta_email', 
+                'etiqueta_contraseña',
+                'etiqueta_confirmar_contraseña',
+                'primera_seccion_titulo',
+                'primera_seccion_subtitulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_ocultar',
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+                
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_ocultar',
+                ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
+                'cuarta_seccion_tarjeta_1_imagen',
+                'cuarta_seccion_tarjeta_1_titulo',
+                'cuarta_seccion_tarjeta_1_descripcion',
+                'cuarta_seccion_tarjeta_1_boton',
+                'cuarta_seccion_tarjeta_1_boton_url',
+                ('cuarta_seccion_tarjeta_2_titulo_imagen', 'cuarta_seccion_tarjeta_2_alt_imagen'),
+                'cuarta_seccion_tarjeta_2_imagen',
+                'cuarta_seccion_tarjeta_2_titulo',
+                'cuarta_seccion_tarjeta_2_descripcion',
+                'cuarta_seccion_tarjeta_2_boton',
+                'cuarta_seccion_tarjeta_2_boton_url',
+            )
+        }),
+       
+    )
+    
+    inlines = [RegistroBeneficiosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios-Registro", "Cuarta Sección")
+    
+
+
+class LoginBeneficiosInline(admin.StackedInline):
+    model = LoginBeneficios
+    extra = 0
+
+@admin.register(Login)
+class LoginAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+                'etiqueta_usuario', 
+                'etiqueta_contraseña',
+                'primera_seccion_titulo',
+                'primera_seccion_subtitulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_ocultar',
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_descripcion',
+                'segunda_seccion_boton',
+                'segunda_seccion_boton_url',
+                'segunda_seccion_boton_secundario',
+                'segunda_seccion_boton_secundario_url',
+                'segunda_seccion_titulo_imagen',
+                'segunda_seccion_alt_imagen',
+                'segunda_seccion_imagen',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_ocultar',
+                'tercera_seccion_titulo',
+                'tercera_seccion_destacado',
+                'tercera_seccion_subtitulo',
+                
+            )
+        }),
+    )
+    
+    inlines = [LoginBeneficiosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Beneficios-Login")
