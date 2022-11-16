@@ -1099,7 +1099,9 @@ class ReclamosAdmin(ImportExportModelAdmin):
                 'etiqueta_email',
                 'etiqueta_direccion',  
                 'etiqueta_reclamo',
+                'primera_notificacion',
                 'mensaje',
+                'segunda_notificacion',
                 
             )
         }),

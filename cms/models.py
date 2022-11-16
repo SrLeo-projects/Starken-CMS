@@ -583,9 +583,10 @@ class Datos(models.Model):
     segunda_descripcion = models.CharField(max_length=255, verbose_name='segunda descripción', null=True, blank=True)
     boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_principal_datos', null=True, blank=True)
+    primer_icon = FAIconField(verbose_name='ícono primer botón', null=True, blank=True)
     boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
     boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='datos_url_boton_secundario', null=True, blank=True)
-    
+    segundo_icon = FAIconField(verbose_name='ícono segundo botón', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Contáctanos Datos'
@@ -1166,8 +1167,9 @@ class Reclamos(BaseModel):
     etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
     etiqueta_direccion = models.CharField(max_length=255, verbose_name='etiqueta dirección', null=True, blank=True)
     etiqueta_reclamo = models.CharField(max_length=255, verbose_name='etiqueta reclamo', null=True, blank=True)
+    primera_notificacion = models.CharField(max_length=255, verbose_name='primera notificación', null=True, blank=True)
     mensaje= models.CharField(max_length=255, verbose_name='mensaje', null=True, blank=True)
-    
+    segunda_notificacion = models.CharField(max_length=255, verbose_name='segunda notificación', null=True, blank=True)
     
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
