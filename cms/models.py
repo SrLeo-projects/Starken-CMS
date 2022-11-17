@@ -322,21 +322,17 @@ class StarkenPro(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
-    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_primer_titulo = models.CharField(max_length=255, verbose_name='primer título', null=True, blank=True)
+    primera_seccion_primer_destacado = models.CharField(max_length=255, verbose_name='primer destacado', null=True, blank=True)
+    primera_seccion_primera_descripcion = models.TextField(verbose_name='primera descripción', null=True, blank=True)
+    primera_seccion_segundo_titulo = models.CharField(max_length=255, verbose_name='segundo título', null=True, blank=True)
+    primera_seccion_segundo_destacado = models.CharField(max_length=255, verbose_name='segundo destacado', null=True, blank=True)
+    primera_seccion_segunda_descripcion = models.TextField(verbose_name='segunda descripción', null=True, blank=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='url_boton_principal_starkenpro', null=True, blank=True)
     primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
     primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='starkenpro_url_boton_secundario_primera_seccion', null=True, blank=True)
     primera_seccion_mensaje = models.CharField(max_length=255, verbose_name='mensaje', null=True, blank=True)
-
-    formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario', null=True, blank=True)
-    formulario_descripcion = models.TextField(verbose_name='descripción de formulario', null=True, blank=True)
-    formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón de formulario', null=True, blank=True)
-    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
-    etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
-    etiqueta_mensaje = models.CharField(max_length=255, verbose_name='etiqueta mensaje', null=True, blank=True)
 
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -1053,16 +1049,10 @@ class Mypymes(BaseModel):
     etiqueta_dls_cajero = models.CharField(max_length=255, verbose_name='etiqueta login usuario dls cajero', null=True, blank=True)
     
     
-    tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    tercera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='logo', null=True, blank=True)
-    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
-    tercera_seccion_enlace = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
-    tercera_seccion_enlace_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del enlace', related_name='url_enlace_mypymes', null=True, blank=True)
-    
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    cuarta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_mypymes', null=True, blank=True)
     
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -1110,28 +1100,7 @@ class MypymesBeneficios(models.Model):
     class Meta:
         verbose_name = 'Beneficios'
         verbose_name_plural = 'Beneficios'
-       
-class MypymesIndicaciones(models.Model):
-    mypymes = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Mypymes', null=True, blank=True)
-    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    class Meta:
-        verbose_name = 'indicaciones'
-        verbose_name_plural = 'indicaciones'
-        
 
-class MypymesTestimonios(models.Model):
-    mypymes = models.ForeignKey(Mypymes, on_delete=models.CASCADE, verbose_name='Mypymes', null=True, blank=True)
-    testimonio = models.TextField(verbose_name='testimonio', null=True, blank=True)
-    nombre = models.CharField(max_length=255, verbose_name='Nombre', null=True, blank=True)
-    apellido = models.CharField(max_length=255, verbose_name='Apellido', null=True, blank=True)
-    puesto_laboral = models.CharField(max_length=255, verbose_name='Puesto Laboral', null=True, blank=True)
-    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='mypymes', verbose_name='Imagen de Perfil', null=True, blank=True)
-    class Meta:
-        verbose_name = 'Testimonios'
-        verbose_name_plural = 'Testimonios'
        
        
 #Reclamos

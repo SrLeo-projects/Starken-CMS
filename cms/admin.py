@@ -251,19 +251,18 @@ class StarkenProAdmin(ImportExportModelAdmin):
                 'primera_seccion_ocultar',
                 ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
-                ('primera_seccion_titulo', 'primera_seccion_destacado'),
-                'primera_seccion_descripcion',
+                'primera_seccion_primer_titulo',
+                'primera_seccion__primer_destacado',
+                'primera_seccion_primera_descripcion',
+                'primera_seccion_segundo_titulo',
+                'primera_seccion__segundo_destacado',
+                'primera_seccion_segunda_descripcion',
                 'primera_seccion_boton_principal',
                 'primera_seccion_boton_principal_url',
                 'primera_seccion_boton_secundario',
                 'primera_seccion_boton_secundario_url',
                 'primera_seccion_mensaje',
-                'formulario_titulo',
-                'formulario_descripcion',
-                'formulario_boton_principal',
-                'etiqueta_nombre', 
-                'etiqueta_email', 
-                'etiqueta_mensaje',
+                
             )
         }),
         ('Segunda Sección', {
@@ -926,14 +925,6 @@ class MypymesBeneficiosInline(admin.StackedInline):
     model = MypymesBeneficios
     extra = 0
    
-class MypymesIndicacionesInline(admin.StackedInline):
-    model = MypymesIndicaciones
-    extra = 0 
-
-class MypymesTestimoniosInline(admin.StackedInline):
-    model = MypymesTestimonios
-    extra = 0 
-
 @admin.register(Mypymes)
 class MypymesAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
@@ -995,13 +986,6 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'etiqueta_url_facebook',
                 'etiqueta_url_instagram',
                 'etiqueta_dls_cajero',
-                'tercera_seccion_titulo_imagen',
-                'tercera_seccion_alt_imagen',
-                'tercera_seccion_imagen',
-                'tercera_seccion_titulo',
-                'tercera_seccion_descripcion',
-                'tercera_seccion_enlace',
-                'tercera_seccion_enlace_url',
             )
         }),
         ('Cuarta Sección', {
@@ -1009,6 +993,8 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo',
                 'cuarta_seccion_destacado',
+                'cuarta_seccion_boton',
+                'cuarta_seccion_boton_url',
             )
         }),
         ('Quinta Sección', {
@@ -1048,8 +1034,8 @@ class MypymesAdmin(ImportExportModelAdmin):
         }),
     )
     
-    inlines = [MypymesIndicacionesInline, MypymesBeneficiosInline, MypymesTestimoniosInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Indicaciones", "Quinta Sección", "Testimonios", "Sexta Sección", "Séptima Sección")
+    inlines = [MypymesBeneficiosInline,]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Quinta Sección", "Sexta Sección", "Séptima Sección")
     
     
 
