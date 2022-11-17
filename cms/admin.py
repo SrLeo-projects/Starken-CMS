@@ -986,6 +986,9 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'etiqueta_url_facebook',
                 'etiqueta_url_instagram',
                 'etiqueta_dls_cajero',
+                'tercera_seccion_titulo_imagen',
+                'tercera_seccion_alt_imagen',
+                'tercera_seccion_imagen',
             )
         }),
         ('Cuarta Sección', {

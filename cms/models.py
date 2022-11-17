@@ -1047,6 +1047,9 @@ class Mypymes(BaseModel):
     etiqueta_url_facebook = models.CharField(max_length=255, verbose_name='etiqueta url facebook', null=True, blank=True)
     etiqueta_url_instagram = models.CharField(max_length=255, verbose_name='etiqueta url instagram', null=True, blank=True)
     etiqueta_dls_cajero = models.CharField(max_length=255, verbose_name='etiqueta login usuario dls cajero', null=True, blank=True)
+    tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    tercera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
     
     
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
