@@ -342,9 +342,18 @@ class StarkenPro(BaseModel):
     tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    cuarta_seccion_imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
+    cuarta_seccion_video = models.URLField(verbose_name='video', null=True, blank=True)
+    
+    
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     tercera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
+    cuarta_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
 
     class Meta:
         verbose_name = 'starken PRO'
@@ -359,8 +368,8 @@ class StarkenProBeneficio(BaseModel):
     imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
 
     class Meta:
-        verbose_name = 'beneficio'
-        verbose_name_plural = 'beneficios'
+        verbose_name = 'Beneficio'
+        verbose_name_plural = 'Beneficios'
     
 
     
@@ -372,8 +381,8 @@ class StarkenProPaso(BaseModel):
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     class Meta:
-        verbose_name = 'indicaciones'
-        verbose_name_plural = 'indicaciones'
+        verbose_name = 'Indicaciones'
+        verbose_name_plural = 'Indicaciones'
         
     
 #Preguntas Frecuentes
@@ -1054,11 +1063,16 @@ class Mypymes(BaseModel):
     
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     cuarta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_mypymes', null=True, blank=True)
     
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    quinta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    quinta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    quinta_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
+    quinta_seccion_video = models.URLField(verbose_name='video', null=True, blank=True)
     
     sexta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     sexta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)

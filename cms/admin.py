@@ -252,10 +252,10 @@ class StarkenProAdmin(ImportExportModelAdmin):
                 ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
                 'primera_seccion_primer_titulo',
-                'primera_seccion__primer_destacado',
+                'primera_seccion_primer_destacado',
                 'primera_seccion_primera_descripcion',
                 'primera_seccion_segundo_titulo',
-                'primera_seccion__segundo_destacado',
+                'primera_seccion_segundo_destacado',
                 'primera_seccion_segunda_descripcion',
                 'primera_seccion_boton_principal',
                 'primera_seccion_boton_principal_url',
@@ -279,9 +279,21 @@ class StarkenProAdmin(ImportExportModelAdmin):
                 'tercera_seccion_descripcion',
             )
         }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_ocultar',
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
+                'cuarta_seccion_titulo_imagen',
+                'cuarta_seccion_alt_imagen',
+                'cuarta_seccion_imagen',
+                'cuarta_seccion_video',
+            )
+        }),
     )
 
     inlines = [StarkenProBeneficioInline, StarkenProPasoInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Beneficios", "Cuarta Sección", "Indicaciones")
     
 
 class CentrodeAyudaBeneficioInline(admin.StackedInline):
@@ -996,6 +1008,7 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo',
                 'cuarta_seccion_destacado',
+                'cuarta_seccion_descripcion',
                 'cuarta_seccion_boton',
                 'cuarta_seccion_boton_url',
             )
@@ -1005,6 +1018,10 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'quinta_seccion_ocultar',
                 'quinta_seccion_titulo',
                 'quinta_seccion_destacado',
+                'quinta_seccion_titulo_imagen',
+                'quinta_seccion_alt_imagen',
+                'quinta_seccion_imagen',
+                'quinta_seccion_video',
             )
         }),
         ('Sexta Sección', {
