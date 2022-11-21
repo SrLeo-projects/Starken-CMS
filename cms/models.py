@@ -1059,6 +1059,8 @@ class Mypymes(BaseModel):
     tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     tercera_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
+    tercera_seccion_titulo_derecho = models.CharField(max_length=255, verbose_name='título lado derecho', null=True, blank=True)
+    tercera_seccion_destacado_derecho = models.CharField(max_length=255, verbose_name='destacado lado derecho', null=True, blank=True)
     
     
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)

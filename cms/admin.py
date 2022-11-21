@@ -1001,6 +1001,8 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'tercera_seccion_titulo_imagen',
                 'tercera_seccion_alt_imagen',
                 'tercera_seccion_imagen',
+                'tercera_seccion_titulo_derecho',
+                'tercera_seccion_destacado_derecho',
             )
         }),
         ('Cuarta Sección', {
