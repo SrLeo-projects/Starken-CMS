@@ -1,5 +1,5 @@
 from django.db import models
-from cms.models import URL, Servicio
+from cms.models import URL
 
 class BannerSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
@@ -52,6 +52,18 @@ class BasicoSeccion(models.Model):
     imagen = models.ImageField(upload_to='basico_seccion', verbose_name='imagen', null=True, blank=True)
     invertir_sentido= models.BooleanField(default=False, verbose_name='invertir sentido')
 
+    def __str__(self):
+        return self.titulo
+
+class Servicio(models.Model):
+    titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
+    descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
+    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_boton_servicios_pages', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='servicio_seccion', verbose_name='imagen', null=True, blank=True)
+    
     def __str__(self):
         return self.titulo
 
