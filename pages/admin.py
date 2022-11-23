@@ -47,15 +47,6 @@ class BenefitSeccionAdmin(admin.ModelAdmin):
 class BannerSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'descripcion')
     
-
-@admin.register(FormularioSeccion)
-class FormularioSeccionAdmin(admin.ModelAdmin):
-    list_display = ('primer_titulo', 'primera_descripcion')
-    filter_horizontal = ['etiqueta']
-
-@admin.register(Etiqueta)
-class EtiquetaAdmin(admin.ModelAdmin):
-    list_display = ('etiqueta',)
     
 @admin.register(BloquesSeccion)
 class BloquesSeccionAdmin(admin.ModelAdmin):
