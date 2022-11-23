@@ -43,6 +43,10 @@ class BeneficioSeccionAdmin(admin.ModelAdmin):
 class BasicoSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'descripcion')
 
+@admin.register(Servicio)
+class ServicioAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'descripcion')
+
 @admin.register(ServiciosSeccion)
 class ServiciosSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'descripcion')
