@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cms',
+    'pages',
     'ckeditor',
     'import_export',
-    'faicon'
+    'faicon',
+    
 ]
 
 MIDDLEWARE = [
@@ -262,6 +264,10 @@ JAZZMIN_SETTINGS = {
         {
             'name': 'Formularios',
             'models': ['cms.formularioempresa', 'cms.formulariomypymes',],
+        },
+        {
+            'name': 'Modelo',
+            'models': ['pages.page', 'pages.basicseccion', 'pages.videoseccion', 'pages.benefitseccion', 'pages.bannerseccion', 'pages.formularioseccion', 'pages.bloquesseccion'],
         },
     ],
     
