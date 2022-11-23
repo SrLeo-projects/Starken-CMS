@@ -23,39 +23,31 @@ class PageAdmin(admin.ModelAdmin):
     class Media:
         js = ('https://code.jquery.com/jquery-3.6.0.min.js', 'js/dynamic_field_selector.js')
 
-@admin.register(BasicSeccion)
-class BasicSeccionAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'subtitulo', 'descripcion')
-
-@admin.register(VideoSeccion)
-class VideoSeccionAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'subtitulo', 'descripcion', 'url')
-
-class benefitInline(admin.StackedInline):
-    model = Benefit
-    extra = 0
-
-@admin.register(BenefitSeccion)
-class BenefitSeccionAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'descripcion')
-
-    inlines = [
-        benefitInline,
-    ]
 
 @admin.register(BannerSeccion)
 class BannerSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'descripcion')
     
+class beneficioInline(admin.StackedInline):
+    model = Beneficio
+    extra = 0
 
-@admin.register(FormularioSeccion)
-class FormularioSeccionAdmin(admin.ModelAdmin):
-    list_display = ('primer_titulo', 'primera_descripcion')
-    filter_horizontal = ['etiqueta']
+@admin.register(BeneficioSeccion)
+class BeneficioSeccionAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'descripcion')
 
-@admin.register(Etiqueta)
-class EtiquetaAdmin(admin.ModelAdmin):
-    list_display = ('etiqueta',)
+    inlines = [
+        beneficioInline,
+    ]
+@admin.register(BasicoSeccion)
+class BasicoSeccionAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'subtitulo', 'descripcion')
+
+@admin.register(ServiciosSeccion)
+class ServiciosSeccionAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'descripcion')
+    filter_horizontal =['servicios']
+
     
 @admin.register(BloquesSeccion)
 class BloquesSeccionAdmin(admin.ModelAdmin):
