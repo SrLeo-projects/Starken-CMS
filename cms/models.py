@@ -268,7 +268,7 @@ class Articulo(BaseModel):
         SUSTENTABILIDAD = 'sustentabilidad', 'Sustentabilidad'
     
     tipo = models.CharField(max_length=255, choices=Tipo.choices, verbose_name='tipo', null=True, blank=True)
-    slug = models.SlugField(null=True, blank=True, unique=True) 
+    slug = models.SlugField(max_length=255, null=True, blank=True, unique=True) 
     primera_seccion_etiqueta = models.CharField(max_length=255, verbose_name='etiqueta', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
