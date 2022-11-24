@@ -47,12 +47,16 @@ class HomeAdmin(ImportExportModelAdmin):
                 'primera_seccion_ocultar',
                 ('primera_seccion_titulo', 'primera_seccion_destacado'),
                 'primera_seccion_descripcion',
-                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
-                ('primera_seccion_boton_secundario', 'primera_seccion_boton_secundario_url'),
+                'primera_seccion_boton_principal',
+                'primera_seccion_boton_principal_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
-                ('primera_seccion_subtitulo', 'primera_seccion_subtitulo_descripcion'),
-                ('primera_seccion_link', 'primera_seccion_link_texto'),
+                'primera_seccion_subtitulo',
+                'primera_seccion_subtitulo_descripcion',
+                'primera_seccion_link', 
+                'primera_seccion_link_texto',
             )
         }),
         ('Segunda Sección', {
@@ -60,7 +64,10 @@ class HomeAdmin(ImportExportModelAdmin):
                 'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
-                ('segunda_seccion_boton_principal', 'segunda_seccion_boton_principal_url'),
+                'segunda_seccion_boton_principal',
+                'segunda_seccion_boton_principal_url',
+                'segunda_seccion_boton_secundario',
+                'segunda_seccion_boton_secundario_url',
                 'servicios',
             )
         }),
@@ -69,7 +76,10 @@ class HomeAdmin(ImportExportModelAdmin):
                 'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
                 'tercera_seccion_descripcion',
-                ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
+                'tercera_seccion_boton_principal',
+                'tercera_seccion_boton_principal_url',
+                'tercera_seccion_boton_secundario',
+                'tercera_seccion_boton_secundario_url',
                 ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
                 'tercera_seccion_imagen',
             )
@@ -96,7 +106,10 @@ class HomeAdmin(ImportExportModelAdmin):
                 'quinta_seccion_ocultar',
                 ('quinta_seccion_titulo', 'quinta_seccion_palabras'),
                 'quinta_seccion_descripcion',
-                ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
+                'quinta_seccion_boton_principal',
+                'quinta_seccion_boton_principal_url',
+                'quinta_seccion_boton_secundario',
+                'quinta_seccion_boton_secundario_url',
                 ('quinta_seccion_titulo_imagen', 'quinta_seccion_alt_imagen'),
                 'quinta_seccion_imagen',
             )
@@ -126,7 +139,10 @@ class AboutAdmin(ImportExportModelAdmin):
                 'primera_seccion_titulo',
                 'primera_seccion_subtitulo',
                 'primera_seccion_descripcion',
-                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
+                'primera_seccion_boton_principal',
+                'primera_seccion_boton_principal_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
             )
         }),
         ('Segunda Sección', {
@@ -141,7 +157,10 @@ class AboutAdmin(ImportExportModelAdmin):
                 'tercera_seccion_ocultar',
                 ('tercera_seccion_titulo', 'tercera_seccion_destacado'),
                 'tercera_seccion_descripcion',
-                ('tercera_seccion_boton_principal', 'tercera_seccion_boton_principal_url'),
+                'tercera_seccion_boton_principal',
+                'tercera_seccion_boton_principal_url',
+                'tercera_seccion_boton_secundario',
+                'tercera_seccion_boton_secundario_url',
             )
         }),
         ('Cuarta Sección', {
@@ -149,7 +168,10 @@ class AboutAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_ocultar',
                 ('cuarta_seccion_titulo', 'cuarta_seccion_destacado'),
                 'cuarta_seccion_descripcion',
-                ('cuarta_seccion_boton_principal', 'cuarta_seccion_boton_principal_url'),
+                'cuarta_seccion_boton_principal',
+                'cuarta_seccion_boton_principal_url',
+                'cuarta_seccion_boton_secundario',
+                'cuarta_seccion_boton_secundario_url',
             )
         }),
         ('Quinta Sección', {
@@ -160,7 +182,10 @@ class AboutAdmin(ImportExportModelAdmin):
                 ('quinta_seccion_titulo', 'quinta_seccion_destacado'),
                 'quinta_seccion_subtitulo',
                 'quinta_seccion_descripcion',
-                ('quinta_seccion_boton_principal', 'quinta_seccion_boton_principal_url'),
+                'quinta_seccion_boton_principal',
+                'quinta_seccion_boton_principal_url',
+                'quinta_seccion_boton_secundario',
+                'quinta_seccion_boton_secundario_url',
             )
         }),
     )
@@ -226,16 +251,18 @@ class StarkenProAdmin(ImportExportModelAdmin):
                 'primera_seccion_ocultar',
                 ('primera_seccion_titulo_imagen', 'primera_seccion_alt_imagen'),
                 'primera_seccion_imagen',
-                ('primera_seccion_titulo', 'primera_seccion_destacado'),
-                'primera_seccion_descripcion',
-                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
+                'primera_seccion_primer_titulo',
+                'primera_seccion_primer_destacado',
+                'primera_seccion_primera_descripcion',
+                'primera_seccion_segundo_titulo',
+                'primera_seccion_segundo_destacado',
+                'primera_seccion_segunda_descripcion',
+                'primera_seccion_boton_principal',
+                'primera_seccion_boton_principal_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 'primera_seccion_mensaje',
-                'formulario_titulo',
-                'formulario_descripcion',
-                'formulario_boton_principal',
-                'etiqueta_nombre', 
-                'etiqueta_email', 
-                'etiqueta_mensaje'
+                
             )
         }),
         ('Segunda Sección', {
@@ -252,9 +279,21 @@ class StarkenProAdmin(ImportExportModelAdmin):
                 'tercera_seccion_descripcion',
             )
         }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_ocultar',
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
+                'cuarta_seccion_titulo_imagen',
+                'cuarta_seccion_alt_imagen',
+                'cuarta_seccion_imagen',
+                'cuarta_seccion_video',
+            )
+        }),
     )
 
     inlines = [StarkenProBeneficioInline, StarkenProPasoInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Beneficios", "Cuarta Sección", "Indicaciones")
     
 
 class CentrodeAyudaBeneficioInline(admin.StackedInline):
@@ -275,7 +314,10 @@ class CentrodeAyudaAdmin(ImportExportModelAdmin):
                 'primera_seccion_ocultar',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
-                ('primera_seccion_boton_principal', 'primera_seccion_boton_principal_url'),
+                'primera_seccion_boton_principal',
+                'primera_seccion_boton_principal_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
             )
         }),
         ('Segunda Sección', {
@@ -283,7 +325,10 @@ class CentrodeAyudaAdmin(ImportExportModelAdmin):
                 'segunda_seccion_ocultar',
                 ('segunda_seccion_titulo', 'segunda_seccion_destacado'),
                 'segunda_seccion_descripcion',
-                ('segunda_seccion_boton_principal', 'segunda_seccion_boton_principal_url'),
+                'segunda_seccion_boton_principal',
+                'segunda_seccion_boton_principal_url',
+                'segunda_seccion_boton_secundario',
+                'segunda_seccion_boton_secundario_url',
                 'segunda_seccion_preguntas',
             )
         }),
@@ -293,10 +338,12 @@ class CentrodeAyudaAdmin(ImportExportModelAdmin):
                 ('tercera_seccion_titulo_imagen', 'tercera_seccion_alt_imagen'),
                 'tercera_seccion_imagen',
                 'formulario_titulo',
+                'formulario_subtitulo',
                 'formulario_descripcion',
                 'formulario_boton_principal',
                 'etiqueta_nombre', 
-                'etiqueta_email', 
+                'etiqueta_email',
+                'etiqueta_orden_de_flete',
                 'etiqueta_mensaje',
             )
         }),
@@ -434,10 +481,27 @@ class ContactanosAdmin(ImportExportModelAdmin):
                 'tercera_seccion_etiqueta_comentario',
             )
         }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_ocultar',
+                ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
+                'cuarta_seccion_tarjeta_1_imagen',
+                'cuarta_seccion_tarjeta_1_titulo',
+                'cuarta_seccion_tarjeta_1_descripcion',
+                'cuarta_seccion_tarjeta_1_boton',
+                'cuarta_seccion_tarjeta_1_boton_url',
+                ('cuarta_seccion_tarjeta_2_titulo_imagen', 'cuarta_seccion_tarjeta_2_alt_imagen'),
+                'cuarta_seccion_tarjeta_2_imagen',
+                'cuarta_seccion_tarjeta_2_titulo',
+                'cuarta_seccion_tarjeta_2_descripcion',
+                'cuarta_seccion_tarjeta_2_boton',
+                'cuarta_seccion_tarjeta_2_boton_url',
+            )
+        }),
     )
     
     inlines = [DatosInline, IconosInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Contáctanos Datos", "Tercera Sección")
+    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Contáctanos Datos", "Tercera Sección", "Cuarta Sección")
     
     
 class BotonInline(admin.StackedInline):
@@ -512,6 +576,8 @@ class DHLAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -542,6 +608,8 @@ class DHLAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_descripcion',
                 'cuarta_seccion_boton',
                 'cuarta_seccion_boton_url',
+                'cuarta_seccion_boton_secundario',
+                'cuarta_seccion_boton_secundario_url',
             )
         }),
     )
@@ -575,6 +643,8 @@ class EmpresasAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -617,6 +687,7 @@ class EmpresasAdmin(ImportExportModelAdmin):
                 'tercera_seccion_descripcion',
                 'tercera_seccion_enlace',
                 'tercera_seccion_enlace_url',
+                'tercera_seccion_titulo_carrusel',
             )
         }),
         ('Cuarta Sección', {
@@ -675,6 +746,8 @@ class EnviosInternacionalesAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -721,6 +794,8 @@ class EnviosInternacionalesAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_descripcion',
                 'cuarta_seccion_boton',
                 'cuarta_seccion_boton_url',
+                'cuarta_seccion_boton_secundario',
+                'cuarta_seccion_boton_secundario_url',
             )
         }),
         ('Quinta Sección', {
@@ -768,6 +843,8 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -795,6 +872,8 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
                 'tercera_seccion_descripcion',
                 'tercera_seccion_boton',
                 'tercera_seccion_boton_url',
+                'tercera_seccion_boton_secundario',
+                'tercera_seccion_boton_secundario_url',
             )
         }),
         ('Cuarta Sección', {
@@ -808,6 +887,8 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_subtitulo',
                 'cuarta_seccion_boton',
                 'cuarta_seccion_boton_url',
+                'cuarta_seccion_boton_secundario',
+                'cuarta_seccion_boton_secundario_url',
             )
         }),
     )
@@ -837,6 +918,8 @@ class MiPrimerEnvioAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -854,14 +937,6 @@ class MypymesBeneficiosInline(admin.StackedInline):
     model = MypymesBeneficios
     extra = 0
    
-class MypymesIndicacionesInline(admin.StackedInline):
-    model = MypymesIndicaciones
-    extra = 0 
-
-class MypymesTestimoniosInline(admin.StackedInline):
-    model = MypymesTestimonios
-    extra = 0 
-
 @admin.register(Mypymes)
 class MypymesAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
@@ -878,6 +953,8 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 'primera_seccion_titulo_imagen',
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
@@ -924,10 +1001,8 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'tercera_seccion_titulo_imagen',
                 'tercera_seccion_alt_imagen',
                 'tercera_seccion_imagen',
-                'tercera_seccion_titulo',
-                'tercera_seccion_descripcion',
-                'tercera_seccion_enlace',
-                'tercera_seccion_enlace_url',
+                'tercera_seccion_titulo_derecho',
+                'tercera_seccion_destacado_derecho',
             )
         }),
         ('Cuarta Sección', {
@@ -935,6 +1010,9 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_ocultar',
                 'cuarta_seccion_titulo',
                 'cuarta_seccion_destacado',
+                'cuarta_seccion_descripcion',
+                'cuarta_seccion_boton',
+                'cuarta_seccion_boton_url',
             )
         }),
         ('Quinta Sección', {
@@ -942,6 +1020,10 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'quinta_seccion_ocultar',
                 'quinta_seccion_titulo',
                 'quinta_seccion_destacado',
+                'quinta_seccion_titulo_imagen',
+                'quinta_seccion_alt_imagen',
+                'quinta_seccion_imagen',
+                'quinta_seccion_video',
             )
         }),
         ('Sexta Sección', {
@@ -974,8 +1056,8 @@ class MypymesAdmin(ImportExportModelAdmin):
         }),
     )
     
-    inlines = [MypymesIndicacionesInline, MypymesBeneficiosInline, MypymesTestimoniosInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Indicaciones", "Quinta Sección", "Testimonios", "Sexta Sección", "Séptima Sección")
+    inlines = [MypymesBeneficiosInline,]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Quinta Sección", "Sexta Sección", "Séptima Sección")
     
     
 
@@ -998,19 +1080,36 @@ class ReclamosAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
             )
         }),
         ('Segunda Sección', {
             'fields': (
                 'segunda_seccion_ocultar',
-                'formulario_titulo',
-                'formulario_descripcion',
+                'formulario_primer_titulo',
+                'formulario_segundo_titulo',
                 'formulario_boton_principal',
+                'etiqueta_tipo_reclamo',
+                'valor_orden_de_flete',
+                'valor_atencion_al_cliente',
+                'etiqueta_numero_orden_de_flete',
+                'etiqueta_inconveniente',
+                'etiqueta_tipo_cliente',
+                'valor_destinatario',
+                'valor_remitente',
                 'etiqueta_rut', 
                 'etiqueta_nombre',
-                'etiqueta_email',  
-                'etiqueta_telefono', 
+                'etiqueta_apellido_paterno',
+                'etiqueta_apellido_materno',
+                'etiqueta_telefono_fijo',
+                'etiqueta_telefono_celular',
+                'etiqueta_email',
+                'etiqueta_direccion',  
                 'etiqueta_reclamo',
+                'primera_notificacion',
+                'mensaje',
+                'segunda_notificacion',
                 
             )
         }),
@@ -1062,6 +1161,8 @@ class RecomendacionesEmbalajeAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
             )
         }),
     )
@@ -1123,7 +1224,10 @@ class SeguimientoAdmin(ImportExportModelAdmin):
                 'cuarta_seccion_imagen',
                 ('cuarta_seccion_titulo', 'cuarta_seccion_palabras'),
                 'cuarta_seccion_descripcion',
-                ('cuarta_seccion_boton_principal', 'cuarta_seccion_boton_principal_url'),
+                'cuarta_seccion_boton_principal',
+                'cuarta_seccion_boton_principal_enlace',
+                'cuarta_seccion_boton_secundario',
+                'cuarta_seccion_boton_secundario_enlace',
                 
             )
         }),
@@ -1178,6 +1282,8 @@ class CovidInline(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
                 )
         }),
     )
@@ -1210,3 +1316,189 @@ class FormularioMypymesAdmin(ImportExportModelAdmin):
             'fields': ('tipo', 'rut', 'nombre', 'email', 'telefono', 'fecha_nacimiento', 'direccion', 'comuna', 'rubro', 'envios_mensuales', 'producto', 'url_facebook', 'url_instagram', 'dls_cajero',)
         }),
     )
+    
+
+class ServiciosCarruselInline(admin.StackedInline):
+    model = ServiciosCarrusel
+    extra = 0
+
+@admin.register(Servicios)
+class ServiciosAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']
+    filter_horizontal = ['segunda_seccion_servicios']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'primera_seccion_titulo',
+                'primera_seccion_destacado',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_servicios',
+                
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_ocultar',
+                'tercera_seccion_titulo_imagen',
+                'tercera_seccion_alt_imagen',
+                'tercera_seccion_imagen',
+                'tercera_seccion_titulo',
+                'tercera_seccion_descripcion',
+                'tercera_seccion_titulo_interno',
+                'tercera_seccion_subtitulo_interno',
+                'tercera_seccion_primer_boton',
+                'tercera_seccion_primer_boton_url',
+                'tercera_seccion_segundo_boton',
+                'tercera_seccion_segundo_boton_url',
+                
+            )
+        }),
+       
+    )
+    
+    inlines = [ServiciosCarruselInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Imágenes")
+
+
+class RegistroBeneficiosInline(admin.StackedInline):
+    model = RegistroBeneficios
+    extra = 0
+
+@admin.register(Registro)
+class RegistroAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+                'etiqueta_nombre',
+                'etiqueta_telefono', 
+                'etiqueta_email', 
+                'etiqueta_contraseña',
+                'etiqueta_confirmar_contraseña',
+                'primera_seccion_titulo',
+                'primera_seccion_subtitulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_ocultar',
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+                
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_ocultar',
+                ('cuarta_seccion_tarjeta_1_titulo_imagen', 'cuarta_seccion_tarjeta_1_alt_imagen'),
+                'cuarta_seccion_tarjeta_1_imagen',
+                'cuarta_seccion_tarjeta_1_titulo',
+                'cuarta_seccion_tarjeta_1_descripcion',
+                'cuarta_seccion_tarjeta_1_boton',
+                'cuarta_seccion_tarjeta_1_boton_url',
+                ('cuarta_seccion_tarjeta_2_titulo_imagen', 'cuarta_seccion_tarjeta_2_alt_imagen'),
+                'cuarta_seccion_tarjeta_2_imagen',
+                'cuarta_seccion_tarjeta_2_titulo',
+                'cuarta_seccion_tarjeta_2_descripcion',
+                'cuarta_seccion_tarjeta_2_boton',
+                'cuarta_seccion_tarjeta_2_boton_url',
+            )
+        }),
+       
+    )
+    
+    inlines = [RegistroBeneficiosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios-Registro", "Cuarta Sección")
+    
+
+
+class LoginBeneficiosInline(admin.StackedInline):
+    model = LoginBeneficios
+    extra = 0
+
+@admin.register(Login)
+class LoginAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'formulario_titulo',
+                'formulario_descripcion',
+                'formulario_boton_principal',
+                'etiqueta_usuario', 
+                'etiqueta_contraseña',
+                'primera_seccion_titulo',
+                'primera_seccion_subtitulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_ocultar',
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_descripcion',
+                'segunda_seccion_boton',
+                'segunda_seccion_boton_url',
+                'segunda_seccion_boton_secundario',
+                'segunda_seccion_boton_secundario_url',
+                'segunda_seccion_titulo_imagen',
+                'segunda_seccion_alt_imagen',
+                'segunda_seccion_imagen',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_ocultar',
+                'tercera_seccion_titulo',
+                'tercera_seccion_destacado',
+                'tercera_seccion_subtitulo',
+                
+            )
+        }),
+    )
+    
+    inlines = [LoginBeneficiosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Beneficios-Login")

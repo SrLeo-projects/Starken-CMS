@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cms',
+    'pages',
     'ckeditor',
     'import_export',
-    'faicon'
+    'faicon',
+    
 ]
 
 MIDDLEWARE = [
@@ -250,15 +252,22 @@ JAZZMIN_SETTINGS = {
                        'cms.seguimiento',
                        'cms.sucursales',
                        'cms.covid',
+                       'cms.servicios',
+                       'cms.registro',
+                       'cms.login',
                     ],
         },
         {
             'name': 'Elementos',
-            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro',],
+            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro', 'cms.servicio'],
         },
         {
             'name': 'Formularios',
             'models': ['cms.formularioempresa', 'cms.formulariomypymes',],
+        },
+        {
+            'name': 'Modelo',
+            'models': ['pages.page', 'pages.basicoseccion', 'pages.beneficioseccion', 'pages.bannerseccion', 'pages.bloquesseccion', 'pages.serviciosseccion'],
         },
     ],
     
