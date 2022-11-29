@@ -490,8 +490,6 @@ class CentrodeAyudaBeneficio(BaseModel):
         verbose_name = 'beneficio'
         verbose_name_plural = 'beneficios'
 
-    
-    
 
 #Condiciones de Servicio
 class TerminosdeServicio(BaseModel):
