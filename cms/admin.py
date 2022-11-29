@@ -1003,6 +1003,18 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'tercera_seccion_destacado_derecho',
             )
         }),
+        ('Zona Partner', {
+            'fields': (
+                'zona_partner_seccion_ocultar',
+                'zona_partner_seccion_titulo_logo',
+                'zona_partner_seccion_alt_logo',
+                'zona_partner_seccion_logo',
+                'zona_partner_seccion_descripcion',
+                'zona_partner_seccion_titulo_imagen',
+                'zona_partner_seccion_alt_imagen',
+                'zona_partner_seccion_imagen',
+            )
+        }),
         ('Cuarta Sección', {
             'fields': (
                 'cuarta_seccion_ocultar',
@@ -1053,7 +1065,7 @@ class MypymesAdmin(ImportExportModelAdmin):
     )
     
     inlines = [MypymesBeneficiosInline,]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Quinta Sección", "Sexta Sección", "Séptima Sección")
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Zona Partner", "Cuarta Sección", "Quinta Sección", "Sexta Sección", "Séptima Sección")
     
     
 
