@@ -965,6 +965,10 @@ class EnviosNacionalesBeneficios(models.Model):
 
 class EnviosNacionalesRecomendaciones(models.Model):
     recomendacion = models.ForeignKey(EnviosNacionales, on_delete=models.CASCADE, verbose_name='Recomendaciones', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
@@ -1006,14 +1010,6 @@ class MiPrimerEnvioStep(models.Model):
         verbose_name = 'Indicaciones'
         verbose_name_plural = 'Indicaciones'
 
-class Icono(models.Model):
-    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
-    
-    class Meta:
-        verbose_name = 'Icono'
-        verbose_name_plural = 'Icono'
 
 #Mypymes
 class Mypymes(BaseModel):
@@ -1065,48 +1061,46 @@ class Mypymes(BaseModel):
     tercera_seccion_titulo_derecho = models.CharField(max_length=255, verbose_name='título lado derecho', null=True, blank=True)
     tercera_seccion_destacado_derecho = models.CharField(max_length=255, verbose_name='destacado lado derecho', null=True, blank=True)
     
-    cuarta_seccion_titulo_logo = models.CharField(max_length=255, verbose_name='título logo', null=True, blank=True)
-    cuarta_seccion_alt_logo = models.CharField(max_length=255, verbose_name='alt logo', null=True, blank=True)
-    cuarta_seccion_logo = models.ImageField(upload_to='mypymes', verbose_name='logo', null=True, blank=True)
-    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    cuarta_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
-    iconos = models.ManyToManyField(Icono, verbose_name='iconos', blank=True)
+    zona_partner_seccion_titulo_logo = models.CharField(max_length=255, verbose_name='título logo', null=True, blank=True)
+    zona_partner_seccion_alt_logo = models.CharField(max_length=255, verbose_name='alt logo', null=True, blank=True)
+    zona_partner_seccion_logo = models.ImageField(upload_to='mypymes', verbose_name='logo', null=True, blank=True)
+    zona_partner_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    zona_partner_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    zona_partner_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    zona_partner_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
     
+    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    cuarta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_mypymes', null=True, blank=True)
     
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    quinta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    quinta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_mypymes', null=True, blank=True)
+    quinta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    quinta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    quinta_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
+    quinta_seccion_video = models.URLField(verbose_name='video', null=True, blank=True)
     
-    sexta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    sexta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     sexta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     sexta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     sexta_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
-    sexta_seccion_video = models.URLField(verbose_name='video', null=True, blank=True)
+    sexta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    sexta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    sexta_seccion_titulo_interno = models.CharField(max_length=255, verbose_name='título interno', null=True, blank=True)
+    sexta_seccion_subtitulo_interno = models.CharField(max_length=255, verbose_name='subtítulo interno', null=True, blank=True)
+    sexta_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
+    sexta_seccion_primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_mypymes', null=True, blank=True)
+    sexta_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
+    sexta_seccion_segundo_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del segundo botón', related_name='url_segundo_boton_mypymes', null=True, blank=True)
     
+    septima_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    septima_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    septima_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    septima_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='septima_url_boton_mypymes', null=True, blank=True)
     septima_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     septima_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     septima_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
-    septima_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    septima_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    septima_seccion_titulo_interno = models.CharField(max_length=255, verbose_name='título interno', null=True, blank=True)
-    septima_seccion_subtitulo_interno = models.CharField(max_length=255, verbose_name='subtítulo interno', null=True, blank=True)
-    septima_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
-    septima_seccion_primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_mypymes', null=True, blank=True)
-    septima_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
-    septima_seccion_segundo_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del segundo botón', related_name='url_segundo_boton_mypymes', null=True, blank=True)
-    
-    octava_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    octava_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    octava_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    octava_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='octava_url_boton_mypymes', null=True, blank=True)
-    octava_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    octava_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    octava_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -1115,7 +1109,7 @@ class Mypymes(BaseModel):
     quinta_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     sexta_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     septima_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
-    octava_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
+    zona_partner_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
     class Meta:
         verbose_name = 'MYPYMES'

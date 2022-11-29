@@ -936,13 +936,12 @@ class MiPrimerEnvioAdmin(ImportExportModelAdmin):
 class MypymesBeneficiosInline(admin.StackedInline):
     model = MypymesBeneficios
     extra = 0
-
-admin.site.register(Icono)
+   
 @admin.register(Mypymes)
 class MypymesAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['titulo', 'descripcion']
-    filter_horizontal = ['iconos']
+
     fieldsets = (
         ('General', {
             'fields': ('titulo', 'descripcion')
@@ -1006,17 +1005,26 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'tercera_seccion_destacado_derecho',
             )
         }),
+        ('Zona Partner', {
+            'fields': (
+                'zona_partner_seccion_ocultar',
+                'zona_partner_seccion_titulo_logo',
+                'zona_partner_seccion_alt_logo',
+                'zona_partner_seccion_logo',
+                'zona_partner_seccion_descripcion',
+                'zona_partner_seccion_titulo_imagen',
+                'zona_partner_seccion_alt_imagen',
+                'zona_partner_seccion_imagen',
+            )
+        }),
         ('Cuarta Sección', {
             'fields': (
                 'cuarta_seccion_ocultar',
-                'cuarta_seccion_titulo_logo',
-                'cuarta_seccion_alt_logo',
-                'cuarta_seccion_logo',
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
                 'cuarta_seccion_descripcion',
-                'cuarta_seccion_titulo_imagen',
-                'cuarta_seccion_alt_imagen',
-                'cuarta_seccion_imagen',
-                'iconos',
+                'cuarta_seccion_boton',
+                'cuarta_seccion_boton_url',
             )
         }),
         ('Quinta Sección', {
@@ -1024,23 +1032,29 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'quinta_seccion_ocultar',
                 'quinta_seccion_titulo',
                 'quinta_seccion_destacado',
-                'quinta_seccion_descripcion',
-                'quinta_seccion_boton',
-                'quinta_seccion_boton_url',
+                'quinta_seccion_titulo_imagen',
+                'quinta_seccion_alt_imagen',
+                'quinta_seccion_imagen',
+                'quinta_seccion_video',
             )
         }),
         ('Sexta Sección', {
             'fields': (
                 'sexta_seccion_ocultar',
-                'sexta_seccion_titulo',
-                'sexta_seccion_destacado',
                 'sexta_seccion_titulo_imagen',
                 'sexta_seccion_alt_imagen',
                 'sexta_seccion_imagen',
-                'sexta_seccion_video',
+                'sexta_seccion_titulo',
+                'sexta_seccion_descripcion',
+                'sexta_seccion_titulo_interno',
+                'sexta_seccion_subtitulo_interno',
+                'sexta_seccion_primer_boton',
+                'sexta_seccion_primer_boton_url',
+                'sexta_seccion_segundo_boton',
+                'sexta_seccion_segundo_boton_url',
             )
         }),
-        ('Septima Sección', {
+        ('Séptima Sección', {
             'fields': (
                 'septima_seccion_ocultar',
                 'septima_seccion_titulo_imagen',
@@ -1048,30 +1062,14 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'septima_seccion_imagen',
                 'septima_seccion_titulo',
                 'septima_seccion_descripcion',
-                'septima_seccion_titulo_interno',
-                'septima_seccion_subtitulo_interno',
-                'septima_seccion_primer_boton',
-                'septima_seccion_primer_boton_url',
-                'septima_seccion_segundo_boton',
-                'septima_seccion_segundo_boton_url',
-            )
-        }),
-        ('Octava Sección', {
-            'fields': (
-                'octava_seccion_ocultar',
-                'octava_seccion_titulo_imagen',
-                'octava_seccion_alt_imagen',
-                'octava_seccion_imagen',
-                'octava_seccion_titulo',
-                'octava_seccion_descripcion',
-                'octava_seccion_boton',
-                'octava_seccion_boton_url',
+                'septima_seccion_boton',
+                'septima_seccion_boton_url',
             )
         }),
     )
     
     inlines = [MypymesBeneficiosInline,]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Quinta Sección", "Sexta Sección", "Séptima Sección")
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Zona Partner", "Cuarta Sección", "Quinta Sección", "Sexta Sección", "Séptima Sección")
     
     
 

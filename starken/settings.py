@@ -259,7 +259,7 @@ JAZZMIN_SETTINGS = {
         },
         {
             'name': 'Elementos',
-            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro', 'cms.servicio', 'cms.icono'],
+            'models': ['cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro', 'cms.servicio'],
         },
         {
             'name': 'Formularios',
