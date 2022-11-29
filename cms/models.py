@@ -478,12 +478,13 @@ class CentrodeAyudaBeneficio(BaseModel):
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     image = models.ImageField(upload_to='centro_de_ayuda', verbose_name='imagen', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = RichTextUploadingField(blank=True, verbose_name='descripción', null=True)
     url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='URL', related_name='url_centro_de_ayuda_beneficio', null=True, blank=True)
     class Meta:
         verbose_name = 'beneficio'
         verbose_name_plural = 'beneficios'
-    
-    
+
 
 #Condiciones de Servicio
 class TerminosdeServicio(BaseModel):
@@ -526,7 +527,7 @@ class TerminosdeServicioPunto(models.Model):
 class Contactanos(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    primera_seccion_imagen = models.ImageField(upload_to='dhl', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='contactanos', verbose_name='imagen de fondo', null=True, blank=True)
     primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
     primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
     primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
@@ -693,7 +694,7 @@ class Modalidades(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='dhl', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Modalidades de Servicio'
@@ -794,7 +795,7 @@ class EmpresasBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='empresas', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Beneficios'
@@ -884,7 +885,11 @@ class EnviosInternacionalesBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios internacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+<<<<<<< HEAD
+    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
+=======
     descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
+>>>>>>> 0ccb2e83972f831810274c8bb95a2ab0dbfa670c
     
     class Meta:
         verbose_name = 'Beneficios'
@@ -949,7 +954,7 @@ class EnviosNacionalesBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Beneficios'
@@ -1113,7 +1118,7 @@ class MypymesBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='mypymes', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Beneficios'
