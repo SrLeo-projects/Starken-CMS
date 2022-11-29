@@ -96,7 +96,7 @@ class Servicio(BaseModel):
 class Home(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True) 
+    primera_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='url_boton_principal', null=True, blank=True)
     primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
@@ -111,7 +111,7 @@ class Home(BaseModel):
 
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    segunda_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     segunda_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='segunda_url_boton_principal', null=True, blank=True)
     segunda_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
@@ -122,7 +122,7 @@ class Home(BaseModel):
     tercera_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    tercera_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     tercera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     tercera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='tercera_url_boton_principal', null=True, blank=True)
     tercera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
@@ -151,10 +151,8 @@ class Home(BaseModel):
     quinta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
     quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
 
-    quinta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón PlayStore', null=True, blank=True)
-    quinta_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace playstore', related_name='quinta_url_boton_principal', null=True, blank=True)
-    quinta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón AppStore', null=True, blank=True)
-    quinta_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace appstore', related_name='url_boton_secundario_quinta_seccion', null=True, blank=True)
+    quinta_seccion_app_store_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace playstore', related_name='quinta_url_boton_principal', null=True, blank=True)
+    quinta_seccion_google_play_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace appstore', related_name='url_boton_secundario_quinta_seccion', null=True, blank=True)
 
     servicios = models.ManyToManyField(Servicio, verbose_name='servicios', blank=True)
     
@@ -323,16 +321,13 @@ class StarkenPro(BaseModel):
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
     primera_seccion_primer_titulo = models.CharField(max_length=255, verbose_name='primer título', null=True, blank=True)
-    primera_seccion_primer_destacado = models.CharField(max_length=255, verbose_name='primer destacado', null=True, blank=True)
-    primera_seccion_primera_descripcion = models.TextField(verbose_name='primera descripción', null=True, blank=True)
+    primera_seccion_primera_descripcion = RichTextField(verbose_name='Primera descripción', null=True, blank=True)
     primera_seccion_segundo_titulo = models.CharField(max_length=255, verbose_name='segundo título', null=True, blank=True)
-    primera_seccion_segundo_destacado = models.CharField(max_length=255, verbose_name='segundo destacado', null=True, blank=True)
-    primera_seccion_segunda_descripcion = models.TextField(verbose_name='segunda descripción', null=True, blank=True)
+    primera_seccion_segunda_descripcion = RichTextField(verbose_name='Segunda descripción', null=True, blank=True)
     primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='url_boton_principal_starkenpro', null=True, blank=True)
     primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
     primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='starkenpro_url_boton_secundario_primera_seccion', null=True, blank=True)
-    primera_seccion_mensaje = models.CharField(max_length=255, verbose_name='mensaje', null=True, blank=True)
 
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -342,8 +337,10 @@ class StarkenPro(BaseModel):
     tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
+    cuarta_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    cuarta_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     cuarta_seccion_imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
@@ -359,8 +356,6 @@ class StarkenPro(BaseModel):
         verbose_name = 'starken PRO'
         verbose_name_plural = 'starken PRO'
 
-    
-
 class StarkenProBeneficio(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
@@ -370,25 +365,21 @@ class StarkenProBeneficio(BaseModel):
     class Meta:
         verbose_name = 'Beneficio'
         verbose_name_plural = 'Beneficios'
-    
-
-    
 
 class StarkenProPaso(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
     paso = models.CharField(max_length=255, verbose_name='número de indicación', null=True, blank=True)
     imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
-    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+
     class Meta:
         verbose_name = 'Indicaciones'
         verbose_name_plural = 'Indicaciones'
-        
-    
+
 #Preguntas Frecuentes
 class PreguntasCategoria(models.Model):
     titulo_categoria = models.CharField(max_length=255, verbose_name='Título de categoría', null=True, blank=True)
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
+    imagen = models.ImageField(upload_to='preguntas', verbose_name='imagen', null=True, blank=True)
     
     class Meta:
         verbose_name = 'FAQ - Categoría'
@@ -401,7 +392,7 @@ class PreguntasCategoria(models.Model):
 class Preguntas(models.Model):
     pregunta = models.ForeignKey(PreguntasCategoria, on_delete=models.CASCADE, related_name='preguntas',  verbose_name='Preguntas', null=True, blank=True)
     pregunta_titulo = models.CharField(max_length=255, verbose_name='pregunta título', null=True, blank=True)
-    pregunta_descripcion = models.TextField(verbose_name='pregunta descripción', null=True, blank=True)
+    pregunta_descripcion = RichTextField(verbose_name='pregunta descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'pregunta'
@@ -420,11 +411,15 @@ class PreguntasFrecuentes(BaseModel):
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
+    tercera_seccion_icono_primer_bloque = models.CharField(max_length=255, verbose_name='icono', null=True, blank=True)
     tercera_seccion_titulo_primer_bloque = models.CharField(max_length=255, verbose_name='título primer bloque', null=True, blank=True)
     tercera_seccion_descripcion_primer_bloque = models.TextField(verbose_name='descripción primer bloque', null=True, blank=True)
+    tercera_seccion_url_primer_bloque = models.URLField(verbose_name='url primer bloque', null=True, blank=True)
     
+    tercera_seccion_icono_segundo_bloque = models.CharField(max_length=255, verbose_name='icono', null=True, blank=True)
     tercera_seccion_titulo_segundo_bloque = models.CharField(max_length=255, verbose_name='título segundo bloque', null=True, blank=True)
     tercera_seccion_descripcion_segundo_bloque = models.TextField(verbose_name='descripción segundo bloque', null=True, blank=True)
+    tercera_seccion_url_segundo_bloque = models.URLField(verbose_name='url segundo bloque', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -769,9 +764,7 @@ class Empresas(BaseModel):
     cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     cuarta_seccion_imagen = models.ImageField(upload_to='empresas', verbose_name='imagen', null=True, blank=True)
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    cuarta_seccion_titulo_interno = models.CharField(max_length=255, verbose_name='título interno', null=True, blank=True)
-    cuarta_seccion_subtitulo_interno = models.CharField(max_length=255, verbose_name='subtítulo interno', null=True, blank=True)
+    cuarta_seccion_descripcion = RichTextField(blank=True, verbose_name='descripción', null=True)
     cuarta_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
     cuarta_seccion_primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_empresas', null=True, blank=True)
     cuarta_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
@@ -891,7 +884,7 @@ class EnviosInternacionalesBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios internacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Beneficios'
@@ -969,7 +962,8 @@ class EnviosNacionalesRecomendaciones(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
+    url = models.CharField(max_length=255, verbose_name='url', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Recomendaciones'
@@ -1086,9 +1080,7 @@ class Mypymes(BaseModel):
     sexta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     sexta_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
     sexta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    sexta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    sexta_seccion_titulo_interno = models.CharField(max_length=255, verbose_name='título interno', null=True, blank=True)
-    sexta_seccion_subtitulo_interno = models.CharField(max_length=255, verbose_name='subtítulo interno', null=True, blank=True)
+    sexta_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     sexta_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
     sexta_seccion_primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_mypymes', null=True, blank=True)
     sexta_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
@@ -1167,9 +1159,12 @@ class Reclamos(BaseModel):
     segunda_notificacion = models.CharField(max_length=255, verbose_name='segunda notificación', null=True, blank=True)
     
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
-    tercera_seccion_enlace_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del enlace', related_name='url_enlace_reclamos', null=True, blank=True)
+    tercera_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
+    tercera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    tercera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='reclamos_url_boton_tercera_seccion', null=True, blank=True)
+    tercera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    tercera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='reclamos_url_boton_secundario_tercera_seccion', null=True, blank=True)
     tercera_seccion_preguntas = models.ManyToManyField(Preguntas, verbose_name='Preguntas', blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -1308,7 +1303,6 @@ class Covid(BaseModel):
     primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen miniatura', null=True, blank=True)
-    primera_seccion_video_url = models.URLField(verbose_name='url del video', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_fecha = models.DateField(verbose_name='fecha', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -1397,9 +1391,7 @@ class Servicios(BaseModel):
     tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     tercera_seccion_imagen = models.ImageField(upload_to='servicios', verbose_name='imagen', null=True, blank=True)
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    tercera_seccion_titulo_interno = models.CharField(max_length=255, verbose_name='título interno', null=True, blank=True)
-    tercera_seccion_subtitulo_interno = models.CharField(max_length=255, verbose_name='subtítulo interno', null=True, blank=True)
+    tercera_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     tercera_seccion_primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
     tercera_seccion_primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_servicios', null=True, blank=True)
     tercera_seccion_segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
@@ -1426,11 +1418,18 @@ class Registro(BaseModel):
     formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
+    
+    etiqueta_rut = models.CharField(max_length=255, verbose_name='etiqueta rut', null=True, blank=True)
     etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
-    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta número telefónico', null=True, blank=True)
+    etiqueta_apellido = models.CharField(max_length=255, verbose_name='etiqueta apellido', null=True, blank=True)
     etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
+    etiqueta_direccion = models.CharField(max_length=255, verbose_name='etiqueta dirección', null=True, blank=True)
+    etiqueta_comuna = models.CharField(max_length=255, verbose_name='etiqueta comuna', null=True, blank=True)
+    etiqueta_sucursal = models.CharField(max_length=255, verbose_name='etiqueta sucursal', null=True, blank=True)
+    etiqueta_telefono = models.CharField(max_length=255, verbose_name='etiqueta número telefónico', null=True, blank=True)
+    etiqueta_movil = models.CharField(max_length=255, verbose_name='etiqueta número móvil', null=True, blank=True)
     etiqueta_contraseña = models.CharField(max_length=255, verbose_name='etiqueta contraseña', null=True, blank=True)
-    etiqueta_confirmar_contraseña = models.CharField(max_length=255, verbose_name='etiqueta confirmar contraseña', null=True, blank=True)
+    
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -1484,8 +1483,10 @@ class Login(BaseModel):
     formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
+    formulario_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario formulario', null=True, blank=True)
     etiqueta_usuario = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
     etiqueta_contraseña = models.CharField(max_length=255, verbose_name='etiqueta contraseña', null=True, blank=True)
+    
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
