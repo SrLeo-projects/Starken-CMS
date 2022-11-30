@@ -55,18 +55,6 @@ class BasicoSeccion(models.Model):
     def __str__(self):
         return self.titulo
 
-class Servicio(models.Model):
-    titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
-    descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
-    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_boton_servicios_pages', null=True, blank=True)
-    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='servicio_seccion', verbose_name='imagen', null=True, blank=True)
-    
-    def __str__(self):
-        return self.titulo
-
 class ServiciosSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
     destacado = models.CharField(max_length=200, verbose_name='destacado', null=True, blank=True)
@@ -75,7 +63,20 @@ class ServiciosSeccion(models.Model):
     primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_servicios_pages', null=True, blank=True)
     segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
     segundo_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del segundo botón', related_name='url_segundo_boton_servicios_pages', null=True, blank=True)
-    servicios = models.ManyToManyField(Servicio, verbose_name='servicios', blank=True)
+    
+    def __str__(self):
+        return self.titulo
+    
+class Servicio(models.Model):
+    servicios = models.ForeignKey(ServiciosSeccion, on_delete=models.CASCADE, verbose_name='Sección de Servicios', null=True, blank=True)
+    titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
+    descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
+    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_boton_servicios_pages', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='servicio_seccion', verbose_name='imagen', null=True, blank=True)
+    
     def __str__(self):
         return self.titulo
     

@@ -50,7 +50,6 @@ class ServicioAdmin(admin.ModelAdmin):
 @admin.register(ServiciosSeccion)
 class ServiciosSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'descripcion')
-    filter_horizontal =['servicios']
 
     
 @admin.register(BloquesSeccion)
