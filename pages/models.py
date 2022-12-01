@@ -1,15 +1,17 @@
 from django.db import models
 from cms.models import URL
-
+from faicon.fields import FAIconField
 class BannerSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
     destacado = models.CharField(max_length=200, verbose_name='destacado', null=True, blank=True)
-    subtitulo = models.CharField(max_length=200, verbose_name='destacado', null=True, blank=True)
+    subtitulo = models.CharField(max_length=200, verbose_name='subtítulo', null=True, blank=True)
     descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
     primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
     primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_banner', null=True, blank=True)
+    primer_boton_icono = FAIconField(verbose_name='ícono primer botón', null=True, blank=True)
     segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
     segundo_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del segundo botón', related_name='url_segundo_boton_banner', null=True, blank=True)
+    segundo_boton_icono = FAIconField(verbose_name='ícono segundo botón', null=True, blank=True)
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='banner_seccion', verbose_name='imagen', null=True, blank=True)
@@ -20,23 +22,31 @@ class BannerSeccion(models.Model):
     def __str__(self):
         return self.titulo
     
-class BeneficioSeccion(models.Model):
-    titulo = models.CharField(max_length=200)
-    descripcion = models.TextField()
-
-    def __str__(self):
-        return self.titulo
-    
 class Beneficio(models.Model):
-    seccion = models.ForeignKey(BeneficioSeccion, on_delete=models.CASCADE, related_name='beneficios')
     titulo = models.CharField(max_length=200)
     descripcion = models.TextField()
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='beneficio_seccion', verbose_name='imagen', null=True, blank=True)
+    boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_beneficio', null=True, blank=True)
+    boton_icono = FAIconField(verbose_name='ícono botón', null=True, blank=True)
 
     def __str__(self):
         return self.titulo
+    
+class BeneficioSeccion(models.Model):
+    titulo = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    beneficios = models.ManyToManyField(Beneficio, verbose_name='Beneficios', blank=True)
+
+    def __str__(self):
+        return self.titulo
+    
+
+class Direccion(models.TextChoices):
+    IZQUIERDA = "IMAGEN A LA IZQUIERDA", "IMAGEN A LA IZQUIERDA"
+    DERECHA = "IMAGEN A LA DERECHA", "IMAGEN A LA DERECHA"
 
 class BasicoSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
@@ -45,13 +55,28 @@ class BasicoSeccion(models.Model):
     descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
     primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
     primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_basico', null=True, blank=True)
+    primer_boton_icono = FAIconField(verbose_name='ícono primer botón', null=True, blank=True)
     segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
     segundo_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del segundo botón', related_name='url_segundo_boton_basico', null=True, blank=True)
+    segundo_boton_icono = FAIconField(verbose_name='ícono segundo botón', null=True, blank=True)
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='basico_seccion', verbose_name='imagen', null=True, blank=True)
-    invertir_sentido= models.BooleanField(default=False, verbose_name='invertir sentido')
+    invertir_sentido= models.CharField(max_length=50, choices=Direccion.choices, default=Direccion.DERECHA, null=True, blank=True, verbose_name='Posición de la imagen')
 
+    def __str__(self):
+        return self.titulo
+    
+class Servicio(models.Model):
+    titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
+    descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
+    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_boton_servicios_pages', null=True, blank=True)
+    boton_icono = FAIconField(verbose_name='ícono botón', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='servicio_seccion', verbose_name='imagen', null=True, blank=True)
+    
     def __str__(self):
         return self.titulo
 
@@ -61,43 +86,31 @@ class ServiciosSeccion(models.Model):
     descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
     primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
     primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_servicios_pages', null=True, blank=True)
+    primer_boton_icono = FAIconField(verbose_name='ícono primer botón', null=True, blank=True)
     segundo_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
     segundo_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del segundo botón', related_name='url_segundo_boton_servicios_pages', null=True, blank=True)
+    segundo_boton_icono = FAIconField(verbose_name='ícono segundo botón', null=True, blank=True)
+    servicios = models.ManyToManyField(Servicio, verbose_name='Servicios', blank=True)
     
     def __str__(self):
         return self.titulo
+
     
-class Servicio(models.Model):
-    servicios = models.ForeignKey(ServiciosSeccion, on_delete=models.CASCADE, verbose_name='Sección de Servicios', null=True, blank=True)
+
+class Bloques(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
     descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
     boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_boton_servicios_pages', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_bloque', null=True, blank=True)
+    boton_icono = FAIconField(verbose_name='ícono botón', null=True, blank=True)
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='servicio_seccion', verbose_name='imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='bloques_seccion', verbose_name='imagen', null=True, blank=True)
     
-    def __str__(self):
-        return self.titulo
     
-
 class BloquesSeccion(models.Model):
-    primer_bloque_titulo = models.CharField(max_length=200, verbose_name='titulo primer bloque', null=True, blank=True)
-    primer_bloque_descripcion = models.TextField(null=True, verbose_name='descripción primer bloque', blank=True)
-    primer_bloque_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
-    primer_bloque_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_bloque_boton', null=True, blank=True)
-    primer_bloque_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen primer bloque', null=True, blank=True)
-    primer_bloque_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen primer bloque', null=True, blank=True)
-    primer_bloque_imagen = models.ImageField(upload_to='bloques_seccion', verbose_name='imagen primer bloque', null=True, blank=True)
-    
-    segundo_bloque_titulo = models.CharField(max_length=200, verbose_name='titulo segundo bloque', null=True, blank=True)
-    segundo_bloque_descripcion = models.TextField(null=True, verbose_name='descripción segundo bloque', blank=True)
-    segundo_bloque_boton = models.CharField(max_length=255, verbose_name='segundo botón', null=True, blank=True)
-    segundo_bloque_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del segundo botón', related_name='url_segundo_bloque_boton', null=True, blank=True)
-    segundo_bloque_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen segundo bloque', null=True, blank=True)
-    segundo_bloque_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen segundo bloque', null=True, blank=True)
-    segundo_bloque_imagen = models.ImageField(upload_to='bloques_seccion', verbose_name='imagen segundo bloque', null=True, blank=True)
-    
+    pagina = models.CharField(max_length=200, verbose_name='página', null=True, blank=True)
+    bloques = models.ManyToManyField(Bloques, verbose_name='Bloques', blank=True)
 
     
 class Page(models.Model):

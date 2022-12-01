@@ -28,17 +28,15 @@ class PageAdmin(admin.ModelAdmin):
 class BannerSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'descripcion')
     
-class beneficioInline(admin.StackedInline):
-    model = Beneficio
-    extra = 0
+@admin.register(Beneficio)
+class BeneficioAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'descripcion')
 
 @admin.register(BeneficioSeccion)
 class BeneficioSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'descripcion')
+    filter_horizontal = ['beneficios']
 
-    inlines = [
-        beneficioInline,
-    ]
 @admin.register(BasicoSeccion)
 class BasicoSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'descripcion')
@@ -50,8 +48,14 @@ class ServicioAdmin(admin.ModelAdmin):
 @admin.register(ServiciosSeccion)
 class ServiciosSeccionAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'descripcion')
+    filter_horizontal = ['servicios']
 
     
+@admin.register(Bloques)
+class BloquesAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'descripcion')
+
 @admin.register(BloquesSeccion)
 class BloquesSeccionAdmin(admin.ModelAdmin):
-    list_display = ('primer_bloque_titulo', 'segundo_bloque_titulo')
+    list_display = ('pagina',)
+    filter_horizontal = ['bloques']
