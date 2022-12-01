@@ -1,5 +1,6 @@
 from django.contrib import admin
-
+from import_export.admin import ImportExportModelAdmin
+from tabular_export.admin import export_to_csv_action, export_to_excel_action
 from pages.models import *
 
 class PageDetailInline(admin.StackedInline):
@@ -13,7 +14,8 @@ class PageDetailInline(admin.StackedInline):
         return formset
 
 @admin.register(Page)
-class PageAdmin(admin.ModelAdmin):
+class PageAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'descripcion')
 
     inlines = [
@@ -25,34 +27,45 @@ class PageAdmin(admin.ModelAdmin):
 
 
 @admin.register(BannerSeccion)
-class BannerSeccionAdmin(admin.ModelAdmin):
+class BannerSeccionAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'subtitulo', 'descripcion')
     
-class beneficioInline(admin.StackedInline):
-    model = Beneficio
-    extra = 0
-
-@admin.register(BeneficioSeccion)
-class BeneficioSeccionAdmin(admin.ModelAdmin):
+@admin.register(Beneficio)
+class BeneficioAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'descripcion')
 
-    inlines = [
-        beneficioInline,
-    ]
+@admin.register(BeneficioSeccion)
+class BeneficioSeccionAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ('titulo', 'descripcion')
+    filter_horizontal = ['beneficios']
+
 @admin.register(BasicoSeccion)
-class BasicoSeccionAdmin(admin.ModelAdmin):
+class BasicoSeccionAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'subtitulo', 'descripcion')
 
 @admin.register(Servicio)
-class ServicioAdmin(admin.ModelAdmin):
+class ServicioAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'descripcion')
 
 @admin.register(ServiciosSeccion)
-class ServiciosSeccionAdmin(admin.ModelAdmin):
+class ServiciosSeccionAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'descripcion')
-    filter_horizontal =['servicios']
+    filter_horizontal = ['servicios']
 
     
+@admin.register(Bloques)
+class BloquesAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ('titulo', 'descripcion')
+
 @admin.register(BloquesSeccion)
-class BloquesSeccionAdmin(admin.ModelAdmin):
-    list_display = ('primer_bloque_titulo', 'segundo_bloque_titulo')
+class BloquesSeccionAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ('titulo', 'descripcion')
+    filter_horizontal = ['bloques']

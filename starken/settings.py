@@ -269,6 +269,10 @@ JAZZMIN_SETTINGS = {
             'name': 'Modelo',
             'models': ['pages.page', 'pages.basicoseccion', 'pages.beneficioseccion', 'pages.bannerseccion', 'pages.bloquesseccion', 'pages.serviciosseccion'],
         },
+        {
+            'name': 'Modelo - Elementos',
+            'models': ['pages.beneficio', 'pages.bloques', 'pages.servicio'],
+        },
     ],
     
     # Custom links to append to app groups, keyed on app name

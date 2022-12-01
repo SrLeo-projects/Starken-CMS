@@ -17,6 +17,7 @@ $(document).ready(function() {
         }
     }, 1);
 
+    
     $(document).on('DOMNodeInserted', function(e) {
         if ($(e.target).hasClass('panel inline-related last-related dynamic-pagedetail_set')) {
             console.log(e.target)

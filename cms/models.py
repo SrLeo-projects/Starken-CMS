@@ -885,11 +885,7 @@ class EnviosInternacionalesBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios internacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-<<<<<<< HEAD
     descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
-=======
-    descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
->>>>>>> 0ccb2e83972f831810274c8bb95a2ab0dbfa670c
     
     class Meta:
         verbose_name = 'Beneficios'
