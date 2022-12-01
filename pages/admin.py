@@ -67,5 +67,5 @@ class BloquesAdmin(ImportExportModelAdmin):
 @admin.register(BloquesSeccion)
 class BloquesSeccionAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
-    list_display = ('pagina',)
+    list_display = ('titulo', 'descripcion')
     filter_horizontal = ['bloques']

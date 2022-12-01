@@ -42,11 +42,6 @@ class BeneficioSeccion(models.Model):
 
     def __str__(self):
         return self.titulo
-    
-
-class Direccion(models.TextChoices):
-    IZQUIERDA = "IMAGEN A LA IZQUIERDA", "IMAGEN A LA IZQUIERDA"
-    DERECHA = "IMAGEN A LA DERECHA", "IMAGEN A LA DERECHA"
 
 class BasicoSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
@@ -62,7 +57,10 @@ class BasicoSeccion(models.Model):
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='basico_seccion', verbose_name='imagen', null=True, blank=True)
-    invertir_sentido= models.CharField(max_length=50, choices=Direccion.choices, default=Direccion.DERECHA, null=True, blank=True, verbose_name='Posición de la imagen')
+    invertir_sentido= models.IntegerField(choices=[
+        (0, 'IMAGEN A LA IZQUIERDA'),
+        (1, 'IMAGEN A LA DERECHA'),
+    ], default=1, null=True, blank=True, verbose_name='Posición de la Imagen')
 
     def __str__(self):
         return self.titulo
@@ -109,7 +107,8 @@ class Bloques(models.Model):
     
     
 class BloquesSeccion(models.Model):
-    pagina = models.CharField(max_length=200, verbose_name='página', null=True, blank=True)
+    titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
+    descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
     bloques = models.ManyToManyField(Bloques, verbose_name='Bloques', blank=True)
 
     
