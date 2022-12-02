@@ -1,6 +1,7 @@
 from django.db import models
 from cms.models import URL
 from faicon.fields import FAIconField
+from django.utils.text import slugify
 class BannerSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
     destacado = models.CharField(max_length=200, verbose_name='destacado', null=True, blank=True)
@@ -46,7 +47,7 @@ class BeneficioSeccion(models.Model):
 class BasicoSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
     destacado = models.CharField(max_length=200, verbose_name='destacado', null=True, blank=True)
-    subtitulo = models.CharField(max_length=200, verbose_name='destacado', null=True, blank=True)
+    subtitulo = models.CharField(max_length=200, verbose_name='subtítulo', null=True, blank=True)
     descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
     primer_boton = models.CharField(max_length=255, verbose_name='primer botón', null=True, blank=True)
     primer_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del primer botón', related_name='url_primer_boton_basico', null=True, blank=True)
@@ -108,6 +109,9 @@ class Bloques(models.Model):
     def __str__(self):
         return self.titulo
     
+    def __str__(self):
+        return self.titulo
+    
     
 class BloquesSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
@@ -118,13 +122,17 @@ class BloquesSeccion(models.Model):
 class Page(models.Model):
     titulo = models.CharField(max_length=200)
     descripcion = models.TextField()
+    slug = models.SlugField(max_length=255, null=True, blank=True, unique=True) 
     header = models.BooleanField(default=False)
     footer= models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo
-
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titulo)
+        super(Page, self).save(*args, **kwargs)
 class PageDetail(models.Model):
     class Type(models.IntegerChoices):
         BANNER_SECCION = 1
