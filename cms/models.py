@@ -361,6 +361,7 @@ class StarkenProBeneficio(BaseModel):
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Beneficio'
@@ -370,6 +371,7 @@ class StarkenProPaso(BaseModel):
     starken_pro = models.ForeignKey(StarkenPro, on_delete=models.CASCADE, verbose_name='starken PRO', null=True, blank=True)
     paso = models.CharField(max_length=255, verbose_name='número de indicación', null=True, blank=True)
     imagen = models.ImageField(upload_to='starkenpro', verbose_name='imagen', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Indicaciones'
@@ -738,7 +740,7 @@ class Empresas(BaseModel):
     tercera_seccion_alt_imagen_fondo = models.CharField(max_length=255, verbose_name='alt imagen de fondo', null=True, blank=True)
     tercera_seccion_imagen_fondo = models.ImageField(upload_to='empresas', verbose_name='imagen de fondo', null=True, blank=True)
     
-    formulario_titulo = models.CharField(max_length=255, verbose_name='título formulario', null=True, blank=True)
+    formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario', null=True, blank=True)
     formulario_descripcion = models.TextField(blank=True, verbose_name='descripción formulario', null=True)
     formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón formulario', null=True, blank=True)
     etiqueta_rut_empresa = models.CharField(max_length=255, verbose_name='etiqueta rut empresa', null=True, blank=True)
@@ -759,7 +761,7 @@ class Empresas(BaseModel):
     tercera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
     tercera_seccion_enlace = models.CharField(max_length=255, verbose_name='enlace', null=True, blank=True)
     tercera_seccion_enlace_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del enlace', related_name='url_enlace_empresas', null=True, blank=True)
-    tercera_seccion_titulo_carrusel = models.CharField(max_length=255, verbose_name='título de la sección carrusel de imágenes', null=True, blank=True)
+    tercera_seccion_titulo_carrusel = models.CharField(max_length=255, verbose_name='título de carrusel', null=True, blank=True)
     
     cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
