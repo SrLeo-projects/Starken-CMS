@@ -17,6 +17,7 @@ class PageDetailInline(admin.StackedInline):
 class PageAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'descripcion')
+    readonly_fields = ('slug',)
 
     inlines = [
         PageDetailInline,
