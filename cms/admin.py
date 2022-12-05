@@ -1285,7 +1285,7 @@ class CovidInline(ImportExportModelAdmin):
                 'primera_seccion_alt_imagen',
                 'primera_seccion_imagen',
                 'primera_seccion_titulo',
-                'primera_seccion_fecha',
+                'primera_seccion_subtitulo',
                 'primera_seccion_descripcion',
                 'primera_seccion_boton',
                 'primera_seccion_boton_url',
