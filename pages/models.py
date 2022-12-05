@@ -117,7 +117,9 @@ class BloquesSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
     descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
     bloques = models.ManyToManyField(Bloques, verbose_name='Bloques', blank=True)
-
+    
+    def __str__(self):
+        return self.titulo
     
 class Page(models.Model):
     titulo = models.CharField(max_length=200)
