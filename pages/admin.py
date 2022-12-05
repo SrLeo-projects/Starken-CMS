@@ -13,6 +13,10 @@ class PageDetailInline(admin.StackedInline):
         formset.form.base_fields['type'].widget.attrs['class'] = 'page_detail_type'
         return formset
 
+class EtiquetasMetaInline(admin.StackedInline):
+    model = EtiquetasMeta
+    extra = 0
+
 @admin.register(Page)
 class PageAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
@@ -21,6 +25,7 @@ class PageAdmin(ImportExportModelAdmin):
 
     inlines = [
         PageDetailInline,
+        EtiquetasMetaInline
     ]
 
     class Media:

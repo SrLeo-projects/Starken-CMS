@@ -381,6 +381,7 @@ class StarkenProPaso(BaseModel):
 class PreguntasCategoria(models.Model):
     titulo_categoria = models.CharField(max_length=255, verbose_name='Título de categoría', null=True, blank=True)
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     imagen = models.ImageField(upload_to='preguntas', verbose_name='imagen', null=True, blank=True)
     
     class Meta:
@@ -492,17 +493,9 @@ class CentrodeAyudaBeneficio(BaseModel):
 class TerminosdeServicio(BaseModel):
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
-    primera_seccion_descripcion = models.TextField(blank=True, verbose_name='descripción', null=True)
-    
-    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    segunda_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    
-    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_descripcion = RichTextField(blank=True, verbose_name='descripción', null=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
-    segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
-    tercera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
     class Meta:
         verbose_name = 'Condición de Servicio'
@@ -511,7 +504,7 @@ class TerminosdeServicioSeccion(models.Model):
     terminos_de_servicio = models.ForeignKey(TerminosdeServicio, on_delete=models.CASCADE, verbose_name='Términos de Servicio', null=True, blank=True)
     name = models.CharField(max_length=255, unique=True, null=True, blank=True, verbose_name='id')
     seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Nueva Sección'
@@ -520,7 +513,7 @@ class TerminosdeServicioSeccion(models.Model):
 class TerminosdeServicioPunto(models.Model):
     terminos_de_servicio = models.ForeignKey(TerminosdeServicio, on_delete=models.CASCADE, verbose_name='Términos de Servicio', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título de término', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción de término', null=True, blank=True)
+    descripcion = RichTextField(verbose_name='descripción de término', null=True, blank=True)
     class Meta:
         verbose_name = 'Punto de Condición de Servicio'
         verbose_name_plural = 'Puntos de Condiciones de Servicio'
