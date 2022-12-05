@@ -21,7 +21,7 @@ class BannerSeccion(models.Model):
     imagen_movil = models.ImageField(upload_to='banner_seccion', verbose_name='imagen móvil', null=True, blank=True)
     
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
     
 class Beneficio(models.Model):
     titulo = models.CharField(max_length=200)
@@ -34,7 +34,7 @@ class Beneficio(models.Model):
     boton_icono = FAIconField(verbose_name='ícono botón', null=True, blank=True)
 
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
     
 class BeneficioSeccion(models.Model):
     titulo = models.CharField(max_length=200)
@@ -42,7 +42,7 @@ class BeneficioSeccion(models.Model):
     beneficios = models.ManyToManyField(Beneficio, verbose_name='Beneficios', blank=True)
 
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
 
 class BasicoSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
@@ -64,7 +64,7 @@ class BasicoSeccion(models.Model):
     ], default=1, null=True, blank=True, verbose_name='Posición de la Imagen')
 
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
     
 class Servicio(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
@@ -77,7 +77,7 @@ class Servicio(models.Model):
     imagen = models.ImageField(upload_to='servicio_seccion', verbose_name='imagen', null=True, blank=True)
     
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
 
 class ServiciosSeccion(models.Model):
     titulo = models.CharField(max_length=200, verbose_name='titulo', null=True, blank=True)
@@ -92,7 +92,7 @@ class ServiciosSeccion(models.Model):
     servicios = models.ManyToManyField(Servicio, verbose_name='Servicios', blank=True)
     
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
 
     
 
@@ -110,7 +110,7 @@ class Bloques(models.Model):
         return self.titulo
     
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
     
     
 class BloquesSeccion(models.Model):
@@ -119,7 +119,7 @@ class BloquesSeccion(models.Model):
     bloques = models.ManyToManyField(Bloques, verbose_name='Bloques', blank=True)
     
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
     
 class Page(models.Model):
     titulo = models.CharField(max_length=200)
@@ -130,11 +130,25 @@ class Page(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.titulo)
         super(Page, self).save(*args, **kwargs)
+        
+
+class EtiquetasMeta(models.Model):
+
+    pagina = models.ForeignKey(Page, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, verbose_name='name', null=True, blank=True)
+    content = models.CharField(max_length=200, verbose_name='content')
+    property = models.CharField(max_length=200, verbose_name='property', null=True, blank=True)
+    itemprop = models.CharField(max_length=200, verbose_name='itemprop', null=True, blank=True)
+
+    def __str__(self):
+        return str(self.pagina.titulo)
+        
+        
 class PageDetail(models.Model):
     class Type(models.IntegerChoices):
         BANNER_SECCION = 1
@@ -152,4 +166,4 @@ class PageDetail(models.Model):
     bloques_seccion = models.ForeignKey(BloquesSeccion, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return self.pagina.titulo
+        return str(self.pagina.titulo)
