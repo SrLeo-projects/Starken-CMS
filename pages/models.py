@@ -105,6 +105,9 @@ class Bloques(models.Model):
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='bloques_seccion', verbose_name='imagen', null=True, blank=True)
+
+    def __str__(self):
+        return self.titulo
     
     def __str__(self):
         return str(self.titulo)
@@ -117,7 +120,6 @@ class BloquesSeccion(models.Model):
     
     def __str__(self):
         return str(self.titulo)
-
     
 class Page(models.Model):
     titulo = models.CharField(max_length=200)
