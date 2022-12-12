@@ -417,12 +417,12 @@ class PreguntasFrecuentes(BaseModel):
     tercera_seccion_icono_primer_bloque = FAIconField(verbose_name='ícono primer bloque', null=True, blank=True)
     tercera_seccion_titulo_primer_bloque = models.CharField(max_length=255, verbose_name='título primer bloque', null=True, blank=True)
     tercera_seccion_descripcion_primer_bloque = models.TextField(verbose_name='descripción primer bloque', null=True, blank=True)
-    tercera_seccion_url_primer_bloque = models.URLField(verbose_name='url primer bloque', null=True, blank=True)
+    tercera_seccion_url_primer_bloque = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url botón primer bloque', related_name='url_tercera_seccion_primer_bloque', null=True, blank=True)
     
     tercera_seccion_icono_segundo_bloque = FAIconField(verbose_name='ícono segundo bloque', null=True, blank=True)
     tercera_seccion_titulo_segundo_bloque = models.CharField(max_length=255, verbose_name='título segundo bloque', null=True, blank=True)
     tercera_seccion_descripcion_segundo_bloque = models.TextField(verbose_name='descripción segundo bloque', null=True, blank=True)
-    tercera_seccion_url_segundo_bloque = models.URLField(verbose_name='url segundo bloque', null=True, blank=True)
+    tercera_seccion_url_segundo_bloque = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url botón segundo bloque', related_name='url_tercera_seccion_segundo_bloque', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
