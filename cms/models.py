@@ -63,7 +63,15 @@ class Notificacion(models.Model):
         verbose_name = 'Notificación'
         verbose_name_plural = 'Notificaciones'
     
+class NotificacionModal(models.Model):
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='notificacion_modal', verbose_name='imagen', null=True, blank=True)
+    fecha_de_caducidad = models.DateField(verbose_name='fecha de caducidad', null=True, blank=True)
     
+    class Meta:
+        verbose_name = 'Notificación Modal'
+        verbose_name_plural = 'Notificación Modal'   
     
 class URL(models.Model):
     nombre = models.CharField(max_length=255, verbose_name='nombre de la URL', null=True, blank=True)
