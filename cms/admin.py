@@ -467,6 +467,7 @@ class ContactanosAdmin(ImportExportModelAdmin):
             'fields': (
                 'segunda_seccion_ocultar',
                 'segunda_seccion_icon_whatsapp',
+                'segunda_seccion_url_whatsapp',
                 'segunda_seccion_titulo_whatsapp',
                 'segunda_seccion_descripcion_whatsapp',
                 'segunda_seccion_icon_telefono',

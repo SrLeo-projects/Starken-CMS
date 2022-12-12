@@ -530,6 +530,7 @@ class Contactanos(BaseModel):
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
     segunda_seccion_icon_whatsapp = FAIconField(verbose_name='ícono whatsapp', null=True, blank=True)
+    segunda_seccion_url_whatsapp = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url de whatsapp', related_name='url_whatsapp', null=True, blank=True)
     segunda_seccion_titulo_whatsapp = models.CharField(max_length=255, verbose_name='título whatsapp', null=True, blank=True)
     segunda_seccion_descripcion_whatsapp = RichTextField(verbose_name='descripción whatsapp', null=True, blank=True)
     segunda_seccion_icon_telefono = FAIconField(verbose_name='ícono teléfono', null=True, blank=True)
