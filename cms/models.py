@@ -1300,7 +1300,7 @@ class Covid(BaseModel):
     primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     primera_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen miniatura', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    primera_seccion_fecha = models.DateField(verbose_name='fecha', null=True, blank=True)
+    primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     primera_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
     primera_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_covid', null=True, blank=True)
@@ -1316,8 +1316,8 @@ class Covid(BaseModel):
        
 class CovidComunicado(models.Model):
     covid = models.ForeignKey(Covid, on_delete=models.CASCADE, verbose_name='Covid', null=True, blank=True)
-    primera_seccion_fecha = models.DateField(verbose_name='fecha', null=True, blank=True)
-    primera_seccion_contenido = RichTextField(verbose_name='contenido', null=True, blank=True)
+    primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    primera_seccion_descripción = RichTextField(verbose_name='descripción', null=True, blank=True)
     class Meta:
         verbose_name = 'Comunicado'
         verbose_name_plural = 'Comunicados'
