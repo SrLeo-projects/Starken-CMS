@@ -433,8 +433,8 @@ class PreguntasFrecuentesAdmin(ImportExportModelAdmin):
     )
     
 
-class DatosInline(admin.StackedInline):
-    model = Datos
+class RedSocialInline(admin.StackedInline):
+    model = RedSocial
     extra = 0
    
 class IconosInline(admin.StackedInline):
@@ -459,14 +459,21 @@ class ContactanosAdmin(ImportExportModelAdmin):
                 'primera_seccion_titulo_imagen_movil',
                 'primera_seccion_alt_imagen_movil',
                 'primera_seccion_imagen_movil',
-                'formulario_titulo',
-                'formulario_descripcion',
-                'formulario_boton_principal',
-                'etiqueta_nombre', 
-                'etiqueta_email', 
-                'etiqueta_mensaje',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_ocultar',
+                'segunda_seccion_icon_whatsapp',
+                'segunda_seccion_titulo_whatsapp',
+                'segunda_seccion_descripcion_whatsapp',
+                'segunda_seccion_icon_telefono',
+                'segunda_seccion_titulo_telefono', 
+                'segunda_seccion_descripcion_telefono', 
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
             )
         }),
         ('Tercera Sección', {
@@ -500,8 +507,8 @@ class ContactanosAdmin(ImportExportModelAdmin):
         }),
     )
     
-    inlines = [DatosInline, IconosInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Contáctanos Datos", "Tercera Sección", "Cuarta Sección")
+    inlines = [RedSocialInline, IconosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Segunda Sección", "Redes Sociales", "Tercera Sección", "Cuarta Sección")
     
     
 class BotonInline(admin.StackedInline):

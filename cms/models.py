@@ -526,14 +526,20 @@ class Contactanos(BaseModel):
     primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
     primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
     primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
-    formulario_titulo = models.CharField(max_length=255, verbose_name='título de formulario', null=True, blank=True)
-    formulario_descripcion = models.TextField(verbose_name='descripción de formulario', null=True, blank=True)
-    formulario_boton_principal = models.CharField(max_length=255, verbose_name='botón de formulario', null=True, blank=True)
-    etiqueta_nombre = models.CharField(max_length=255, verbose_name='etiqueta nombre', null=True, blank=True)
-    etiqueta_email = models.CharField(max_length=255, verbose_name='etiqueta email', null=True, blank=True)
-    etiqueta_mensaje = models.CharField(max_length=255, verbose_name='etiqueta mensaje', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    
+    segunda_seccion_icon_whatsapp = FAIconField(verbose_name='ícono whatsapp', null=True, blank=True)
+    segunda_seccion_titulo_whatsapp = models.CharField(max_length=255, verbose_name='título whatsapp', null=True, blank=True)
+    segunda_seccion_descripcion_whatsapp = RichTextField(verbose_name='descripción whatsapp', null=True, blank=True)
+    segunda_seccion_icon_telefono = FAIconField(verbose_name='ícono teléfono', null=True, blank=True)
+    segunda_seccion_titulo_telefono = models.CharField(max_length=255, verbose_name='título teléfono', null=True, blank=True)
+    segunda_seccion_descripcion_telefono = RichTextField(verbose_name='descripción teléfono', null=True, blank=True)
+    
+    segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    
+    
     
     tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
@@ -561,6 +567,7 @@ class Contactanos(BaseModel):
     cuarta_seccion_tarjeta_2_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón tarjeta 2', related_name='url_boton_tarjeta_2_contactanos', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
+    segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     tercera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     cuarta_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
@@ -569,24 +576,15 @@ class Contactanos(BaseModel):
         verbose_name_plural = 'Contáctanos'
     
         
-class Datos(models.Model):
+class RedSocial(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
-    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='datos', verbose_name='imagen', null=True, blank=True)
-    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    primera_descripcion = models.CharField(max_length=255, verbose_name='primera descripción', null=True, blank=True)
-    segunda_descripcion = models.CharField(max_length=255, verbose_name='segunda descripción', null=True, blank=True)
-    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_principal_datos', null=True, blank=True)
-    primer_icon = FAIconField(verbose_name='ícono primer botón', null=True, blank=True)
-    boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
-    boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='datos_url_boton_secundario', null=True, blank=True)
-    segundo_icon = FAIconField(verbose_name='ícono segundo botón', null=True, blank=True)
+    red_social = models.CharField(max_length=255, verbose_name='nombre de red social', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_red_social', null=True, blank=True)
+    
 
     class Meta:
-        verbose_name = 'Contáctanos Datos'
-        verbose_name_plural = 'Contáctanos Datos'
+        verbose_name = 'Redes Sociales'
+        verbose_name_plural = 'Redes Sociales'
 
 class Iconos(models.Model):
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
