@@ -387,7 +387,7 @@ class PreguntasCategoriaInline(ImportExportModelAdmin):
     model = PreguntasCategoria
     fieldsets = (
         ('General', {
-            'fields': ('titulo_categoria', 'primera_seccion_ocultar',)
+            'fields': ('titulo_categoria', 'primera_seccion_ocultar', 'descripcion', 'imagen')
         }),
     )
     
@@ -436,10 +436,6 @@ class PreguntasFrecuentesAdmin(ImportExportModelAdmin):
 class RedSocialInline(admin.StackedInline):
     model = RedSocial
     extra = 0
-   
-class IconosInline(admin.StackedInline):
-    model = Iconos
-    extra = 0 
 
 @admin.register(Contactanos)
 class ContactanosAdmin(ImportExportModelAdmin):
@@ -461,6 +457,10 @@ class ContactanosAdmin(ImportExportModelAdmin):
                 'primera_seccion_imagen_movil',
                 'primera_seccion_titulo',
                 'primera_seccion_descripcion',
+                'primera_seccion_boton_principal',
+                'primera_seccion_boton_principal_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
             )
         }),
         ('Segunda Sección', {
@@ -508,8 +508,8 @@ class ContactanosAdmin(ImportExportModelAdmin):
         }),
     )
     
-    inlines = [RedSocialInline, IconosInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Íconos", "Segunda Sección", "Redes Sociales", "Tercera Sección", "Cuarta Sección")
+    inlines = [RedSocialInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Redes Sociales", "Tercera Sección", "Cuarta Sección")
     
     
 class BotonInline(admin.StackedInline):
@@ -1011,9 +1011,9 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'tercera_seccion_destacado_derecho',
             )
         }),
-        ('Zona Partner', {
+        ('Cuarta Sección', {
             'fields': (
-                'zona_partner_seccion_ocultar',
+                'cuarta_seccion_ocultar',
                 'zona_partner_seccion_titulo_logo',
                 'zona_partner_seccion_alt_logo',
                 'zona_partner_seccion_logo',
@@ -1021,16 +1021,6 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'zona_partner_seccion_titulo_imagen',
                 'zona_partner_seccion_alt_imagen',
                 'zona_partner_seccion_imagen',
-            )
-        }),
-        ('Cuarta Sección', {
-            'fields': (
-                'cuarta_seccion_ocultar',
-                'cuarta_seccion_titulo',
-                'cuarta_seccion_destacado',
-                'cuarta_seccion_descripcion',
-                'cuarta_seccion_boton',
-                'cuarta_seccion_boton_url',
             )
         }),
         ('Quinta Sección', {

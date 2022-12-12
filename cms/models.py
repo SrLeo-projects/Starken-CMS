@@ -146,10 +146,10 @@ class Home(BaseModel):
 
     quinta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     quinta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    quinta_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
+    quinta_seccion_imagen = models.ImageField(upload_to='home', verbose_name='imagen', null=True, blank=True)
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
-    quinta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    quinta_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
 
     quinta_seccion_app_store_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace playstore', related_name='quinta_url_boton_principal', null=True, blank=True)
     quinta_seccion_google_play_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace appstore', related_name='url_boton_secundario_quinta_seccion', null=True, blank=True)
@@ -414,12 +414,12 @@ class PreguntasFrecuentes(BaseModel):
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
-    tercera_seccion_icono_primer_bloque = models.CharField(max_length=255, verbose_name='icono', null=True, blank=True)
+    tercera_seccion_icono_primer_bloque = FAIconField(verbose_name='ícono primer bloque', null=True, blank=True)
     tercera_seccion_titulo_primer_bloque = models.CharField(max_length=255, verbose_name='título primer bloque', null=True, blank=True)
     tercera_seccion_descripcion_primer_bloque = models.TextField(verbose_name='descripción primer bloque', null=True, blank=True)
     tercera_seccion_url_primer_bloque = models.URLField(verbose_name='url primer bloque', null=True, blank=True)
     
-    tercera_seccion_icono_segundo_bloque = models.CharField(max_length=255, verbose_name='icono', null=True, blank=True)
+    tercera_seccion_icono_segundo_bloque = FAIconField(verbose_name='ícono segundo bloque', null=True, blank=True)
     tercera_seccion_titulo_segundo_bloque = models.CharField(max_length=255, verbose_name='título segundo bloque', null=True, blank=True)
     tercera_seccion_descripcion_segundo_bloque = models.TextField(verbose_name='descripción segundo bloque', null=True, blank=True)
     tercera_seccion_url_segundo_bloque = models.URLField(verbose_name='url segundo bloque', null=True, blank=True)
@@ -528,6 +528,11 @@ class Contactanos(BaseModel):
     primera_seccion_imagen_movil = models.ImageField(upload_to='carousel', verbose_name='imagen móvil', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='primera_url_boton_principal_contactanos', null=True, blank=True)
+    primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
+    primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='contactanos_url_boton_secundario_primera_seccion', null=True, blank=True)
+    
     
     segunda_seccion_icon_whatsapp = FAIconField(verbose_name='ícono whatsapp', null=True, blank=True)
     segunda_seccion_url_whatsapp = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url de whatsapp', related_name='url_whatsapp', null=True, blank=True)
@@ -578,8 +583,16 @@ class Contactanos(BaseModel):
     
         
 class RedSocial(models.Model):
+    class TipoRed(models.TextChoices):
+        INSTAGRAM = 'instagram', 'instagram'
+        FACEBOOK = 'facebook', 'facebook'
+        TWITTER = 'twitter', 'twitter'
+        YOUTUBE = 'youtube', 'youtube'
+        LINKEDIN = 'linkedin', 'linkedin'
+    
+    red_social = models.CharField(max_length=255, choices=TipoRed.choices, verbose_name='red social', null=True, blank=True)
     contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
-    red_social = models.CharField(max_length=255, verbose_name='nombre de red social', null=True, blank=True)
+    
     boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_red_social', null=True, blank=True)
     
 
@@ -587,16 +600,6 @@ class RedSocial(models.Model):
         verbose_name = 'Redes Sociales'
         verbose_name_plural = 'Redes Sociales'
 
-class Iconos(models.Model):
-    contactanos = models.ForeignKey(Contactanos, on_delete=models.CASCADE, verbose_name='Contacto', null=True, blank=True)
-    titulo_icono = models.CharField(max_length=255, verbose_name='título ícono', null=True, blank=True)
-    alt_icono = models.CharField(max_length=255, verbose_name='alt ícono', null=True, blank=True)
-    icono = models.ImageField(upload_to='iconos', verbose_name='ícono', null=True, blank=True)
-
-    class Meta:
-        verbose_name = 'Íconos'
-        verbose_name_plural = 'Íconos'
- 
        
 #
 class Cotizador(BaseModel):
@@ -879,7 +882,7 @@ class EnviosInternacionalesBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios internacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Beneficios'
@@ -1058,11 +1061,6 @@ class Mypymes(BaseModel):
     zona_partner_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     zona_partner_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
     
-    cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
-    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    cuarta_seccion_boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
-    cuarta_seccion_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='cuarta_url_boton_mypymes', null=True, blank=True)
     
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -1096,7 +1094,6 @@ class Mypymes(BaseModel):
     quinta_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     sexta_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     septima_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
-    zona_partner_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     
     class Meta:
         verbose_name = 'MYPYMES'
@@ -1316,7 +1313,7 @@ class Covid(BaseModel):
 class CovidComunicado(models.Model):
     covid = models.ForeignKey(Covid, on_delete=models.CASCADE, verbose_name='Covid', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    primera_seccion_descripción = RichTextField(verbose_name='descripción', null=True, blank=True)
+    primera_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     class Meta:
         verbose_name = 'Comunicado'
         verbose_name_plural = 'Comunicados'
