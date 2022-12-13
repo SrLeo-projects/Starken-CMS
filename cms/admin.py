@@ -12,6 +12,10 @@ class NotificacionAdmin(ImportExportModelAdmin):
     list_display = ('tipo', 'descripcion','fecha_de_caducidad')
     list_filter = ('tipo',)
 
+@admin.register(NotificacionModal)
+class NotificacionModalAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ('fecha_de_caducidad', 'titulo_imagen',)
 
 @admin.register(Servicio)
 class ServicioAdmin(ImportExportModelAdmin):
