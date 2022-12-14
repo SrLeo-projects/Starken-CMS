@@ -75,3 +75,28 @@ class BloquesSeccionAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
     list_display = ('titulo', 'descripcion')
     filter_horizontal = ['bloques']
+    
+
+class CampoInline(admin.StackedInline):
+    model = Campo
+    extra = 0
+
+@admin.register(Formulario)
+class FormularioAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['nombre',]
+    readonly_fields = ('slug',)
+
+    inlines = [CampoInline]
+    
+    
+@admin.register(Resultado)
+class ResultadoAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['id', 'created_at', 'formulario', 'datos']
+    
+
+@admin.register(ResultadoDetalle)
+class ResultadoDetalleAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['id', 'resultado', 'campo', 'valor']
