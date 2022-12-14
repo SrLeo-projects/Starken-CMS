@@ -120,6 +120,56 @@ class BloquesSeccion(models.Model):
     
     def __str__(self):
         return str(self.titulo)
+
+class Formulario(models.Model):
+    slug = models.SlugField(max_length=255, null=True, blank=True, unique=True)
+    nombre = models.CharField(max_length=200, verbose_name='nombre', null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.nombre)
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.nombre)
+        super(Formulario, self).save(*args, **kwargs)
+        
+class Campo(models.Model):
+    class TypeCampo(models.IntegerChoices):
+        TEXT = 1
+        TEXTAREA = 2
+        NUMBER = 3
+        BOOLEAN = 4
+        DATE = 5
+        TIME = 6
+        FILE = 7
+    
+    formulario = models.ForeignKey(Formulario, on_delete=models.CASCADE)
+    tipo = models.IntegerField(choices=TypeCampo.choices)
+    label = models.CharField(max_length=200, verbose_name='label', null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.label)
+    
+class Resultado(models.Model):
+    formulario = models.ForeignKey(Formulario, on_delete=models.CASCADE)
+    created_at = models.DateField(verbose_name='fecha de creación', null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.created_at)
+    
+    def datos(self):
+        text = ''
+        for detail in self.details.all():
+            text += f'{detail.campo.label}: {detail.valor}.  '
+        
+        return text
+
+class ResultadoDetalle(models.Model):
+    resultado = models.ForeignKey(Resultado,related_name='details', on_delete=models.CASCADE)
+    campo = models.ForeignKey(Campo,verbose_name='campo', on_delete=models.CASCADE)
+    valor = models.CharField(max_length=200, verbose_name='valor', null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.valor)
     
 class Page(models.Model):
     titulo = models.CharField(max_length=200)
