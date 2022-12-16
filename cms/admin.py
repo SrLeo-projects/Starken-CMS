@@ -4,8 +4,9 @@ from tabular_export.admin import export_to_csv_action, export_to_excel_action
 from cms.models import *
 from django import forms
 from django_select2 import forms as s2forms
+from django.contrib.admin.models import LogEntry
 
-
+admin.site.register(LogEntry)
 @admin.register(Notificacion)
 class NotificacionAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
@@ -524,6 +525,10 @@ class AdvertenciaInline(admin.StackedInline):
     model = Advertencia
     extra = 0 
 
+class ImagenCarruselInline(admin.StackedInline):
+    model = ImagenCarrusel
+    extra = 0 
+
 @admin.register(Cotizador)
 class CotizadorAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
@@ -559,7 +564,7 @@ class CotizadorAdmin(ImportExportModelAdmin):
         }),
     )
     
-    inlines = [BotonInline, AdvertenciaInline]
+    inlines = [BotonInline, AdvertenciaInline, ImagenCarruselInline]
     
     
 
@@ -1265,6 +1270,16 @@ class SucursalesAdmin(ImportExportModelAdmin):
                 'primera_seccion_descripcion',
             )
         }),
+        ('Bloque Izquierdo', {
+            'fields': (
+                'bloque_izquierdo_ocultar',
+                'bloque_izquierdo_titulo_imagen',
+                'bloque_izquierdo_alt_imagen',
+                'bloque_izquierdo_imagen',
+                'bloque_izquierdo_titulo',
+                'bloque_izquierdo_contenido',
+            )
+        }),
     )
     
     
@@ -1456,11 +1471,6 @@ class RegistroAdmin(ImportExportModelAdmin):
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios-Registro", "Cuarta Sección")
     
 
-
-class LoginBeneficiosInline(admin.StackedInline):
-    model = LoginBeneficios
-    extra = 0
-
 @admin.register(Login)
 class LoginAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
@@ -1501,16 +1511,6 @@ class LoginAdmin(ImportExportModelAdmin):
                 'segunda_seccion_imagen',
             )
         }),
-        ('Tercera Sección', {
-            'fields': (
-                'tercera_seccion_ocultar',
-                'tercera_seccion_titulo',
-                'tercera_seccion_destacado',
-                'tercera_seccion_subtitulo',
-                
-            )
-        }),
     )
     
-    inlines = [LoginBeneficiosInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Beneficios-Login")
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección")
