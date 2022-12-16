@@ -644,6 +644,16 @@ class Boton(models.Model):
     class Meta:
         verbose_name = 'Botón'
         verbose_name_plural = 'Botones'
+
+class ImagenCarrusel(models.Model):
+    cotizador = models.ForeignKey(Cotizador, on_delete=models.CASCADE, verbose_name='Cotizador', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='cotizador', verbose_name='imagen', null=True, blank=True)
+    class Meta:
+        verbose_name = 'Imagen'
+        verbose_name_plural = 'Imágenes'
+        
 class Advertencia(models.Model):
     cotizador = models.ForeignKey(Cotizador, on_delete=models.CASCADE, verbose_name='Cotizador', null=True, blank=True)
     descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -673,7 +683,7 @@ class DHL(BaseModel):
     segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     
 
-    tercera_seccion_contenido = RichTextUploadingField(verbose_name='contenido', null=True, blank=True)
+    tercera_seccion_contenido = RichTextField(verbose_name='contenido', null=True, blank=True)
     
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -1294,7 +1304,14 @@ class Sucursales(BaseModel):
     primera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
     
+    bloque_izquierdo_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    bloque_izquierdo_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    bloque_izquierdo_imagen = models.ImageField(upload_to='sucursales', verbose_name='imagen', null=True, blank=True)
+    bloque_izquierdo_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    bloque_izquierdo_contenido = RichTextField(verbose_name='contenido', null=True, blank=True)
+    
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
+    bloque_izquierdo_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     class Meta:
         verbose_name = 'Sucursales'
         verbose_name_plural = 'Sucursales'
@@ -1505,10 +1522,11 @@ class Login(BaseModel):
     segunda_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     segunda_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     segunda_seccion_imagen = models.ImageField(upload_to='login', verbose_name='imagen', null=True, blank=True)
-   
+    
     tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+   
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -1516,15 +1534,14 @@ class Login(BaseModel):
     class Meta:
         verbose_name = 'Login'
         verbose_name_plural = 'Login'
-        
     
 class LoginBeneficios(models.Model):
     login = models.ForeignKey(Login, on_delete=models.CASCADE, verbose_name='Login', null=True, blank=True)
     titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='empresas', verbose_name='ícono', null=True, blank=True)
+    imagen = models.ImageField(upload_to='login', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='decripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Beneficios-Login'
