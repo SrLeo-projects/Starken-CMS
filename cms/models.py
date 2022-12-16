@@ -965,7 +965,7 @@ class EnviosNacionalesBeneficios(models.Model):
     alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
-    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
+    descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
     
     class Meta:
         verbose_name = 'Beneficios'
@@ -1546,5 +1546,3 @@ class LoginBeneficios(models.Model):
     class Meta:
         verbose_name = 'Beneficios-Login'
         verbose_name_plural = 'Beneficios-Login'
-    
-        

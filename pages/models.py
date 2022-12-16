@@ -131,6 +131,19 @@ class Formulario(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nombre)
         super(Formulario, self).save(*args, **kwargs)
+
+class OpcionGrupo(models.Model):
+    nombre = models.CharField(max_length=200, verbose_name='nombre', null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.nombre)
+
+class Opcion(models.Model):
+    grupo = models.ForeignKey(OpcionGrupo, on_delete=models.CASCADE, null=True, blank=True)
+    nombre = models.CharField(max_length=200, verbose_name='nombre')
+    
+    def __str__(self):
+        return f'{self.grupo} - {self.nombre}'
         
 class Campo(models.Model):
     class TypeCampo(models.IntegerChoices):
@@ -145,6 +158,7 @@ class Campo(models.Model):
     formulario = models.ForeignKey(Formulario, on_delete=models.CASCADE)
     tipo = models.IntegerField(choices=TypeCampo.choices)
     label = models.CharField(max_length=200, verbose_name='label', null=True, blank=True)
+    opciones = models.ManyToManyField(Opcion, blank=True)
     
     def __str__(self):
         return str(self.label)
@@ -157,11 +171,7 @@ class Resultado(models.Model):
         return str(self.created_at)
     
     def datos(self):
-        text = ''
-        for detail in self.details.all():
-            text += f'{detail.campo.label}: {detail.valor}.  '
-        
-        return text
+        return ', '.join([f'{detail.campo.label}: {detail.valor}' for detail in self.details.all()])
 
 class ResultadoDetalle(models.Model):
     resultado = models.ForeignKey(Resultado,related_name='details', on_delete=models.CASCADE)

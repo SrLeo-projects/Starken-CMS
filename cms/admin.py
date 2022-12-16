@@ -1132,9 +1132,7 @@ class ReclamosAdmin(ImportExportModelAdmin):
             'fields': (
                 'tercera_seccion_ocultar',
                 'tercera_seccion_titulo',
-                'tercera_seccion_subtitulo',
                 'tercera_seccion_destacado',
-                'tercera_seccion_enlace_url',
                 'tercera_seccion_preguntas',
             )
         }),
