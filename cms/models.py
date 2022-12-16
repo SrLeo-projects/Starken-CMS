@@ -1522,11 +1522,29 @@ class Login(BaseModel):
     segunda_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     segunda_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     segunda_seccion_imagen = models.ImageField(upload_to='login', verbose_name='imagen', null=True, blank=True)
+    
+    tercera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    tercera_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
+    tercera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
    
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
+    tercera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     class Meta:
         verbose_name = 'Login'
         verbose_name_plural = 'Login'
+    
+class LoginBeneficios(models.Model):
+    login = models.ForeignKey(Login, on_delete=models.CASCADE, verbose_name='Login', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='login', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='decripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Beneficios-Login'
+        verbose_name_plural = 'Beneficios-Login'
+    
         

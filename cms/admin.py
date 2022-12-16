@@ -1470,6 +1470,9 @@ class RegistroAdmin(ImportExportModelAdmin):
     inlines = [RegistroBeneficiosInline]
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios-Registro", "Cuarta Sección")
     
+class LoginBeneficiosInline(admin.StackedInline):
+    model = LoginBeneficios
+    extra = 0
 
 @admin.register(Login)
 class LoginAdmin(ImportExportModelAdmin):
@@ -1511,6 +1514,14 @@ class LoginAdmin(ImportExportModelAdmin):
                 'segunda_seccion_imagen',
             )
         }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_ocultar',
+                'tercera_seccion_titulo',
+                'tercera_seccion_destacado',
+                'tercera_seccion_subtitulo',
+            )
+        }),
     )
-    
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección")
+    inlines = [LoginBeneficiosInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Beneficios-Login")
