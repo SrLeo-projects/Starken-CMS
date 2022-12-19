@@ -120,6 +120,7 @@ class BloquesSeccion(models.Model):
     
     def __str__(self):
         return str(self.titulo)
+    
 
 class Formulario(models.Model):
     slug = models.SlugField(max_length=255, null=True, blank=True, unique=True)
@@ -127,7 +128,7 @@ class Formulario(models.Model):
     
     def __str__(self):
         return str(self.nombre)
-    
+       
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nombre)
         super(Formulario, self).save(*args, **kwargs)
@@ -181,6 +182,14 @@ class ResultadoDetalle(models.Model):
     def __str__(self):
         return str(self.valor)
     
+class FormularioSeccion(models.Model):
+    formulario = models.ForeignKey(Formulario,related_name='formulario', on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=200, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(null=True, verbose_name='descripción', blank=True)
+    
+    def __str__(self):
+        return str(self.titulo)
+    
 class Page(models.Model):
     titulo = models.CharField(max_length=200)
     descripcion = models.TextField()
@@ -216,6 +225,7 @@ class PageDetail(models.Model):
         BASICO_SECCION = 3
         SERVICIOS_SECCION = 4
         BLOQUES_SECCION = 5
+        FORMULARIO_SECCION = 6
 
     pagina = models.ForeignKey(Page, on_delete=models.CASCADE)
     type = models.IntegerField(choices=Type.choices)
@@ -224,6 +234,7 @@ class PageDetail(models.Model):
     basico_seccion = models.ForeignKey(BasicoSeccion, on_delete=models.CASCADE, null=True, blank=True)
     servicios_seccion = models.ForeignKey(ServiciosSeccion, on_delete=models.CASCADE, null=True, blank=True)
     bloques_seccion = models.ForeignKey(BloquesSeccion, on_delete=models.CASCADE, null=True, blank=True)
+    formulario_seccion = models.ForeignKey(FormularioSeccion, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return str(self.pagina.titulo)
