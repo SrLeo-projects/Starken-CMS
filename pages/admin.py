@@ -100,3 +100,8 @@ class ResultadoAdmin(ImportExportModelAdmin):
 class ResultadoDetalleAdmin(ImportExportModelAdmin):
     actions = (export_to_excel_action, export_to_csv_action)
     list_display = ['id', 'resultado', 'campo', 'valor']
+    
+@admin.register(FormularioSeccion)
+class FormularioSeccionAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']

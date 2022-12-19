@@ -267,7 +267,7 @@ JAZZMIN_SETTINGS = {
         },
         {
             'name': 'Modelo',
-            'models': ['pages.page', 'pages.basicoseccion', 'pages.beneficioseccion', 'pages.bannerseccion', 'pages.bloquesseccion', 'pages.serviciosseccion'],
+            'models': ['pages.page', 'pages.basicoseccion', 'pages.beneficioseccion', 'pages.bannerseccion', 'pages.bloquesseccion', 'pages.serviciosseccion', 'pages.formularioseccion'],
         },
         {
             'name': 'Modelo - Elementos',
