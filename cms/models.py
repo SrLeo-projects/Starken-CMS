@@ -1263,14 +1263,13 @@ class Seguimiento(BaseModel):
 
     cuarta_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     cuarta_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    cuarta_seccion_imagen = models.ImageField(upload_to='seguimiento', verbose_name='imagen', null=True, blank=True)
+    cuarta_seccion_imagen = models.ImageField(upload_to='home', verbose_name='imagen', null=True, blank=True)
     cuarta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     cuarta_seccion_palabras = models.CharField(max_length=255, verbose_name='palabras', help_text='separadas por coma', null=True, blank=True)
-    cuarta_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    cuarta_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón PlayStore', null=True, blank=True)
-    cuarta_seccion_boton_principal_enlace = models.CharField(max_length=255, verbose_name='enlace PlayStore', null=True, blank=True)
-    cuarta_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón AppStore', null=True, blank=True)
-    cuarta_seccion_boton_secundario_enlace = models.CharField(max_length=255, verbose_name='enlace AppStore', null=True, blank=True)
+    cuarta_seccion_descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
+
+    cuarta_seccion_app_store_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace playstore', related_name='quinta_url_boton_principal', null=True, blank=True)
+    cuarta_seccion_google_play_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='enlace appstore', related_name='url_boton_secundario_quinta_seccion', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
@@ -1355,6 +1354,8 @@ class FormularioEmpresa(models.Model):
     telefono = models.CharField(max_length=255, verbose_name='teléfono contacto', null=True, blank=True)
     rubro = models.CharField(max_length=255, verbose_name='rubro o actividad', null=True, blank=True)
     comentario = models.TextField(verbose_name='comentario', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
     class Meta:
         verbose_name = 'Empresas'
         verbose_name_plural = 'Empresa'
@@ -1380,6 +1381,7 @@ class FormularioMypymes(models.Model):
     url_facebook = models.URLField(max_length=255, verbose_name='url facebook', null=True, blank=True)
     url_instagram = models.URLField(max_length=255, verbose_name='url instagram', null=True, blank=True)
     dls_cajero = models.CharField(max_length=255, verbose_name='login usuario dls cajero', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         verbose_name = 'MYPYMES'
