@@ -1233,15 +1233,11 @@ class SeguimientoAdmin(ImportExportModelAdmin):
         ('Cuarta Sección', {
             'fields': (
                 'cuarta_seccion_ocultar',
-                ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
-                'cuarta_seccion_imagen',
                 ('cuarta_seccion_titulo', 'cuarta_seccion_palabras'),
                 'cuarta_seccion_descripcion',
-                'cuarta_seccion_boton_principal',
-                'cuarta_seccion_boton_principal_enlace',
-                'cuarta_seccion_boton_secundario',
-                'cuarta_seccion_boton_secundario_enlace',
-                
+                ('cuarta_seccion_app_store_url', 'cuarta_seccion_google_play_url'),
+                ('cuarta_seccion_titulo_imagen', 'cuarta_seccion_alt_imagen'),
+                'cuarta_seccion_imagen',
             )
         }),
     )
