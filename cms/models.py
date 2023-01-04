@@ -621,12 +621,37 @@ class Cotizador(BaseModel):
     etiqueta_servicio = models.CharField(max_length=255, verbose_name='etiqueta servicio', null=True, blank=True)
     etiqueta_tipo_de_entrega = models.CharField(max_length=255, verbose_name='etiqueta tipo de entrega', null=True, blank=True)
     boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
-    
-    
+      
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_boton_principal = models.CharField(max_length=255, verbose_name='botón principal', null=True, blank=True)
     segunda_seccion_boton_principal_destacado = models.CharField(max_length=255, verbose_name='destacado botón principal', null=True, blank=True)
     segunda_seccion_advertencia = models.CharField(max_length=255, verbose_name='advertencia', null=True, blank=True)
+    
+    
+    primer_bloque_texto = models.CharField(max_length=255, verbose_name='texto primer bloque de botón', null=True, blank=True)
+    primer_bloque_texto_destacado = models.CharField(max_length=255, verbose_name='texto destacado primer bloque de botón', null=True, blank=True)
+    primer_bloque_imagen = models.ImageField(upload_to='cotizador', verbose_name='primer bloque imagen', null=True, blank=True)
+    
+    segundo_bloque_primer_boton = models.CharField(max_length=255, verbose_name='texto segundo bloque primer botón', null=True, blank=True)
+    segundo_bloque_primer_descuento = models.CharField(max_length=255, verbose_name='texto segundo bloque primer descuento', null=True, blank=True)
+    segundo_bloque_primer_descuento_valor = models.CharField(max_length=255, verbose_name='valor segundo bloque primer descuento', null=True, blank=True)
+    segundo_bloque_segundo_descuento = models.CharField(max_length=255, verbose_name='texto segundo bloque segundo descuento', null=True, blank=True)
+    segundo_bloque_segundo_descuento_valor = models.CharField(max_length=255, verbose_name='valor segundo bloque segundo descuento', null=True, blank=True)
+    segundo_bloque_tercer_descuento = models.CharField(max_length=255, verbose_name='texto segundo bloque tercer descuento', null=True, blank=True)
+    segundo_bloque_tercer_descuento_valor = models.CharField(max_length=255, verbose_name='valor segundo bloque tercer descuento', null=True, blank=True)
+    segundo_bloque_texto = models.CharField(max_length=255, verbose_name='texto segundo bloque', null=True, blank=True)
+    
+    tercer_bloque_texto = models.CharField(max_length=255, verbose_name='texto tercer bloque', null=True, blank=True)
+    tercer_bloque_boton = models.CharField(max_length=255, verbose_name='texto botón tercer bloque', null=True, blank=True)
+    tercer_bloque_boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='tercer bloque url del botón', related_name='tercer_bloque_url_boton_cotizador', null=True, blank=True)
+    
+    modal_form_titulo_imagen = models.CharField(max_length=255, verbose_name='modal título imagen', null=True, blank=True)
+    modal_form_alt_imagen = models.CharField(max_length=255, verbose_name='modal alt imagen', null=True, blank=True)
+    modal_form_imagen = models.ImageField(upload_to='cotizador', verbose_name='modal imagen', null=True, blank=True)
+    modal_form_primer_label = models.CharField(max_length=255, verbose_name='modal primera etiqueta', null=True, blank=True)
+    modal_form_segundo_label = models.CharField(max_length=255, verbose_name='modal segunda etiqueta', null=True, blank=True)
+    modal_form_boton = models.CharField(max_length=255, verbose_name='modal texto botón', null=True, blank=True)
+    modal_form_texto = models.CharField(max_length=255, verbose_name='modal texto final', null=True, blank=True)
     
     primera_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")
     segunda_seccion_ocultar = models.BooleanField(default=False, verbose_name="Ocultar")

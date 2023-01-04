@@ -562,6 +562,32 @@ class CotizadorAdmin(ImportExportModelAdmin):
                 'segunda_seccion_advertencia',
             )
         }),
+        ('Sección Botón', {
+            'fields': (
+                'primer_bloque_texto',
+                'primer_bloque_texto_destacado',
+                'primer_bloque_imagen',
+                
+                'segundo_bloque_primer_boton',
+                ('segundo_bloque_primer_descuento', 'segundo_bloque_primer_descuento_valor'),
+                ('segundo_bloque_segundo_descuento', 'segundo_bloque_segundo_descuento_valor'),
+                ('segundo_bloque_tercer_descuento', 'segundo_bloque_tercer_descuento_valor'),
+                'segundo_bloque_texto',
+                
+                'tercer_bloque_texto',
+                'tercer_bloque_boton',
+                'tercer_bloque_boton_url',
+                
+                'modal_form_titulo_imagen',
+                'modal_form_alt_imagen',
+                'modal_form_imagen',
+                'modal_form_primer_label',
+                'modal_form_segundo_label',
+                'modal_form_boton',
+                'modal_form_texto',
+            )
+        }),
+
     )
     
     inlines = [BotonInline, AdvertenciaInline, ImagenCarruselInline]
