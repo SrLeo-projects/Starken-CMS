@@ -727,7 +727,7 @@ class DHL(BaseModel):
         verbose_name = 'DHL'
         verbose_name_plural = 'DHL'
 
-class RIA(models.Model):
+class RIA(BaseModel):
     primera_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
     primera_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     primera_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
@@ -792,6 +792,33 @@ class Accion(models.Model):
     class Meta:
         verbose_name = 'Acciones'
         verbose_name_plural = 'Acciones'
+
+class ModalidadesRIA(models.Model):
+    modalidad = models.ForeignKey(RIA, on_delete=models.CASCADE, verbose_name='Modalidad', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='ria', verbose_name='ícono', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = RichTextUploadingField(verbose_name='descripción', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = 'Modalidades de Servicio RIA'
+        verbose_name_plural = 'Modalidades de Servicio RIA'
+       
+class AccionRIA(models.Model):
+    accion = models.ForeignKey(RIA, on_delete=models.CASCADE, verbose_name='Acción', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='ria', verbose_name='imagen', null=True, blank=True)
+    titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
+    boton = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    boton_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón', related_name='url_boton_accion_ria', null=True, blank=True)
+    
+    
+    class Meta:
+        verbose_name = 'Acciones RIA'
+        verbose_name_plural = 'Acciones RIA'
        
 #Empresas
 class Empresas(BaseModel):
@@ -1611,3 +1638,12 @@ class LoginBeneficios(models.Model):
     class Meta:
         verbose_name = 'Beneficios-Login'
         verbose_name_plural = 'Beneficios-Login'
+
+# N°	NEMONICO	p	SUPERVISOR	Sucursal	DLS	Ticket 18:30	Sameday	Custodia	Embalajes	Servicio Expreso	Turbus Pasajes	Ria	Recepción Encomienda	Envío Encomienda	DHL	24/7	RUT	DIGITO RUT	CELULAR 	RAZON SOCIAL	DIRECCION	COMUNA	MAIL	Mail 2	NOMBRE AGENTE	APELLIDO AG.	APERTURA DE LUNES A VIERNES 		APERTURA SABADO		ENTREGA	
+# given this campos from excel file
+class SucursalTipo(models.Model):
+    nemonico = models.CharField(max_length=255, verbose_name='nemonico', null=True, blank=True)
+    p = models.CharField(max_length=255, verbose_name='p', null=True, blank=True)
+    supervisor = models.CharField(max_length=255, verbose_name='supervisor', null=True, blank=True)
+    sucursal = models.CharField(max_length=255, verbose_name='sucursal', null=True, blank=True)
+    dls = models.CharField(max_length=255, verbose_name='dls', null=True, blank=True)

@@ -659,8 +659,72 @@ class DHLAdmin(ImportExportModelAdmin):
     
     inlines = [ModalidadesInline, AccionInline]
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Modalidades de Servicio", "Tercera Sección", "Cuarta Sección", "Acciones")
-    
 
+class AccionRIAInline(admin.StackedInline):
+    model = AccionRIA
+    extra = 0
+   
+class ModalidadesRIAInline(admin.StackedInline):
+    model = ModalidadesRIA
+    extra = 0 
+
+@admin.register(RIA)
+class RIAAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'descripcion']
+
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'descripcion')
+        }),
+        ('Primera Sección', {
+            'fields': (
+                'primera_seccion_ocultar',
+                'primera_seccion_subtitulo',
+                'primera_seccion_titulo',
+                'primera_seccion_descripcion',
+                'primera_seccion_boton',
+                'primera_seccion_boton_url',
+                'primera_seccion_boton_secundario',
+                'primera_seccion_boton_secundario_url',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
+            )
+        }),
+        ('Segunda Sección', {
+            'fields': (
+                'segunda_seccion_ocultar',
+                'segunda_seccion_titulo',
+                'segunda_seccion_destacado',
+                'segunda_seccion_subtitulo',
+            )
+        }),
+        ('Tercera Sección', {
+            'fields': (
+                'tercera_seccion_ocultar',
+                'tercera_seccion_contenido',
+            )
+        }),
+        ('Cuarta Sección', {
+            'fields': (
+                'cuarta_seccion_ocultar',
+                'cuarta_seccion_titulo',
+                'cuarta_seccion_destacado',
+                'cuarta_seccion_descripcion',
+                'cuarta_seccion_boton',
+                'cuarta_seccion_boton_url',
+                'cuarta_seccion_boton_secundario',
+                'cuarta_seccion_boton_secundario_url',
+            )
+        }),
+    )
+    
+    inlines = [AccionRIAInline, AccionRIAInline]
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Modalidades de Servicio", "Tercera Sección", "Cuarta Sección", "Acciones")
 
 class EmpresasBeneficiosInline(admin.StackedInline):
     model = EmpresasBeneficios
