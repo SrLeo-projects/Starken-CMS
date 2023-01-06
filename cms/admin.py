@@ -726,7 +726,7 @@ class RIAAdmin(ImportExportModelAdmin):
         }),
     )
     
-    inlines = [AccionRIAInline, AccionRIAInline]
+    inlines = [AccionRIAInline, ModalidadesRIAInline]
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Modalidades de Servicio", "Tercera Sección", "Cuarta Sección", "Acciones")
 
 class EmpresasBeneficiosInline(admin.StackedInline):
