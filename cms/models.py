@@ -1647,3 +1647,34 @@ class SucursalTipo(models.Model):
     supervisor = models.CharField(max_length=255, verbose_name='supervisor', null=True, blank=True)
     sucursal = models.CharField(max_length=255, verbose_name='sucursal', null=True, blank=True)
     dls = models.CharField(max_length=255, verbose_name='dls', null=True, blank=True)
+    ticket_18_30 = models.CharField(max_length=255, verbose_name='ticket 18:30', null=True, blank=True)
+    sameday = models.CharField(max_length=255, verbose_name='sameday', null=True, blank=True)
+    custodia = models.CharField(max_length=255, verbose_name='custodia', null=True, blank=True)
+    embalajes = models.CharField(max_length=255, verbose_name='embalajes', null=True, blank=True)
+    servicio_expreso = models.CharField(max_length=255, verbose_name='servicio expreso', null=True, blank=True)
+    turbus_pasajes = models.CharField(max_length=255, verbose_name='turbus pasajes', null=True, blank=True)
+    ria = models.CharField(max_length=255, verbose_name='ria', null=True, blank=True)
+    recepcion_encomienda = models.CharField(max_length=255, verbose_name='recepción encomienda', null=True, blank=True)
+    envio_encomienda = models.CharField(max_length=255, verbose_name='envío encomienda', null=True, blank=True)
+    dhl = models.CharField(max_length=255, verbose_name='dhl', null=True, blank=True)
+    _24_7 = models.CharField(max_length=255, verbose_name='24/7', null=True, blank=True)
+    rut = models.CharField(max_length=255, verbose_name='rut', null=True, blank=True)
+    digito_rut = models.CharField(max_length=255, verbose_name='digito rut', null=True, blank=True)
+    celular = models.CharField(max_length=255, verbose_name='celular', null=True, blank=True)
+    razon_social = models.CharField(max_length=255, verbose_name='razon social', null=True, blank=True)
+    direccion = models.CharField(max_length=255, verbose_name='direccion', null=True, blank=True)
+    comuna = models.CharField(max_length=255, verbose_name='comuna', null=True, blank=True)
+    mail = models.CharField(max_length=255, verbose_name='mail', null=True, blank=True)
+    mail_2 = models.CharField(max_length=255, verbose_name='mail 2', null=True, blank=True)
+    nombre_agente = models.CharField(max_length=255, verbose_name='nombre agente', null=True, blank=True)
+    apellido_ag = models.CharField(max_length=255, verbose_name='apellido ag', null=True, blank=True)
+    apertura_de_lunes_a_viernes = models.CharField(max_length=255, verbose_name='apertura de lunes a viernes', null=True, blank=True)
+    apertura_sabado = models.CharField(max_length=255, verbose_name='apertura sabado', null=True, blank=True)
+    entrega = models.CharField(max_length=255, verbose_name='entrega', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Sucursal Tipo'
+        verbose_name_plural = 'Sucursal Tipo'
+    
+    def __str__(self):
+        return self.sucursal

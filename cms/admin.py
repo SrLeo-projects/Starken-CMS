@@ -569,9 +569,12 @@ class CotizadorAdmin(ImportExportModelAdmin):
                 'primer_bloque_imagen',
                 
                 'segundo_bloque_primer_boton',
-                ('segundo_bloque_primer_descuento', 'segundo_bloque_primer_descuento_valor'),
-                ('segundo_bloque_segundo_descuento', 'segundo_bloque_segundo_descuento_valor'),
-                ('segundo_bloque_tercer_descuento', 'segundo_bloque_tercer_descuento_valor'),
+                'segundo_bloque_primer_descuento',
+                'segundo_bloque_primer_descuento_valor',
+                'segundo_bloque_segundo_descuento',
+                'segundo_bloque_segundo_descuento_valor',
+                'segundo_bloque_tercer_descuento',
+                'segundo_bloque_tercer_descuento_valor',
                 'segundo_bloque_texto',
                 
                 'tercer_bloque_texto',
