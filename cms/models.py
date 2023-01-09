@@ -1677,4 +1677,4 @@ class SucursalTipo(models.Model):
         verbose_name_plural = 'Sucursal Tipo'
     
     def __str__(self):
-        return self.sucursal
+        return str(self.sucursal)

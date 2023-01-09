@@ -1,10 +1,17 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 from tabular_export.admin import export_to_csv_action, export_to_excel_action
 from cms.models import *
 from django import forms
 from django_select2 import forms as s2forms
 from django.contrib.admin.models import LogEntry
+
+from import_export import resources
+from cms.models import SucursalTipo
+from import_export.fields import Field
+from import_export.widgets import ForeignKeyWidget
+
 
 admin.site.register(LogEntry)
 @admin.register(Notificacion)
@@ -1612,3 +1619,48 @@ class LoginAdmin(ImportExportModelAdmin):
     )
     inlines = [LoginBeneficiosInline]
     jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Tercera Sección", "Beneficios-Login")
+
+
+
+class SucursalTipoResource(resources.ModelResource):
+
+    id = Field(attribute='id', column_name='N°')
+    p = Field(attribute='p', column_name='p')
+    nemonico = Field(attribute='nemonico', column_name='NEMONICO')
+    supervisor = Field(attribute='supervisor', column_name='SUPERVISOR')
+    sucursal = Field(attribute='sucursal', column_name='Sucursal')
+    dls = Field(attribute='dls', column_name='DLS')
+    ticket_18_30 = Field(attribute='ticket_18_30', column_name='Ticket 18:30')
+    sameday = Field(attribute='sameday', column_name='Sameday')
+    custodia = Field(attribute='custodia', column_name='Custodia')
+    embalajes = Field(attribute='embalajes', column_name='Embalajes')
+    servicio_expreso = Field(attribute='servicio_expreso', column_name='Servicio Expreso')
+    turbus_pasajes = Field(attribute='turbus_pasajes', column_name='Tribus Pasajes')
+    ria = Field(attribute='ria', column_name='Ria')
+    recepcion_encomienda = Field(attribute='recepcion_encomienda', column_name='Recepción Encomienda')
+    envio_encomienda = Field(attribute='envio_encomienda', column_name='Envío Encomienda')
+    dhl = Field(attribute='dhl', column_name='DHL')
+    _24_7 = Field(attribute='_24_7', column_name='24/7')
+    rut = Field(attribute='rut', column_name='RUT')
+    digito_rut = Field(attribute='digito_rut', column_name='DIGITO RUT')
+    celular = Field(attribute='celular', column_name='CELULAR')
+    razon_social = Field(attribute='razon_social', column_name='RAZON SOCIAL')
+    direccion = Field(attribute='direccion', column_name='DIRECCION')
+    comuna = Field(attribute='comuna', column_name='COMUNA')
+    mail = Field(attribute='mail', column_name='MAIL')
+    mail_2 = Field(attribute='mail_2', column_name='Mail 2')
+    nombre_agente = Field(attribute='nombre_agente', column_name='NOMBRE AGENTE')
+    apellido_ag = Field(attribute='apellido_ag', column_name='APELLIDO AG.')
+    apertura_de_lunes_a_viernes = Field(attribute='apertura_de_lunes_a_viernes', column_name='APERTURA DE LUNES A VIERNES')
+    apertura_sabado = Field(attribute='apertura_sabado', column_name='APERTURA SABADO')
+    entrega = Field(attribute='entrega', column_name='ENTREGA')
+    
+    class Meta:
+        model = SucursalTipo
+
+class SucursalTipoAdmin(ImportExportModelAdmin):
+    resource_class = SucursalTipoResource
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['sucursal', 'nombre_agente']
+
+admin.site.register(SucursalTipo, SucursalTipoAdmin)

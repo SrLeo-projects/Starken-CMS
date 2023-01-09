@@ -256,6 +256,7 @@ JAZZMIN_SETTINGS = {
                        'cms.servicios',
                        'cms.registro',
                        'cms.login',
+                       'cms.sucursaltipo'
                     ],
         },
         {
