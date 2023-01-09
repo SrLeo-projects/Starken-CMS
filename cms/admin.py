@@ -974,6 +974,7 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
+                'segunda_seccion_imagen',
             )
         }),
         ('Tercera Sección', {
