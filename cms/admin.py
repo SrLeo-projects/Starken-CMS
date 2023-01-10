@@ -1636,7 +1636,7 @@ class SucursalTipoResource(resources.ModelResource):
     custodia = Field(attribute='custodia', column_name='Custodia')
     embalajes = Field(attribute='embalajes', column_name='Embalajes')
     servicio_expreso = Field(attribute='servicio_expreso', column_name='Servicio Expreso')
-    turbus_pasajes = Field(attribute='turbus_pasajes', column_name='Tribus Pasajes')
+    turbus_pasajes = Field(attribute='turbus_pasajes', column_name='Turbus Pasajes')
     ria = Field(attribute='ria', column_name='Ria')
     recepcion_encomienda = Field(attribute='recepcion_encomienda', column_name='Recepción Encomienda')
     envio_encomienda = Field(attribute='envio_encomienda', column_name='Envío Encomienda')
