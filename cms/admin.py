@@ -1636,7 +1636,7 @@ class SucursalTipoResource(resources.ModelResource):
     custodia = Field(attribute='custodia', column_name='Custodia')
     embalajes = Field(attribute='embalajes', column_name='Embalajes')
     servicio_expreso = Field(attribute='servicio_expreso', column_name='Servicio Expreso')
-    turbus_pasajes = Field(attribute='turbus_pasajes', column_name='Tribus Pasajes')
+    turbus_pasajes = Field(attribute='turbus_pasajes', column_name='Turbus Pasajes')
     ria = Field(attribute='ria', column_name='Ria')
     recepcion_encomienda = Field(attribute='recepcion_encomienda', column_name='Recepción Encomienda')
     envio_encomienda = Field(attribute='envio_encomienda', column_name='Envío Encomienda')
@@ -1662,6 +1662,6 @@ class SucursalTipoResource(resources.ModelResource):
 class SucursalTipoAdmin(ImportExportModelAdmin):
     resource_class = SucursalTipoResource
     actions = (export_to_excel_action, export_to_csv_action)
-    list_display = ['sucursal', 'nombre_agente']
+    list_display = ['id', 'nemonico', 'p', 'supervisor', 'sucursal', 'dls', 'ticket_18_30', 'sameday', 'custodia', 'embalajes', 'servicio_expreso', 'turbus_pasajes', 'ria', 'recepcion_encomienda', 'envio_encomienda', 'dhl', '_24_7', 'rut', 'digito_rut', 'celular', 'razon_social', 'direccion', 'comuna', 'mail', 'mail_2', 'nombre_agente', 'apellido_ag', 'apertura_de_lunes_a_viernes', 'apertura_sabado', 'entrega']
 
 admin.site.register(SucursalTipo, SucursalTipoAdmin)
