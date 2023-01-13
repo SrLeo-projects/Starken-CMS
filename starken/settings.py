@@ -256,12 +256,12 @@ JAZZMIN_SETTINGS = {
                        'cms.servicios',
                        'cms.registro',
                        'cms.login',
-                       'cms.sucursaltipo'
+                       'cms.sucursaltipo',
                     ],
         },
         {
             'name': 'Elementos',
-            'models': ['admin.logentry','cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro', 'cms.servicio', 'cms.notificacionmodal'],
+            'models': ['admin.logentry','cms.articulo', 'cms.preguntascategoria', 'cms.recomendacionescategoria', 'cms.notificacion', 'cms.url', 'cms.comuna', 'cms.rubro', 'cms.servicio', 'cms.notificacionmodal', 'cms.navbar', 'cms.navbardetail'],
         },
         {
             'name': 'Formularios',

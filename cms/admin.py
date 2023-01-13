@@ -326,6 +326,12 @@ class CentrodeAyudaAdmin(ImportExportModelAdmin):
                 'primera_seccion_boton_principal_url',
                 'primera_seccion_boton_secundario',
                 'primera_seccion_boton_secundario_url',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -974,7 +980,6 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
-                'segunda_seccion_imagen',
             )
         }),
         ('Tercera Sección', {
@@ -1665,3 +1670,23 @@ class SucursalTipoAdmin(ImportExportModelAdmin):
     list_display = ['id', 'nemonico', 'p', 'supervisor', 'sucursal', 'dls', 'ticket_18_30', 'sameday', 'custodia', 'embalajes', 'servicio_expreso', 'turbus_pasajes', 'ria', 'recepcion_encomienda', 'envio_encomienda', 'dhl', '_24_7', 'rut', 'digito_rut', 'celular', 'razon_social', 'direccion', 'comuna', 'mail', 'mail_2', 'nombre_agente', 'apellido_ag', 'apertura_de_lunes_a_viernes', 'apertura_sabado', 'entrega']
 
 admin.site.register(SucursalTipo, SucursalTipoAdmin)
+
+
+class NavbarDetailInline(admin.StackedInline):
+    model = NavbarDetail
+    extra = 0
+    
+   
+class NavbarAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'activo']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'activo')
+        }),
+    )
+    inlines = [NavbarDetailInline]
+    class Media:
+        js = ('https://code.jquery.com/jquery-3.6.0.min.js', 'js/navbar_selector.js')
+        
+admin.site.register(Navbar, NavbarAdmin)
