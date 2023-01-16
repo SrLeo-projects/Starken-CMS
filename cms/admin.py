@@ -1015,7 +1015,7 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
     )
     
     inlines = [EnviosNacionalesBeneficiosInline, EnviosNacionalesRecomendacionesInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Recomendaciones")
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Modalidades", "Tercera Sección", "Cuarta Sección", "Recomendaciones")
     
     
 

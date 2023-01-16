@@ -1058,15 +1058,15 @@ class EnviosNacionales(BaseModel):
        
 class EnviosNacionalesBeneficios(models.Model):
     beneficio = models.ForeignKey(EnviosNacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
-    titulo_icono = models.CharField(max_length=255, verbose_name='título icono', null=True, blank=True)
-    alt_icono = models.CharField(max_length=255, verbose_name='alt icono', null=True, blank=True)
     icono = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
     imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen', null=True, blank=True)
     class Meta:
-        verbose_name = 'Beneficios'
-        verbose_name_plural = 'Beneficios'
+        verbose_name = 'Modalidades'
+        verbose_name_plural = 'Modalidades'
        
 
 class EnviosNacionalesRecomendaciones(models.Model):
