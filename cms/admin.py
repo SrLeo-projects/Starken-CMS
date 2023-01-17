@@ -326,6 +326,12 @@ class CentrodeAyudaAdmin(ImportExportModelAdmin):
                 'primera_seccion_boton_principal_url',
                 'primera_seccion_boton_secundario',
                 'primera_seccion_boton_secundario_url',
+                'primera_seccion_titulo_imagen',
+                'primera_seccion_alt_imagen',
+                'primera_seccion_imagen',
+                'primera_seccion_titulo_imagen_movil',
+                'primera_seccion_alt_imagen_movil',
+                'primera_seccion_imagen_movil',
             )
         }),
         ('Segunda Sección', {
@@ -974,7 +980,6 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
                 'segunda_seccion_titulo',
                 'segunda_seccion_destacado',
                 'segunda_seccion_subtitulo',
-                'segunda_seccion_imagen',
             )
         }),
         ('Tercera Sección', {
@@ -1010,7 +1015,7 @@ class EnviosNacionalesAdmin(ImportExportModelAdmin):
     )
     
     inlines = [EnviosNacionalesBeneficiosInline, EnviosNacionalesRecomendacionesInline]
-    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Beneficios", "Tercera Sección", "Cuarta Sección", "Recomendaciones")
+    jazzmin_section_order = ("General", "Primera Sección", "Segunda Sección", "Modalidades", "Tercera Sección", "Cuarta Sección", "Recomendaciones")
     
     
 
@@ -1662,6 +1667,45 @@ class SucursalTipoResource(resources.ModelResource):
 class SucursalTipoAdmin(ImportExportModelAdmin):
     resource_class = SucursalTipoResource
     actions = (export_to_excel_action, export_to_csv_action)
-    list_display = ['sucursal', 'nombre_agente']
+    list_display = ['id', 'nemonico', 'p', 'supervisor', 'sucursal', 'dls', 'ticket_18_30', 'sameday', 'custodia', 'embalajes', 'servicio_expreso', 'turbus_pasajes', 'ria', 'recepcion_encomienda', 'envio_encomienda', 'dhl', '_24_7', 'rut', 'digito_rut', 'celular', 'razon_social', 'direccion', 'comuna', 'mail', 'mail_2', 'nombre_agente', 'apellido_ag', 'apertura_de_lunes_a_viernes', 'apertura_sabado', 'entrega']
 
 admin.site.register(SucursalTipo, SucursalTipoAdmin)
+
+
+class NavbarForm(forms.ModelForm):
+    class Meta:
+        model = NavbarDetail
+        fields = '__all__'
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        type = cleaned_data.get('type')
+        grupo = cleaned_data.get('grupo')
+        urls = cleaned_data.get('urls')
+        url = cleaned_data.get('url')
+        if type == 1:
+            if not grupo or urls.count() == 0:
+                raise forms.ValidationError('Los campos grupo y urls son obligatorios')
+        elif type == 2:
+            if not url:
+                raise forms.ValidationError('El campo url es obligatorio')
+
+class NavbarDetailInline(admin.StackedInline):
+    model = NavbarDetail
+    extra = 0
+    form = NavbarForm
+    
+   
+class NavbarAdmin(ImportExportModelAdmin):
+    actions = (export_to_excel_action, export_to_csv_action)
+    list_display = ['titulo', 'activo']
+    fieldsets = (
+        ('General', {
+            'fields': ('titulo', 'activo')
+        }),
+    )
+    inlines = [NavbarDetailInline]
+    class Media:
+        js = ('https://code.jquery.com/jquery-3.6.0.min.js', 'js/navbar_selector.js')
+        
+admin.site.register(Navbar, NavbarAdmin)

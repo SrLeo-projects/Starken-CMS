@@ -451,6 +451,12 @@ class CentrodeAyuda(BaseModel):
     primera_seccion_boton_principal_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón principal', related_name='primera_url_boton_principal_centro_de_ayuda', null=True, blank=True)
     primera_seccion_boton_secundario = models.CharField(max_length=255, verbose_name='botón secundario', null=True, blank=True)
     primera_seccion_boton_secundario_url = models.ForeignKey(URL, on_delete=models.CASCADE, verbose_name='url del botón secundario', related_name='centro_de_ayuda_url_boton_secundario_primera_seccion', null=True, blank=True)
+    primera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    primera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    primera_seccion_imagen = models.ImageField(upload_to='centro de ayuda', verbose_name='imagen de fondo', null=True, blank=True)
+    primera_seccion_titulo_imagen_movil = models.CharField(max_length=255, verbose_name='título imagen móvil', null=True, blank=True)
+    primera_seccion_alt_imagen_movil = models.CharField(max_length=255, verbose_name='alt imagen móvil', null=True, blank=True)
+    primera_seccion_imagen_movil = models.ImageField(upload_to='centro de ayuda', verbose_name='imagen móvil', null=True, blank=True)
     
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
@@ -1017,7 +1023,7 @@ class EnviosNacionales(BaseModel):
     segunda_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     segunda_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
     segunda_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
-    segunda_seccion_imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen', null=True, blank=True)
+    
     
     tercera_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
     tercera_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
@@ -1052,15 +1058,15 @@ class EnviosNacionales(BaseModel):
        
 class EnviosNacionalesBeneficios(models.Model):
     beneficio = models.ForeignKey(EnviosNacionales, on_delete=models.CASCADE, verbose_name='Beneficio', null=True, blank=True)
-    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    imagen = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
+    icono = models.ImageField(upload_to='envios nacionales', verbose_name='ícono', null=True, blank=True)
     titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     descripcion = RichTextField(verbose_name='descripción', null=True, blank=True)
-    
+    titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
+    alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
+    imagen = models.ImageField(upload_to='envios nacionales', verbose_name='imagen', null=True, blank=True)
     class Meta:
-        verbose_name = 'Beneficios'
-        verbose_name_plural = 'Beneficios'
+        verbose_name = 'Modalidades'
+        verbose_name_plural = 'Modalidades'
        
 
 class EnviosNacionalesRecomendaciones(models.Model):
@@ -1679,3 +1685,37 @@ class SucursalTipo(models.Model):
     
     def __str__(self):
         return str(self.sucursal)
+    
+
+class Navbar(models.Model):
+    titulo = models.CharField(max_length=255, verbose_name='Título', null=True, blank=True)
+    activo = models.BooleanField(default=True, verbose_name='Activo')
+
+    def __str__(self):
+        return str(self.titulo)
+
+    def save(self, *args, **kwargs):
+        if self.activo:
+            self.__class__.objects.filter(activo=True).update(activo=False)
+        super(Navbar, self).save(*args, **kwargs)
+        
+    class Meta:
+        verbose_name = 'Barra de Navegación'
+        verbose_name_plural = 'Barra de Navegación'
+        
+class NavbarDetail(models.Model):
+    class Type(models.IntegerChoices):
+        GRUPO = 1
+        URL = 2
+
+    navbar = models.ForeignKey(Navbar, on_delete=models.CASCADE, verbose_name='Barra de Navegación', null=True, blank=True)
+    type = models.IntegerField(choices=Type.choices, null=True, blank=True)
+    
+    grupo = models.CharField(max_length=255, verbose_name='Grupo', null=True, blank=True)
+    urls = models.ManyToManyField(URL, verbose_name='urls', blank=True)
+    url = models.ForeignKey(URL, on_delete=models.CASCADE, related_name='url_navbardetail', verbose_name='url', null=True, blank=True)
+    class Meta:
+        verbose_name = 'Detalle - Barra de Navegación'
+        verbose_name_plural = 'Detalle - Barra de Navegación'
+
+    
