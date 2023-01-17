@@ -5,18 +5,16 @@ function hide_options(classname) {
     for (let i = 0; i < sets.length; i++) {
         let rows = sets[i].getElementsByClassName('form-group');
         let type_select = document.getElementById('id_navbardetail_set-'+[i]+'-type');
-        let grupo_input = document.getElementById('id_navbardetail_set-'+[i]+'-grupo');
-        let url_select = document.getElementById('id_navbardetail_set-'+[i]+'-url');
         if (type_select.value == 1) {
-            if (url_select) {
-                rows[3].style.display = 'none';
-            }
-        } else {
-            if (grupo_input) {
-                rows[1].style.display = 'none';
-                rows[2].style.display = 'none';
-            }
-        } 
+            rows[3].style.display = 'none';
+        } else if (type_select.value == 2) {
+            rows[1].style.display = 'none';
+            rows[2].style.display = 'none';
+        } else{
+            rows[1].style.display = 'none';
+            rows[2].style.display = 'none';
+            rows[3].style.display = 'none';
+        }
     }
 }
 
