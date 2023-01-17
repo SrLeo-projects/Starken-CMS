@@ -1712,8 +1712,8 @@ class NavbarDetail(models.Model):
     type = models.IntegerField(choices=Type.choices, null=True, blank=True)
     
     grupo = models.CharField(max_length=255, verbose_name='Grupo', null=True, blank=True)
-    etiquetas = models.ManyToManyField(URL, verbose_name='etiquetas', blank=True)
-    etiqueta = models.ForeignKey(URL, on_delete=models.CASCADE, related_name='url_navbardetail', verbose_name='Etiqueta', null=True, blank=True)
+    urls = models.ManyToManyField(URL, verbose_name='urls', blank=True)
+    url = models.ForeignKey(URL, on_delete=models.CASCADE, related_name='url_navbardetail', verbose_name='url', null=True, blank=True)
     class Meta:
         verbose_name = 'Detalle - Barra de Navegación'
         verbose_name_plural = 'Detalle - Barra de Navegación'

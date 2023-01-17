@@ -1672,9 +1672,28 @@ class SucursalTipoAdmin(ImportExportModelAdmin):
 admin.site.register(SucursalTipo, SucursalTipoAdmin)
 
 
+class NavbarForm(forms.ModelForm):
+    class Meta:
+        model = NavbarDetail
+        fields = '__all__'
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        type = cleaned_data.get('type')
+        grupo = cleaned_data.get('grupo')
+        urls = cleaned_data.get('urls')
+        url = cleaned_data.get('url')
+        if type == 1:
+            if not grupo or urls.count() == 0:
+                raise forms.ValidationError('Los campos grupo y urls son obligatorios')
+        elif type == 2:
+            if not url:
+                raise forms.ValidationError('El campo url es obligatorio')
+
 class NavbarDetailInline(admin.StackedInline):
     model = NavbarDetail
     extra = 0
+    form = NavbarForm
     
    
 class NavbarAdmin(ImportExportModelAdmin):
