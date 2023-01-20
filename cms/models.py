@@ -1655,6 +1655,7 @@ class SucursalTipo(models.Model):
     sucursal = models.CharField(max_length=255, verbose_name='sucursal', null=True, blank=True)
     dls = models.CharField(max_length=255, verbose_name='dls', null=True, blank=True)
     ticket_18_30 = models.CharField(max_length=255, verbose_name='ticket 18:30', null=True, blank=True)
+    estacionamiento = models.CharField(max_length=255, verbose_name='estacionamiento', null=True, blank=True)
     sameday = models.CharField(max_length=255, verbose_name='sameday', null=True, blank=True)
     custodia = models.CharField(max_length=255, verbose_name='custodia', null=True, blank=True)
     embalajes = models.CharField(max_length=255, verbose_name='embalajes', null=True, blank=True)

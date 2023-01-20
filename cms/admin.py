@@ -1637,6 +1637,7 @@ class SucursalTipoResource(resources.ModelResource):
     sucursal = Field(attribute='sucursal', column_name='Sucursal')
     dls = Field(attribute='dls', column_name='DLS')
     ticket_18_30 = Field(attribute='ticket_18_30', column_name='Ticket 18:30')
+    estacionamiento = Field(attribute='estacionamiento', column_name='Estacionamiento')
     sameday = Field(attribute='sameday', column_name='Sameday')
     custodia = Field(attribute='custodia', column_name='Custodia')
     embalajes = Field(attribute='embalajes', column_name='Embalajes')
@@ -1667,7 +1668,7 @@ class SucursalTipoResource(resources.ModelResource):
 class SucursalTipoAdmin(ImportExportModelAdmin):
     resource_class = SucursalTipoResource
     actions = (export_to_excel_action, export_to_csv_action)
-    list_display = ['id', 'nemonico', 'p', 'supervisor', 'sucursal', 'dls', 'ticket_18_30', 'sameday', 'custodia', 'embalajes', 'servicio_expreso', 'turbus_pasajes', 'ria', 'recepcion_encomienda', 'envio_encomienda', 'dhl', '_24_7', 'rut', 'digito_rut', 'celular', 'razon_social', 'direccion', 'comuna', 'mail', 'mail_2', 'nombre_agente', 'apellido_ag', 'apertura_de_lunes_a_viernes', 'apertura_sabado', 'entrega']
+    list_display = ['id', 'nemonico', 'p', 'supervisor', 'sucursal', 'dls', 'ticket_18_30', 'estacionamiento', 'sameday', 'custodia', 'embalajes', 'servicio_expreso', 'turbus_pasajes', 'ria', 'recepcion_encomienda', 'envio_encomienda', 'dhl', '_24_7', 'rut', 'digito_rut', 'celular', 'razon_social', 'direccion', 'comuna', 'mail', 'mail_2', 'nombre_agente', 'apellido_ag', 'apertura_de_lunes_a_viernes', 'apertura_sabado', 'entrega']
 
 admin.site.register(SucursalTipo, SucursalTipoAdmin)
 
