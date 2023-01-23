@@ -1133,9 +1133,17 @@ class MypymesAdmin(ImportExportModelAdmin):
                 'zona_partner_seccion_alt_logo',
                 'zona_partner_seccion_logo',
                 'zona_partner_seccion_descripcion',
-                'zona_partner_seccion_titulo_imagen',
-                'zona_partner_seccion_alt_imagen',
-                'zona_partner_seccion_imagen',
+                'zona_partner_seccion_subtitulo',
+                'zona_partner_seccion_button',
+                'zona_partner_seccion_url',
+
+                'partner_puntos_titulo_logo',
+                'partner_puntos_alt_logo',
+                'partner_puntos_logo',
+                'partner_puntos_descripcion',
+                'partner_puntos_subtitulo',
+                'partner_puntos_button',
+                'partner_puntos_url',
             )
         }),
         ('Quinta Sección', {

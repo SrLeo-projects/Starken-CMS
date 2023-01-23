@@ -1172,10 +1172,17 @@ class Mypymes(BaseModel):
     zona_partner_seccion_alt_logo = models.CharField(max_length=255, verbose_name='alt logo', null=True, blank=True)
     zona_partner_seccion_logo = models.ImageField(upload_to='mypymes', verbose_name='logo', null=True, blank=True)
     zona_partner_seccion_descripcion = models.TextField(verbose_name='descripción', null=True, blank=True)
-    zona_partner_seccion_titulo_imagen = models.CharField(max_length=255, verbose_name='título imagen', null=True, blank=True)
-    zona_partner_seccion_alt_imagen = models.CharField(max_length=255, verbose_name='alt imagen', null=True, blank=True)
-    zona_partner_seccion_imagen = models.ImageField(upload_to='mypymes', verbose_name='imagen', null=True, blank=True)
-    
+    zona_partner_seccion_subtitulo = models.CharField(max_length=255, verbose_name='subtítulo', null=True, blank=True)
+    zona_partner_seccion_button = models.CharField(max_length=255, verbose_name='botón', null=True, blank=True)
+    zona_partner_seccion_url = models.URLField(verbose_name='url', null=True, blank=True)
+
+    partner_puntos_titulo_logo = models.CharField(max_length=255, verbose_name='Partner Puntos título logo', null=True, blank=True)
+    partner_puntos_alt_logo = models.CharField(max_length=255, verbose_name='Partner Puntos alt logo', null=True, blank=True)
+    partner_puntos_logo = models.ImageField(upload_to='mypymes', verbose_name='Partner Puntos logo', null=True, blank=True)
+    partner_puntos_descripcion = models.TextField(verbose_name='Partner Puntos descripción', null=True, blank=True)
+    partner_puntos_subtitulo = models.CharField(max_length=255, verbose_name='Partner Puntos subtítulo', null=True, blank=True)
+    partner_puntos_button = models.CharField(max_length=255, verbose_name='Partner Puntos botón', null=True, blank=True)
+    partner_puntos_url = models.URLField(verbose_name='Partner Puntos url', null=True, blank=True)
     
     quinta_seccion_titulo = models.CharField(max_length=255, verbose_name='título', null=True, blank=True)
     quinta_seccion_destacado = models.CharField(max_length=255, verbose_name='destacado', null=True, blank=True)
